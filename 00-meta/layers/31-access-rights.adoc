@@ -1,0 +1,46 @@
+= 31 Access Rights
+
+== Path
+`domains/<domain>/31-layer-access-rights/`
+
+== Purpose
+Слой фиксирует authorization model, role segregation, privileged access constraints и impact assessment по ролям и правам.
+
+== Activation
+- Этот слой входит в канонический стек `01-33`.
+- Слой является самостоятельным canonical layer даже при отсутствии новых гипотез.
+
+== Typical objects
+- `ACCESS-*`
+
+== Special fields
+- `record_mode`: `baseline_constraint`, `initiative_assessment`, `mixed`
+- `hard_constraints_text`
+- `context_text`
+- `assessment_subject_refs`
+- `affected_requirement_refs`
+- `access_scope`
+- `subject_roles`
+- `privilege_model`
+- `segregation_of_duties`
+- `access_decision`: `within_constraints`, `changes_required`, `constraint_violation`, `unknown`, `not_applicable`
+
+== Traceability rules
+- Baseline `ACCESS-*` может существовать без `HYP-*`, если фиксирует постоянный product constraint.
+- Initiative-specific `ACCESS-*` должен быть связан хотя бы с одной `HYP-*`, `CHANGE-*` или другим assessment subject.
+- Каждый `ACCESS-*` с решением `unknown`, `changes_required`, `constraint_violation` или неполным mandatory input должен иметь хотя бы один `RISK-*`, `REQ-*` или `CHANGE-*`.
+
+== Key rules
+- Слой хранит baseline access guardrails и локальный impact assessment.
+- Даже при отсутствии прямого влияния карточка должна явно зафиксировать отсутствие влияния или его несущественность.
+- Отказ от заполнения не является `not_applicable`.
+
+== Related layers
+- Upstream: `26 Business Hypotheses`, `22 Changes Roadmap`, `30 Security`.
+- Downstream: `08 Requirements`, `18 Risks`, `22 Changes Roadmap`, `25 Traceability`.
+
+== Authoring notes
+- Карточка должна явно разделять две части: `Жесткие требования и ограничения` и `Контекст и оценка влияния`.
+- Даже если изменение ролей или прав доступа незначительно, карточка должна явно зафиксировать отсутствие существенного влияния, а не оставлять слой пустым по смыслу.
+- `not_applicable` допустим только при явном объяснении неприменимости.
+- Baseline constraint cards могут переиспользоваться многими инициативами, а initiative-specific assessment cards могут ссылаться на существующие baseline cards вместо дублирования их содержимого.

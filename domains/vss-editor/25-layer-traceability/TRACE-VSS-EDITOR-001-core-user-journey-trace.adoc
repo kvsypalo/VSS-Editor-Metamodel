@@ -1,0 +1,150 @@
+= Core User Journey Trace
+
+== Краткое описание
+Карточка фиксирует основную сквозную цепочку домена: актер получает прикладную ценность через работу в browser application, проходит процесс от появления редактируемой схемы до ее экспорта, а маршрут раскрывается через человекочитаемые сценарии, требования и validating tests. Дополнительно здесь зафиксированы access- и critical-path assessments, чтобы ключевой пользовательский маршрут не оставался без явной оценки по слоям `31` и `33`.
+
+== Текущее состояние
+Цепочка первой wave опирается на один верхнеуровневый value stream, один основной process object, одну application card, шесть user scenarios, четыре requirements и шесть validating tests. Для same-wave completeness добавлены baseline access assessment и critical-path assessment ключевого маршрута.
+
+== Что подтверждено
+- `VALUE-VSS-EDITOR-001` связан с `GOAL-VSS-EDITOR-001` и `PROC-VSS-EDITOR-001`.
+- Каждый materialized `SCN-*` имеет хотя бы один явный `TEST-*`.
+- Code-driven scope дополнительно разложен на `APP-*`, `RULE-*`, `DATA-*`, `CODE-*`, `ACCESS-*` и `CRIT-*`.
+
+== Замечания аналитика
+Карточка фиксирует только core chain первой wave и не претендует на полное покрытие всех возможных secondary links между объектами.
+
+== Требуемые изменения
+Новых изменений не требуется.
+
+== Решение по карточке
+Статус карточки: review
+Статус валидации: validated
+Статус изменения: no_change
+Статус апрува: not_submitted
+
+Проверил аналитик: Konstantin Sypalo
+Дата проверки: 2026-04-20
+
+Утвердил:
+Дата утверждения:
+
+== Связанные объекты
+
+|===
+| Категория | ID | Наименование | Ссылка | Комментарий
+| Value | VALUE-VSS-EDITOR-001 | Визуальное редактирование схемы | ../01-layer-aeilus-value-streams/VALUE-VSS-EDITOR-001-edit-value-system-schema.adoc | Старт цепочки ценности
+| Process | PROC-VSS-EDITOR-001 | Сборка и корректировка схемы | ../06-layer-processes/PROC-VSS-EDITOR-001-author-and-adjust-schema.adoc | Процессный каркас цепочки
+| Application | APP-VSS-EDITOR-001 | VSS Editor browser application | ../10-layer-applications-architecture/APP-VSS-EDITOR-001-browser-schema-editor.adoc | Прикладная среда выполнения маршрута
+| Requirement | REQ-VSS-EDITOR-001 | Создание и открытие схемы | ../08-layer-requirements/REQ-VSS-EDITOR-001-create-and-open-schema-state.adoc | Один из requirement узлов цепочки
+| Test | TEST-VSS-EDITOR-006 | Проверка отказа на невалидный JSON | ../20-layer-quality-testing/TEST-VSS-EDITOR-006-reject-invalid-json.adoc | Закрытие failure branch
+| Access | ACCESS-VSS-EDITOR-001 | Baseline local editor access model | ../31-layer-access-rights/ACCESS-VSS-EDITOR-001-local-single-user-access-baseline.adoc | Явная access assessment маршрута
+| Critical path | CRIT-VSS-EDITOR-001 | Authoring session continuity | ../33-layer-critical-path/CRIT-VSS-EDITOR-001-authoring-session-continuity.adoc | Явная continuity assessment маршрута
+|===
+
+== Источники
+
+|===
+| ID | Источник | Ссылка | Уровень доверия | Комментарий
+| SRC-VSS-EDITOR-001 | Исходный web bundle v2.4 | C:/MetaModel/Example code/vss-editor-2.4 | high | Подтверждает все materialized objects первой wave
+|===
+
+== Артефакты
+
+|===
+| ID | Артефакт | Ссылка | Комментарий
+|===
+
+'''
+== Технические поля
+
+[source,yaml]
+----
+Полное_имя_файла: TRACE-VSS-EDITOR-001-core-user-journey-trace.adoc
+type: traceability-rule
+layer: 25 traceability
+name: Core user journey trace
+title: Core User Journey Trace
+status: review
+version: 1.0.0
+owner: analysis
+domain: vss-editor
+tags:
+  - traceability
+  - scenarios
+  - tests
+
+summary: Сквозная цепочка домена от ценности и приложения до сценариев, требований, тестов и layer-specific assessments.
+description: Сквозная цепочка домена от ценности и приложения до сценариев, требований, тестов и layer-specific assessments.
+
+card_status: review
+validation_status: validated
+change_status: no_change
+approval_status: not_submitted
+
+current_state_text: |
+  Основная value-to-test chain первой wave уже materialized и замкнута через explicit scenario-test links.
+  Для нее также зафиксированы application, access и critical-path assessments.
+
+validated_facts_text: |
+  - Один value stream связан с goal и process.
+  - Все materialized scenarios закрыты validating tests.
+  - Code-derived application, data, rules, access assessment и critical-path assessment отдельно представлены в downstream layers.
+
+validation_notes_text: |
+  Карточка удерживает core chain как основной маршрут домена и не перечисляет каждую вторичную связь между объектами.
+
+change_request_text: |
+  Новых изменений не требуется.
+
+source_refs:
+  - SRC-VSS-EDITOR-001
+artifact_refs: []
+artifact_notations: {}
+artifact_style_reference: none
+mandatory_input_status: complete
+refusal_reasons: []
+resulting_risk_refs: []
+relations:
+  value_refs:
+    - VALUE-VSS-EDITOR-001
+  goal_refs:
+    - GOAL-VSS-EDITOR-001
+  process_refs:
+    - PROC-VSS-EDITOR-001
+  application_refs:
+    - APP-VSS-EDITOR-001
+  scenario_refs:
+    - SCN-VSS-EDITOR-001
+    - SCN-VSS-EDITOR-002
+    - SCN-VSS-EDITOR-003
+    - SCN-VSS-EDITOR-004
+    - SCN-VSS-EDITOR-005
+    - SCN-VSS-EDITOR-006
+  requirement_refs:
+    - REQ-VSS-EDITOR-001
+    - REQ-VSS-EDITOR-002
+    - REQ-VSS-EDITOR-003
+    - REQ-VSS-EDITOR-004
+  test_refs:
+    - TEST-VSS-EDITOR-001
+    - TEST-VSS-EDITOR-002
+    - TEST-VSS-EDITOR-003
+    - TEST-VSS-EDITOR-004
+    - TEST-VSS-EDITOR-005
+    - TEST-VSS-EDITOR-006
+  access_refs:
+    - ACCESS-VSS-EDITOR-001
+  critical_path_refs:
+    - CRIT-VSS-EDITOR-001
+created_at: 2026-04-20
+updated_at: 2026-04-20
+validated_by: Konstantin Sypalo
+validated_at: 2026-04-20
+approved_by: ""
+approved_at: ""
+rule_type: scenario-validation-chain
+source_layer: 01
+target_layer: 33
+required_link_type: value-process-app-scenario-requirement-test-with-assessment
+----

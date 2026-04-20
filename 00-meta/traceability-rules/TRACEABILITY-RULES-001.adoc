@@ -1,0 +1,18 @@
+= TRACEABILITY-RULES-001
+
+Repository-wide traceability rules описывают только способ работы с traceability и порядок проверки модели.
+
+Layer-specific traceability rules не хранятся в этом каталоге.
+
+== Источники правил
+- per-layer traceability rules определяются в `../layers/NN-*.adoc`
+- агрегированная summary per-layer traceability rules хранится в `../layers-summary/TRACEABILITY-RULES-001.adoc`
+
+== Общие правила проверки
+- проверяй traceability против актуальных layer docs
+- при расхождении между layer docs и summary docs приоритет всегда у `../layers/`
+- не фиксируй layer-specific link contracts в документах вне `../layers/` и `../layers-summary/`
+- проверяй отсутствие дублирования общих объектов в дочерних пакетах
+- проверяй наличие ссылок из дочернего домена на требования и правила родительского уровня, если локальные объекты на них опираются
+- проверяй, что локальный домен не меняет канонический набор слоев и обязательные root-правила
+- если обязательные данные не предоставлены, проверяй наличие причины отказа и связанного риска

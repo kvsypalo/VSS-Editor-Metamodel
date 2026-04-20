@@ -1,0 +1,136 @@
+= Local Single-User Access Baseline
+
+== Краткое описание
+Слой доступа фиксирует простую базовую модель продукта: редактор рассчитан на локальную однопользовательскую сессию, где все команды доступны тому, кто открыл страницу в браузере. Права на чтение и выбор файлов делегированы браузеру и локальной операционной системе.
+
+== Текущее состояние
+Внутри интерфейса действует единый набор команд для текущей сессии: `New`, `Open`, `Add Schema`, `Export JSON` и `Export PNG` доступны одному локальному пользователю, работающему со своей схемой в браузере.
+
+== Что подтверждено
+- Все ключевые команды редактора доступны из одного toolbar и одной схемной сессии.
+- Работа со схемой строится вокруг одной локальной пользовательской сессии.
+- Файловые операции выполняются через browser file picker и скачивание файлов под контролем браузера и локальной ОС.
+
+== Замечания аналитика
+Карточка фиксирует текущую access-модель как самостоятельное baseline-свойство продукта: локальная однопользовательская сессия с единым набором команд внутри редактора.
+
+== Требуемые изменения
+Новых изменений не требуется.
+
+== Решение по карточке
+Статус карточки: review
+Статус валидации: validated
+Статус изменения: no_change
+Статус апрува: not_submitted
+
+Проверил аналитик: Konstantin Sypalo
+Дата проверки: 2026-04-20
+
+Утвердил:
+Дата утверждения:
+
+== Связанные объекты
+
+|===
+| Категория | ID | Наименование | Ссылка | Комментарий
+| Application | APP-VSS-EDITOR-001 | VSS Editor browser application | ../10-layer-applications-architecture/APP-VSS-EDITOR-001-browser-schema-editor.adoc | Приложение, для которого оценивается access model
+| Requirement | REQ-VSS-EDITOR-001 | Создание и открытие схемы | ../08-layer-requirements/REQ-VSS-EDITOR-001-create-and-open-schema-state.adoc | Базовые команды доступны одному локальному пользователю
+| Requirement | REQ-VSS-EDITOR-003 | Импорт и экспорт schema assets | ../08-layer-requirements/REQ-VSS-EDITOR-003-import-and-export-schema-assets.adoc | Файловые операции не требуют отдельной внутрисистемной авторизации
+|===
+
+== Источники
+
+|===
+| ID | Источник | Ссылка | Уровень доверия | Комментарий
+| SRC-VSS-EDITOR-001 | index.html и app.js | C:/MetaModel/Example code/vss-editor-2.4 | high | Подтверждают отсутствие ролей, login и permission checks
+|===
+
+== Артефакты
+
+|===
+| ID | Артефакт | Ссылка | Комментарий
+|===
+
+'''
+== Технические поля
+
+[source,yaml]
+----
+Полное_имя_файла: ACCESS-VSS-EDITOR-001-local-single-user-access-baseline.adoc
+type: access-rights
+layer: 31 access-rights
+name: Local single-user access baseline
+title: Local Single-User Access Baseline
+status: review
+version: 1.0.0
+owner: analysis
+domain: vss-editor
+tags:
+  - access
+  - local-session
+  - baseline
+
+summary: Baseline access model редактора - одна локальная пользовательская сессия без внутреннего разделения прав.
+description: Baseline access model редактора - одна локальная пользовательская сессия без внутреннего разделения прав.
+
+card_status: review
+validation_status: validated
+change_status: no_change
+approval_status: not_submitted
+
+current_state_text: |
+  Внутри продукта действует единая локальная пользовательская сессия с полным набором команд редактора.
+  Доступ к файлам обеспечивается browser file picker и локальной ОС.
+
+validated_facts_text: |
+  - Все основные команды редактора доступны в одной сессии одному пользователю.
+  - Работа со схемой проходит в локальном браузерном контуре.
+  - Файловые операции выполняются через браузерные механизмы выбора и скачивания файлов.
+
+validation_notes_text: |
+  Простая локальная access-модель зафиксирована как baseline product property текущей версии.
+
+change_request_text: |
+  Новых изменений не требуется.
+
+source_refs:
+  - SRC-VSS-EDITOR-001
+artifact_refs: []
+artifact_notations: {}
+artifact_style_reference: none
+mandatory_input_status: complete
+refusal_reasons: []
+resulting_risk_refs: []
+relations:
+  application_refs:
+    - APP-VSS-EDITOR-001
+  requirement_refs:
+    - REQ-VSS-EDITOR-001
+    - REQ-VSS-EDITOR-002
+    - REQ-VSS-EDITOR-003
+created_at: 2026-04-20
+updated_at: 2026-04-20
+validated_by: Konstantin Sypalo
+validated_at: 2026-04-20
+approved_by: ""
+approved_at: ""
+record_mode: baseline_constraint
+hard_constraints_text: |
+  Редактор использует единую локальную пользовательскую сессию с одинаковым набором команд внутри текущей страницы.
+  Доступ к файловым операциям проходит через браузер и локальную операционную систему.
+context_text: |
+  Access assessment относится к локальному browser-only продукту без серверной идентификации.
+  Права на выбор и сохранение файлов находятся вне приложения и контролируются браузером и локальной ОС.
+assessment_subject_refs:
+  - APP-VSS-EDITOR-001
+affected_requirement_refs:
+  - REQ-VSS-EDITOR-001
+  - REQ-VSS-EDITOR-002
+  - REQ-VSS-EDITOR-003
+access_scope: Local browser editing session and browser-mediated file operations
+subject_roles:
+  - local schema author
+privilege_model: All in-app commands are available within the current local browser session.
+segregation_of_duties: Single-user local editor workflow.
+access_decision: within_constraints
+----

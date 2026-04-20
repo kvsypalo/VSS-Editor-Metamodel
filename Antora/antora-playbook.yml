@@ -1,0 +1,20 @@
+site:
+  title: Reference Model
+  start_page: reference-model::index.adoc
+
+content:
+  sources:
+    - url: ..
+      branches: HEAD
+      start_path: Antora/reference-model
+
+ui:
+  bundle:
+    url: ./ui/bundle
+
+output:
+  dir: ./site
+
+asciidoc:
+  attributes:
+    page-pagination: ''

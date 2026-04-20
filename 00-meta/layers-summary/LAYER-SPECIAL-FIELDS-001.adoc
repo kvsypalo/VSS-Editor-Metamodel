@@ -1,0 +1,230 @@
+= LAYER-SPECIAL-FIELDS-001
+
+Агрегированная summary layer-specific fields по всему каноническому стеку.
+
+Базовая схема карточки задается `../schemas/BASE-CARD-SCHEMA-001.adoc`. Этот файл хранит только то, что добавляется поверх базовой схемы на уровне конкретных слоев.
+
+При изменении layer-specific fields или допустимых значений этот summary должен обновляться вместе с `../layers/`.
+
+== Слои без отдельного fixed набора special fields
+- `02 Context Boundaries`
+- `03 Stakeholders Motivation`
+- `04 Strategy Product`
+- `05 Business Architecture`
+- `09 Domain Rules`
+- `10 Applications Architecture`
+- `12 Integrations`
+- `13 Data Architecture`
+- `14 Code Implementation`
+- `15 Technology Architecture`
+- `16 Operations`
+- `17 NFR Quality Attributes`
+- `19 Technical Debt`
+- `22 Changes Roadmap`
+- `23 Development Tasks`
+- `24 Knowledge Sources`
+
+== Layer-specific fields
+
+=== `00 Meta`
+- `domain_role`
+- `parent_domain`
+- `reference_release`
+- `used_layers`
+- `unused_layers`
+
+=== `01 Aeilus Value Streams`
+- `value_stream_type`
+- `actor`
+- `entry_point`
+- `exit_point`
+- `value_outcome`
+- `anti_value`
+
+=== `06 Processes`
+- `trigger`
+- `inputs`
+- `outputs`
+- `result`
+- `participants`
+- `critical_path`
+- `criticality_level`
+- `failure_impact`
+- `fallback_process_refs`
+
+=== `07 Scenarios UX`
+- `scenario_type`
+- `primary_actor`
+- `entry_point`
+- `expected_outcome`
+- `is_failure_scenario`
+- `critical_path_step_refs`
+- `fallback_outcome`
+- `test_refs`
+
+=== `08 Requirements`
+- `requirement_type`
+- `priority`
+- `acceptance_criteria`
+- `criticality`
+- `critical_path_refs`
+- `failure_scenario_refs`
+- `recovery_expectation`
+
+=== `11 API Interfaces`
+- `api_type`
+- `protocol`
+- `method`
+- `endpoint`
+
+=== `18 Risks`
+- `risk_type`
+- `cause`
+- `impact`
+- `probability`
+
+=== `20 Quality Testing`
+- `test_type`
+- `test_scope`
+- `acceptance_criteria_refs`
+- `scenario_refs`
+- `critical_path_coverage`
+- `failure_scenario_refs`
+
+=== `21 Observability`
+- `measurement_type`
+- `formula`
+- `thresholds`
+- `supports_kpi`
+- `critical_path_metric`
+- `failure_signal`
+
+=== `25 Traceability`
+- `rule_type`
+- `source_layer`
+- `target_layer`
+- `required_link_type`
+
+=== `26 Business Hypotheses`
+- `hypothesis_type`
+- `origin_signal`
+- `expected_value`
+- `decision_deadline`
+- `hypothesis_status`
+- `affected_requirement_refs`
+- `impacted_constraint_refs`
+
+=== `27 Economics Validation`
+- `record_mode`
+- `hard_constraints_text`
+- `context_text`
+- `assessment_subject_refs`
+- `affected_requirement_refs`
+- `economic_driver`
+- `cost_model`
+- `expected_benefit`
+- `budget_limit`
+- `economic_decision`
+
+=== `28 Engineering Process Capability`
+- `record_mode`
+- `hard_constraints_text`
+- `context_text`
+- `assessment_subject_refs`
+- `affected_requirement_refs`
+- `delivery_constraint`
+- `target_lead_time`
+- `deployment_frequency_target`
+- `change_failure_rate_target`
+- `mttr_target`
+- `required_certifications`
+- `process_decision`
+
+=== `29 Compliance`
+- `record_mode`
+- `hard_constraints_text`
+- `context_text`
+- `assessment_subject_refs`
+- `affected_requirement_refs`
+- `compliance_scope`
+- `regulation_refs`
+- `control_requirements`
+- `compliance_decision`
+
+=== `30 Security`
+- `record_mode`
+- `hard_constraints_text`
+- `context_text`
+- `assessment_subject_refs`
+- `affected_requirement_refs`
+- `security_scope`
+- `data_classification`
+- `threat_model_required`
+- `security_decision`
+
+=== `31 Access Rights`
+- `record_mode`
+- `hard_constraints_text`
+- `context_text`
+- `assessment_subject_refs`
+- `affected_requirement_refs`
+- `access_scope`
+- `subject_roles`
+- `privilege_model`
+- `segregation_of_duties`
+- `access_decision`
+
+=== `32 Performance`
+- `record_mode`
+- `hard_constraints_text`
+- `context_text`
+- `assessment_subject_refs`
+- `affected_requirement_refs`
+- `performance_scope`
+- `latency_target`
+- `throughput_target`
+- `capacity_assumption`
+- `critical_path_budget`
+- `performance_decision`
+
+=== `33 Critical Path`
+- `record_mode`
+- `hard_constraints_text`
+- `context_text`
+- `assessment_subject_refs`
+- `affected_requirement_refs`
+- `critical_path_scope`
+- `critical_steps`
+- `dependency_chain`
+- `failure_modes`
+- `recovery_expectations`
+- `continuity_slo`
+- `critical_path_decision`
+
+== Shared model для слоев `27-33`
+- `record_mode`: `baseline_constraint`, `initiative_assessment`, `mixed`
+- `hard_constraints_text`: постоянные must-have ограничения слоя
+- `context_text`: локальный assessment context, допущения и применимость
+- `assessment_subject_refs`: ссылки на assessment subject
+- `affected_requirement_refs`: ссылки на затронутые requirement objects
+
+== Shared decision values для слоев `27-33`
+- `within_constraints`
+- `changes_required`
+- `constraint_violation`
+- `unknown`
+- `not_applicable`
+
+== Critical-path-aware enums
+- `critical_path`: `true`, `false`
+- `criticality_level`: `mission-critical`, `business-critical`, `important`, `supporting`
+- `scenario_type`: `primary`, `alternate`, `failure`, `degraded`, `recovery`
+- `criticality`: `critical-path`, `high`, `medium`, `low`
+- `critical_path_metric`: `true`, `false`
+
+== Business-hypothesis status values
+- `proposed`
+- `under_evaluation`
+- `promoted_to_requirement`
+- `rejected`
+- `parked`

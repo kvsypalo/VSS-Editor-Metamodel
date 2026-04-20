@@ -1,0 +1,21 @@
+= NAMING-CONVENTIONS-001
+
+Формат имени файла:
+`<PREFIX>-<DOMAIN>-<NUMBER>-<slug>.adoc`
+
+Примеры:
+- `OBJ-ALPHA-001-example-object.adoc`
+- `REF-BETA-002-example-reference.adoc`
+
+Slug:
+- на английском
+- lowercase
+- через дефис
+- без кириллицы
+
+Правило применяется к карточкам, индексам и canonical layer/meta documents внутри model-scope.
+Root `AGENTS.md` не подпадает под это правило и сохраняется как compatibility exception для agent discovery.
+
+== Источники канона именования
+- конкретные canonical prefixes по слоям задаются в `../layers/`
+- агрегированный registry prefixes хранится в `../layers-summary/OBJECT-PREFIX-REGISTRY-001.adoc`

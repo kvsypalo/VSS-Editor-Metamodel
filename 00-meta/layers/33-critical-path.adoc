@@ -1,0 +1,52 @@
+= 33 Critical Path
+
+== Path
+`domains/<domain>/33-layer-critical-path/`
+
+== Purpose
+Слой фиксирует end-to-end critical chains, critical steps, dependency chains, failure handling, degraded routes, recovery expectations и continuity contracts.
+
+== Activation
+- Этот слой входит в канонический стек `01-33`.
+- Слой является самостоятельным canonical layer даже при отсутствии новых гипотез.
+
+== Typical objects
+- `CRIT-*`
+
+== Special fields
+- `record_mode`: `baseline_constraint`, `initiative_assessment`, `mixed`
+- `hard_constraints_text`
+- `context_text`
+- `assessment_subject_refs`
+- `affected_requirement_refs`
+- `critical_path_scope`
+- `critical_steps`
+- `dependency_chain`
+- `failure_modes`
+- `recovery_expectations`
+- `continuity_slo`
+- `critical_path_decision`: `within_constraints`, `changes_required`, `constraint_violation`, `unknown`, `not_applicable`
+
+== Traceability rules
+- Baseline `CRIT-*` может существовать без `HYP-*`, если фиксирует постоянный continuity contract.
+- Каждый `CRIT-*` должен быть связан хотя бы с одним `PROC-*`, `SCN-*` и `REQ-*`.
+- Каждый `CRIT-*`, который задает continuity contract, должен быть связан хотя бы с одним `TEST-*` и `METRIC-*`, либо явно фиксировать их отсутствие как gap/risk.
+- Каждый `CRIT-*` с решением `unknown`, `changes_required`, `constraint_violation` или неполным mandatory input должен иметь хотя бы один `RISK-*`, `REQ-*` или `CHANGE-*`.
+- Если инициатива влияет на critical path, в слое `25 Traceability` должен быть зафиксирован chain `CRIT-* -> PROC-*/SCN-* -> REQ-* -> TEST-*/METRIC-*/PERF-* -> RISK-*/CHANGE-*`.
+
+== Key rules
+- `CRIT-*` не заменяет `PROC-*`, `SCN-*`, `REQ-*`, `TEST-*`, `METRIC-*` или `PERF-*`; он связывает их в единый continuity contract.
+- Для значимого critical path обязательны явные связи минимум с `PROC-*`, `SCN-*`, `REQ-*`, `TEST-*` и `METRIC-*`, а при необходимости с `PERF-*` и `RISK-*`.
+- Если critical path analysis неполный, это фиксируется через `mandatory_input_status`, `refusal_reasons` и `resulting_risk_refs`.
+- `06-layer-processes/` хранит детальные шаги процесса, но именно `CRIT-*` определяет обязательный end-to-end critical chain.
+
+== Related layers
+- Upstream: `26 Business Hypotheses`, `22 Changes Roadmap`, `32 Performance`.
+- Integrated layers: `06 Processes`, `07 Scenarios UX`, `08 Requirements`, `18 Risks`, `20 Quality Testing`, `21 Observability`, `25 Traceability`.
+
+== Authoring notes
+- Карточка должна явно разделять две части: `Жесткие требования и ограничения` и `Контекст и оценка влияния`.
+- Дополнительно для слоя `33` обязательны явные описания: end-to-end critical chain, failure/degraded route, recovery expectations и continuity boundary.
+- `critical_steps` должны быть упорядочены; отсутствие любого обязательного шага означает разрыв цепочки.
+- `not_applicable` допустим только при явном объяснении неприменимости.
+- Baseline constraint cards могут переиспользоваться многими инициативами, а initiative-specific assessment cards могут ссылаться на существующие baseline cards вместо дублирования их содержимого.

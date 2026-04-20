@@ -1,0 +1,48 @@
+= 28 Engineering Process Capability
+
+== Path
+`domains/<domain>/28-layer-engineering-process-capability/`
+
+== Purpose
+Слой фиксирует delivery constraints, process readiness, release discipline, certification constraints и assessment того, вписывается ли инициатива в действующую engineering capability.
+
+== Activation
+- Этот слой входит в канонический стек `01-33`.
+- Слой является самостоятельным canonical layer даже при отсутствии новых гипотез.
+
+== Typical objects
+- `ENGCAP-*`
+
+== Special fields
+- `record_mode`: `baseline_constraint`, `initiative_assessment`, `mixed`
+- `hard_constraints_text`
+- `context_text`
+- `assessment_subject_refs`
+- `affected_requirement_refs`
+- `delivery_constraint`
+- `target_lead_time`
+- `deployment_frequency_target`
+- `change_failure_rate_target`
+- `mttr_target`
+- `required_certifications`
+- `process_decision`: `within_constraints`, `changes_required`, `constraint_violation`, `unknown`, `not_applicable`
+
+== Traceability rules
+- Baseline `ENGCAP-*` может существовать без `HYP-*`, если фиксирует постоянный product constraint.
+- Initiative-specific `ENGCAP-*` должен быть связан хотя бы с одной `HYP-*`, `CHANGE-*` или другим assessment subject.
+- Каждый `ENGCAP-*` с решением `unknown`, `changes_required`, `constraint_violation` или неполным mandatory input должен иметь хотя бы один `RISK-*`, `REQ-*` или `CHANGE-*`.
+
+== Key rules
+- Слой хранит как постоянные process constraints, так и локальный assessment инициативы.
+- Недостающая delivery capability должна порождать change, task, risk или scope correction.
+- Ни один из слоев `27-33` не считается молча пройденным по умолчанию.
+
+== Related layers
+- Upstream: `26 Business Hypotheses`, `22 Changes Roadmap`.
+- Downstream: `08 Requirements`, `18 Risks`, `22 Changes Roadmap`, `23 Development Tasks`, `25 Traceability`.
+
+== Authoring notes
+- Карточка должна явно разделять две части: `Жесткие требования и ограничения` и `Контекст и оценка влияния`.
+- DORA-related assumptions, dependency constraints и rollback expectations фиксируются в `context_text`, а не смешиваются с baseline constraints.
+- `not_applicable` допустим только при явном объяснении неприменимости.
+- Baseline constraint cards могут переиспользоваться многими инициативами, а initiative-specific assessment cards могут ссылаться на существующие baseline cards вместо дублирования их содержимого.

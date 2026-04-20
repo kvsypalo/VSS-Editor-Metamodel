@@ -1,0 +1,32 @@
+= 23 Development Tasks
+
+== Path
+`domains/<domain>/23-layer-development-tasks/`
+
+== Purpose
+Слой содержит исполнимые work items и декомпозицию change waves на конкретные задачи реализации.
+
+== Activation
+- Этот слой входит в канонический стек `01-33`.
+- Домен может пометить слой как `unused`, если локально не ведет отдельные task cards.
+
+== Typical objects
+- `TASK-*`
+
+== Special fields
+- Отдельные layer-specific поля не заданы. Используется `BASE-CARD-SCHEMA-001`.
+
+== Traceability rules
+- В root-правилах нет отдельного минимального link contract специально для `TASK-*`.
+- `TASK-*` является downstream-декомпозицией change scope и должен сохранять явные связи с `CHANGE-*`, `REQ-*` или `RISK-*`.
+
+== Key rules
+- Задача должна быть связана с change scope, требованиями или рисками, ради которых она возникает.
+- Task layer фиксирует исполнимые шаги, а не повторяет roadmap intent.
+
+== Related layers
+- Upstream: `22 Changes Roadmap`, `08 Requirements`, `18 Risks`.
+- Downstream: `20 Quality Testing`, `25 Traceability`.
+
+== Authoring notes
+- Root-правила не задают дополнительных authoring notes для этого слоя кроме `CARD-CREATION-RULES-001` и `BASE-CARD-SCHEMA-001`.

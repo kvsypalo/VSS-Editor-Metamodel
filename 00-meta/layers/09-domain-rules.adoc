@@ -1,0 +1,38 @@
+= 09 Domain Rules
+
+== Path
+`domains/<domain>/09-layer-domain-rules/`
+
+== Purpose
+Слой содержит доменные инварианты, бизнес-правила, семантические ограничения и правила предметной модели.
+
+== Activation
+- Этот слой входит в канонический стек `01-33`.
+- Домен может пометить слой как `unused`, если локально не выделяет отдельные formal rule cards.
+
+== Typical objects
+- `RULE-*`
+
+== Special fields
+- Отдельные layer-specific поля не заданы. Используется `BASE-CARD-SCHEMA-001`.
+
+== Traceability rules
+- В root-правилах не задано дополнительных минимальных traceability links специально для `RULE-*`.
+- Локальные правила должны сохранять ссылки на унаследованные правила родительского уровня, если опираются на них.
+- Если `RULE-*` materialize подтвержденный code-derived scope, правило должно сохранять явную связь хотя бы с одним `REQ-*`, `DATA-*` или подтверждающим `CODE-*`.
+
+== Key rules
+- Правила слоя задают устойчивые инварианты предметной области.
+- Локальные правила не могут противоречить унаследованным root-правилам.
+- Если код подтверждает устойчивые object invariants, field constraints, normalization rules, merge rules, uniqueness rules, validation behavior или semantic restrictions, они materialize как `RULE-*`, а не остаются только внутри `CODE-*`-описания.
+- Для editor-like domains слой `09` должен фиксировать semantics object properties и правила их допустимого изменения, если эти правила подтверждены кодом, UI behavior или data normalization logic.
+
+== Related layers
+- Upstream: `02 Context Boundaries`, `05 Business Architecture`.
+- Downstream: `08 Requirements`, `10 Applications Architecture`, `13 Data Architecture`.
+
+== Authoring notes
+- Смысловая часть subject cards этого слоя пишется на русском аналитическом языке с сохранением source-derived English terms там, где они являются устойчивой частью продукта; карточка должна оставаться human-readable и domain-first, а верхние разделы не должны сваливаться в формалистский prose about coverage or wave mechanics.
+- Если свойства объекта редактируются пользователем, но их предметный смысл, допустимые значения, обязательность или ограничения не вынесены в `RULE-*`, анализ считается неполным.
+- `RULE-*` должна объяснять человеческим языком смысл объекта, ограничения или инварианта, а не только перечислять структуру полей, conditions или validation flags.
+- `RULE-*` должны связывать предметный смысл объекта с downstream requirements, data model и code implementation, а не дублировать только техническое описание функции.

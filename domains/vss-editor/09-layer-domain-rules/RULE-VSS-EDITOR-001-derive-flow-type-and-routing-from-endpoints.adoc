@@ -1,0 +1,115 @@
+= Derive Flow Type And Routing From Endpoints
+
+== Краткое описание
+Тип flow и его визуальный маршрут выводятся из того, какие endpoints заданы у связи. Наличие source и target node делает flow `internal`, отсутствие source при наличии target делает `external_in`, отсутствие target при наличии source делает `external_out`, а правонаправленные назад и self-loop связи рисуются как ломаные вместо стандартной кривой.
+
+== Текущее состояние
+Правило уже реализовано в `autoTypeFlow()` и `drawFlow()`. Редактор автоматически пересчитывает тип при изменении source/target nodes и выбирает геометрию линии исходя из положения узлов и self-loop случая.
+
+== Что подтверждено
+- `autoTypeFlow()` пересчитывает `flow.type` по комбинации source/target node IDs.
+- `drawFlow()` рисует right-to-left и self-loop flows как ломаные с вертикальным обходом.
+- Остальные flows строятся как плавная cubic curve с arrowhead и optional label.
+
+== Замечания аналитика
+Правило одновременно покрывает semantic классификацию flow и observable routing behavior, потому что оба аспекта вычисляются из одной и той же endpoint-конфигурации.
+
+== Требуемые изменения
+Новых изменений не требуется.
+
+== Решение по карточке
+Статус карточки: review
+Статус валидации: validated
+Статус изменения: no_change
+Статус апрува: not_submitted
+
+Проверил аналитик: Konstantin Sypalo
+Дата проверки: 2026-04-20
+
+Утвердил:
+Дата утверждения:
+
+== Связанные объекты
+
+|===
+| Категория | ID | Наименование | Ссылка | Комментарий
+| Data | DATA-VSS-EDITOR-003 | Flow connection | ../13-layer-data-architecture/DATA-VSS-EDITOR-003-flow-connection.adoc | Объект, к которому применяется правило
+| Scenario | SCN-VSS-EDITOR-004 | Редактировать схему на canvas | ../07-layer-scenarios-ux/SCN-VSS-EDITOR-004-edit-schema-on-canvas.adoc | Сценарий, где правило наблюдаемо
+|===
+
+== Источники
+
+|===
+| ID | Источник | Ссылка | Уровень доверия | Комментарий
+| SRC-VSS-EDITOR-001 | app.js | C:/MetaModel/Example code/vss-editor-2.4/app.js | high | Подтверждает `autoTypeFlow()` и `drawFlow()`
+|===
+
+== Артефакты
+
+|===
+| ID | Артефакт | Ссылка | Комментарий
+|===
+
+'''
+== Технические поля
+
+[source,yaml]
+----
+Полное_имя_файла: RULE-VSS-EDITOR-001-derive-flow-type-and-routing-from-endpoints.adoc
+type: domain-rule
+layer: 09 domain-rules
+name: Derive flow type and routing from endpoints
+title: Derive Flow Type And Routing From Endpoints
+status: review
+version: 1.0.0
+owner: analysis
+domain: vss-editor
+tags:
+  - rule
+  - flow
+  - routing
+
+summary: Тип и маршрут flow выводятся из endpoint-конфигурации связи.
+description: Тип и маршрут flow выводятся из endpoint-конфигурации связи.
+
+card_status: review
+validation_status: validated
+change_status: no_change
+approval_status: not_submitted
+
+current_state_text: |
+  Rule already works in the editor and automatically updates after source/target changes.
+
+validated_facts_text: |
+  - Тип flow пересчитывается по source/target IDs.
+  - Self-loop и right-to-left flows получают отдельную ломаную геометрию.
+  - Остальные flows рисуются как curve с arrowhead.
+
+validation_notes_text: |
+  Правило выводится прямо из кода render pipeline.
+
+change_request_text: |
+  Новых изменений не требуется.
+
+source_refs:
+  - SRC-VSS-EDITOR-001
+artifact_refs: []
+artifact_notations: {}
+artifact_style_reference: none
+mandatory_input_status: complete
+refusal_reasons: []
+resulting_risk_refs: []
+relations:
+  data_refs:
+    - DATA-VSS-EDITOR-003
+  scenario_refs:
+    - SCN-VSS-EDITOR-004
+  code_refs:
+    - CODE-VSS-EDITOR-001
+created_at: 2026-04-20
+updated_at: 2026-04-20
+validated_by: Konstantin Sypalo
+validated_at: 2026-04-20
+approved_by: ""
+approved_at: ""
+----

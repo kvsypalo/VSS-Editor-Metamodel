@@ -1,0 +1,6 @@
+name: reference-model
+title: Reference Model
+version: current
+nav:
+  - modules/ROOT/nav.adoc
+start_page: ROOT:index.adoc

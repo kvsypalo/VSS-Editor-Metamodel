@@ -1,0 +1,129 @@
+= Import And Export Schema Assets
+
+== Краткое описание
+Редактор должен позволять объединять внешнюю JSON-схему с текущим canvas и выгружать результат работы в переносимые артефакты. Поддерживаются import существующей схемы через `Add Schema` и export результата в JSON или PNG.
+
+== Текущее состояние
+`Add Schema` запускает режим `import`, читает JSON-файл и через `importWithPrefix()` добавляет imported objects в текущую схему. `Export JSON` сериализует `state.schema`, а `Export PNG` строит отдельный SVG, рендерит его на canvas и скачивает PNG с подписью `Æilus`.
+
+== Что подтверждено
+- Import добавляет nodes, flows, elements и texts к текущему состоянию вместо полной замены схемы.
+- Export JSON формирует файл с именем по `state.schema.schema.title`.
+- Export PNG рендерит только diagram content и добавляет branded footer.
+
+== Замечания аналитика
+Requirement фиксирует только подтвержденные import/export форматы текущей реализации. Дополнительные interchange formats в source basis не обнаружены.
+
+== Требуемые изменения
+Новых изменений не требуется.
+
+== Решение по карточке
+Статус карточки: review
+Статус валидации: validated
+Статус изменения: no_change
+Статус апрува: not_submitted
+
+Проверил аналитик: Konstantin Sypalo
+Дата проверки: 2026-04-20
+
+Утвердил:
+Дата утверждения:
+
+== Связанные объекты
+
+|===
+| Категория | ID | Наименование | Ссылка | Комментарий
+| Scenario | SCN-VSS-EDITOR-003 | Импортировать дополнительную схему | ../07-layer-scenarios-ux/SCN-VSS-EDITOR-003-import-additional-schema.adoc | Import route
+| Scenario | SCN-VSS-EDITOR-005 | Экспортировать схему в JSON или PNG | ../07-layer-scenarios-ux/SCN-VSS-EDITOR-005-export-schema-artifacts.adoc | Export route
+| Test | TEST-VSS-EDITOR-003 | Проверка импорта схемы | ../20-layer-quality-testing/TEST-VSS-EDITOR-003-import-schema-with-prefixing.adoc | Validating import test
+| Test | TEST-VSS-EDITOR-005 | Проверка экспорта JSON и PNG | ../20-layer-quality-testing/TEST-VSS-EDITOR-005-export-json-and-png.adoc | Validating export test
+|===
+
+== Источники
+
+|===
+| ID | Источник | Ссылка | Уровень доверия | Комментарий
+| SRC-VSS-EDITOR-001 | Исходный web bundle v2.4 | C:/MetaModel/Example code/vss-editor-2.4/app.js | high | Подтверждает importWithPrefix, export JSON и export PNG
+|===
+
+== Артефакты
+
+|===
+| ID | Артефакт | Ссылка | Комментарий
+|===
+
+'''
+== Технические поля
+
+[source,yaml]
+----
+Полное_имя_файла: REQ-VSS-EDITOR-003-import-and-export-schema-assets.adoc
+type: requirement
+layer: 08 requirements
+name: Import and export schema assets
+title: Import And Export Schema Assets
+status: review
+version: 1.0.0
+owner: analysis
+domain: vss-editor
+tags:
+  - requirement
+  - import
+  - export
+
+summary: Requirement на объединение внешней схемы и выгрузку результата в JSON или PNG.
+description: Requirement на объединение внешней схемы и выгрузку результата в JSON или PNG.
+
+card_status: review
+validation_status: validated
+change_status: no_change
+approval_status: not_submitted
+
+current_state_text: |
+  Import и export доступны через schema menu и уже реализованы в одном JS bundle.
+
+validated_facts_text: |
+  - `Add Schema` добавляет imported objects к текущей схеме.
+  - `Export JSON` сериализует весь schema state.
+  - `Export PNG` рендерит diagram content в PNG-файл.
+
+validation_notes_text: |
+  Другие форматы обмена в текущей версии не подтверждены.
+
+change_request_text: |
+  Новых изменений не требуется.
+
+source_refs:
+  - SRC-VSS-EDITOR-001
+artifact_refs: []
+artifact_notations: {}
+artifact_style_reference: none
+mandatory_input_status: complete
+refusal_reasons: []
+resulting_risk_refs: []
+relations:
+  scenario_refs:
+    - SCN-VSS-EDITOR-003
+    - SCN-VSS-EDITOR-005
+  test_refs:
+    - TEST-VSS-EDITOR-003
+    - TEST-VSS-EDITOR-005
+  rule_refs:
+    - RULE-VSS-EDITOR-003
+created_at: 2026-04-20
+updated_at: 2026-04-20
+validated_by: Konstantin Sypalo
+validated_at: 2026-04-20
+approved_by: ""
+approved_at: ""
+requirement_type: baseline
+priority: medium
+acceptance_criteria: |
+  - `Add Schema` добавляет объекты imported schema без разрушения текущего canvas.
+  - `Export JSON` сохраняет полную текущую схему.
+  - `Export PNG` сохраняет видимую диаграмму как raster artifact.
+criticality: medium
+critical_path_refs: []
+failure_scenario_refs: []
+recovery_expectation: После import/export actor может продолжить редактирование текущей схемы.
+----

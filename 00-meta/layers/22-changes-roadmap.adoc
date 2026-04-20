@@ -1,0 +1,39 @@
+= 22 Changes Roadmap
+
+== Path
+`domains/<domain>/22-layer-changes-roadmap/`
+
+== Purpose
+Слой описывает управляемые изменения, инициативы, roadmap items и change waves.
+
+== Activation
+- Этот слой входит в канонический стек `01-33`.
+- Домен может пометить слой как `unused`, если локально не ведет отдельные change cards.
+
+== Typical objects
+- `CHANGE-*`
+- `EPIC-*`
+- `FEAT-*`
+
+== Special fields
+- Отдельные layer-specific поля не заданы. Используется `BASE-CARD-SCHEMA-001`.
+
+== Traceability rules
+- `CHANGE-*` является допустимым assessment subject для initiative-specific карточек слоев `27-33`.
+- Каждая `HYP-*`, переходящая в реализацию, должна иметь хотя бы один `REQ-*`, `CHANGE-*` или `RISK-*` как результат assessment.
+- Каждый `SCN-*` типа `failure` или `degraded`, связанный с critical path, должен иметь хотя бы один `RISK-*`, `REQ-*` или `CHANGE-*`.
+- Product-oriented `CHANGE-*`, меняющий actor-facing behavior, должен быть связан хотя бы с одним `VALUE-*`, где зафиксированы value delta и anti-value delta.
+
+== Key rules
+- Change wave должна иметь явный scope и связи с требованиями, задачами, проверками и traceability.
+- Change wave должна стартовать в домене-источнике и каскадироваться в другие домены только после явного impact-check.
+- Независимые инициативы не смешиваются в один объект без явной причины.
+
+== Related layers
+- Upstream: `26 Business Hypotheses`, `08 Requirements`, `18 Risks`.
+- Downstream: `23 Development Tasks`, `20 Quality Testing`, `25 Traceability`, `27-33 Validation Layers`.
+
+== Authoring notes
+- Если product signal не содержит явного изменения ценности и anti-value, агент обязан запросить это до formalize-stage.
+- Для multi-domain change сначала оформи исходный домен, затем проверь root, parent и sibling domains и открой cascade scope только там, где impact подтвержден.
+- Root-правила не задают дополнительных authoring notes для этого слоя кроме `CARD-CREATION-RULES-001` и `BASE-CARD-SCHEMA-001`.

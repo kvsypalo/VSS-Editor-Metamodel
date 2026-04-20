@@ -1,0 +1,123 @@
+= VSS Editor Web Bundle Source Basis
+
+== Краткое описание
+Карточка фиксирует основной source basis первой wave для продукта VSS Editor. Источник представляет собой статический web bundle v2.4 с HTML-разметкой, единым JavaScript-файлом редактора, CSS-оформлением и встроенной help-документацией.
+
+== Текущее состояние
+Для текущего анализа доступны `index.html`, `app.js`, `styles.css`, `logo.svg` и файловая структура исходного каталога. Дополнительные продуктовые артефакты, примеры схем и пользовательские инструкции вне help-модали в source basis не обнаружены.
+
+== Что подтверждено
+- `index.html` задает toolbar, schema menu, canvas, properties panel, status bar и help modal.
+- `app.js` содержит state model схемы, canvas rendering, CRUD-операции над node/flow/text, import/export, undo и взаимодействие с query parameter `schema`.
+- `styles.css` подтверждает layout editor-like интерфейса с toolbar, canvas area и properties panel.
+
+== Замечания аналитика
+Source basis достаточна для code-driven materialization слоев `01`, `06`, `07`, `08`, `09`, `13`, `14`, `20` и `25`, но не подтверждает product analytics, runtime operations и access model.
+
+== Требуемые изменения
+Новых изменений не запрошено. Карточка служит источником истины для ссылок `source_refs` в первой wave.
+
+== Решение по карточке
+Статус карточки: review
+Статус валидации: validated
+Статус изменения: no_change
+Статус апрува: not_submitted
+
+Проверил аналитик: Konstantin Sypalo
+Дата проверки: 2026-04-20
+
+Утвердил:
+Дата утверждения:
+
+== Связанные объекты
+
+|===
+| Категория | ID | Наименование | Ссылка | Комментарий
+| Код | CODE-VSS-EDITOR-001 | Browser editor implementation | ../14-layer-code-implementation/CODE-VSS-EDITOR-001-static-browser-editor-bundle.adoc | Реализация, которую подтверждает source basis
+| Данные | DATA-VSS-EDITOR-001 | Schema aggregate | ../13-layer-data-architecture/DATA-VSS-EDITOR-001-schema-document-aggregate.adoc | Структура schema JSON
+| Сценарии | SCN-VSS-EDITOR-001 | Создать новую схему | ../07-layer-scenarios-ux/SCN-VSS-EDITOR-001-create-new-schema.adoc | Пользовательский маршрут, подтвержденный UI и кодом
+|===
+
+== Источники
+
+|===
+| ID | Источник | Ссылка | Уровень доверия | Комментарий
+| SRC-VSS-EDITOR-001 | Каталог продукта v2.4 | C:/MetaModel/Example code/vss-editor-2.4 | high | Общий контейнер исходников продукта
+| SRC-VSS-EDITOR-001 | UI-разметка | C:/MetaModel/Example code/vss-editor-2.4/index.html | high | Подтверждает toolbar, menu, help modal и контейнеры интерфейса
+| SRC-VSS-EDITOR-001 | Логика редактора | C:/MetaModel/Example code/vss-editor-2.4/app.js | high | Подтверждает state model, сценарии и правила поведения
+| SRC-VSS-EDITOR-001 | Стили интерфейса | C:/MetaModel/Example code/vss-editor-2.4/styles.css | medium | Подтверждает layout и визуальное разделение canvas и properties panel
+|===
+
+== Артефакты
+
+|===
+| ID | Артефакт | Ссылка | Комментарий
+|===
+
+'''
+== Технические поля
+
+[source,yaml]
+----
+Полное_имя_файла: SRC-VSS-EDITOR-001-web-bundle-source-basis.adoc
+type: source-basis
+layer: 24 knowledge-sources
+name: VSS Editor web bundle source basis
+title: VSS Editor Web Bundle Source Basis
+status: review
+version: 1.0.0
+owner: analysis
+domain: vss-editor
+tags:
+  - source
+  - evidence
+  - vss-editor
+
+summary: Основной source basis первой wave по web bundle VSS Editor v2.4.
+description: Основной source basis первой wave по web bundle VSS Editor v2.4.
+
+card_status: review
+validation_status: validated
+change_status: no_change
+approval_status: not_submitted
+
+current_state_text: |
+  Анализ опирается на исходный каталог vss-editor-2.4 с HTML, JS и CSS.
+  Другие формальные product sources в текущем scope не предоставлены.
+
+validated_facts_text: |
+  - `index.html` задает основные UI entry points редактора.
+  - `app.js` реализует state model, rendering, editing, import и export.
+  - `styles.css` подтверждает editor-like layout с canvas и properties panel.
+
+validation_notes_text: |
+  Source basis не включает backend, persistence вне JSON-файлов и внешние API-контракты.
+
+change_request_text: |
+  Новых изменений не требуется.
+  Карточка используется как единый source object для первой wave.
+
+source_refs: []
+artifact_refs: []
+artifact_notations: {}
+artifact_style_reference: none
+mandatory_input_status: complete
+refusal_reasons: []
+resulting_risk_refs: []
+relations:
+  supported_cards:
+    - VALUE-VSS-EDITOR-001
+    - GOAL-VSS-EDITOR-001
+    - PROC-VSS-EDITOR-001
+    - REQ-VSS-EDITOR-001
+    - REQ-VSS-EDITOR-002
+    - REQ-VSS-EDITOR-003
+    - REQ-VSS-EDITOR-004
+    - CODE-VSS-EDITOR-001
+created_at: 2026-04-20
+updated_at: 2026-04-20
+validated_by: Konstantin Sypalo
+validated_at: 2026-04-20
+approved_by: ""
+approved_at: ""
+----

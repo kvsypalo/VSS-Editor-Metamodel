@@ -1,0 +1,93 @@
+= PRE-REQUIREMENT-VALIDATION-LAYER-RULES-001
+
+Агрегированная summary для validation cluster, который участвует в pre-requirement assessment и continuity-aware анализе.
+
+Детальная per-layer semantics остается в `../layers/26-*.adoc` ... `../layers/33-*.adoc`. Этот документ нужен для обзора всего cluster в одном месте.
+
+== 1. Назначение
+- зафиксировать, что бизнес-гипотеза живет отдельно от требования
+- зафиксировать, что validation layers существуют как самостоятельные canonical layers продукта даже при отсутствии новых гипотез
+- не позволять молча пропускать impact assessment гипотезы на существующие product constraints и continuity contracts
+- собрать в одном месте grouped summary по economics, engineering process capability, compliance, security, access rights, performance и critical path
+
+== 2. Состав cluster
+- `26-layer-business-hypotheses/` — гипотеза, business signal и решение о дальнейшей проработке
+- `27-layer-economics-validation/` — экономика продукта: жесткие бюджетные и стоимостные ограничения, а также контекст оценки инициатив
+- `28-layer-engineering-process-capability/` — ограничения и контекст delivery capability, process readiness, release discipline и certification constraints
+- `29-layer-compliance/` — обязательные compliance constraints и контекст их применения
+- `30-layer-security/` — обязательные security constraints и контекст security assessment
+- `31-layer-access-rights/` — обязательные требования по ролям и правам доступа и контекст impact assessment
+- `32-layer-performance/` — обязательные performance constraints и контекст оценки влияния инициатив
+- `33-layer-critical-path/` — continuity contract для критического пути, его failure/degraded routes и контекст оценки влияния инициатив
+
+== 3. Общая модель слоев `27-33`
+Каждый из слоев `27-33` обязан поддерживать две части:
+
+1. `Жесткие требования и ограничения`.
+Это постоянные must-have требования, лимиты, guardrails и product constraints, существующие независимо от новых гипотез.
+
+2. `Контекст и оценка влияния`.
+Это допущения, сценарные оговорки, локальный контекст и assessment того, как конкретная гипотеза, change wave или решение влияет на уже существующие ограничения.
+
+Обе части обязательны для semantic model слоя. Если карточка фиксирует только baseline constraints, она все равно явно указывает, что contextual impact для конкретной инициативы в ней отсутствует или не рассматривается. Если карточка фиксирует initiative-specific assessment, она обязана ссылаться на существующие hard constraints или явно фиксировать, что новая инициатива создает новый constraint.
+
+== 3.1. Явная модель critical path и failure scenarios
+- `33-layer-critical-path/` является отдельным каноническим слоем для end-to-end continuity contract
+- в `33-layer-critical-path/` фиксируются критическая цепочка, критические шаги, dependency chain, failure/degraded routes, recovery expectations и границы допустимой деградации
+- `06-layer-processes/` фиксирует детальные шаги процесса и роли, но именно `33-layer-critical-path/` определяет, какие шаги образуют обязательный end-to-end critical chain
+- `07-layer-scenarios-ux/` фиксирует основной и отказной flow, а `33-layer-critical-path/` связывает их в единый continuity contract
+- `08-layer-requirements/` хранит обязательные continuity, recovery и fallback requirements, которые должны ссылаться на `CRIT-*`, если затрагивают критический путь
+- `18-layer-risks/` фиксирует риски нарушения critical path, если ограничения, данные или mitigations неполны
+- `20-layer-quality-testing/` фиксирует test coverage основного и отказного пути для объектов `CRIT-*`
+- `21-layer-observability/` фиксирует метрики, сигналы отказа и SLI/SLO для наблюдения за `CRIT-*`
+- `32-layer-performance/` фиксирует latency budgets, throughput limits, capacity assumptions и performance trade-offs, а `33-layer-critical-path/` определяет, к какой end-to-end chain эти бюджеты относятся
+- в `25-layer-traceability/` связывается цепочка `CRIT -> PROC/SCN -> REQ -> TEST/METRIC/PERF -> RISK/CHANGE`, если инициатива затрагивает критический путь
+
+== 4. Базовый порядок работы
+1. Слой требований `08-layer-requirements/` существует всегда и не зависит от наличия новых гипотез.
+2. Новая гипотеза фиксируется в `26-layer-business-hypotheses/`.
+3. Гипотеза проходит impact assessment относительно уже существующих или уточняемых ограничений в `27-33`.
+4. Результат assessment может:
+	- подтвердить, что гипотеза укладывается в действующие ограничения;
+	- потребовать новых `REQ-*`;
+	- ужесточить существующие `REQ-*`;
+	- ослабить или ухудшить существующие требования и тем самым породить риск, исключение или новую архитектурную задачу;
+	- показать необходимость `CHANGE-*`, `TASK-*`, `RISK-*` или архитектурного решения для возврата в допустимые границы.
+5. Ни один из слоев `27-33` не считается молча пройденным по умолчанию.
+
+== 5. Правила перехода и связи с requirements
+- `REQ-*` может существовать без `HYP-*`, если это baseline requirement продукта, обязательный contract, control или постоянное ограничение
+- `REQ-*`, рожденное из новой гипотезы или change wave, должно ссылаться назад на `HYP-*` и на затронутые объекты validation layers
+- если `REQ-*` затрагивает critical path, оно должно иметь явные ссылки хотя бы на один `CRIT-*`, `PROC-*` или `SCN-*`, а также на связанный `TEST-*`, `METRIC-*`, `PERF-*` или `RISK-*` в зависимости от типа ограничения
+- `HYP-*` после assessment может создавать новые требования, менять существующие требования, ухудшать их достижимость или выводить их за действующие ограничения
+- если assessment показывает `changes_required`, должны появиться соответствующие `REQ-*`, `CHANGE-*`, `TASK-*` или архитектурные решения
+- если assessment показывает `constraint_violation`, гипотеза не считается принятой без явного решения о риске, исключении, redesign или отклонении гипотезы
+
+== 6. Правила отказа от заполнения данных
+- обязательные assessment inputs по затронутым validation layers должны быть явно запрошены
+- если пользователь или источник отказывается отвечать, в соответствующей карточке фиксируются `mandatory_input_status`, `refusal_reasons`, `resulting_risk_refs`
+- отказ от заполнения не считается эквивалентом `not_applicable`
+- `not_applicable` допустим только если влияние действительно отсутствует и причина этого явно записана
+
+== 7. Правила переиспользования карточек
+- baseline constraint cards в `27-33` могут существовать без `HYP-*` и переиспользоваться многими инициативами
+- initiative-specific assessment cards могут ссылаться на существующие baseline cards вместо дублирования их содержимого
+- если assumptions, impact scope или решение различаются, создаются отдельные assessment cards, а не общий placeholder
+
+== 8. Минимальный результат impact assessment
+Для гипотезы, дошедшей до requirement stage или до явного change decision, должен существовать минимум один traceable chain:
+
+`HYP-* -> impacted ECON/ENGCAP/COMP/SEC/ACCESS/PERF/CRIT -> REQ-*/CHANGE-*/RISK-*`
+
+Если инициатива влияет на critical path, дополнительно должен существовать минимум один traceable chain:
+
+`HYP-*/CHANGE-* -> CRIT-* -> PROC-*/SCN-* -> REQ-* -> TEST-*/METRIC-*/PERF-* -> RISK-*/CHANGE-*`
+
+Допускаются как новые impact cards, так и ссылки на существующие baseline constraint cards, если они действительно покрывают assessment.
+
+== 9. Что запрещено
+- считать validation layers существующими только ради текущей инициативы
+- создавать `REQ-*` новой инициативы без `HYP-*`
+- молчаливо пропускать impact assessment по одному из обязательных validation layers
+- подменять отказ от заполнения значением `not_applicable`
+- считать гипотезу допустимой, если она выходит за жесткие ограничения без явного change, risk, exception или redesign decision
