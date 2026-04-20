@@ -1,0 +1,28 @@
+= REFERENCE-MODEL-RELEASE-POLICY-001
+
+Регламент определения release scope эталонной модели.
+
+== 1. Назначение
+- Зафиксировать, что считается release эталонной модели.
+- Исключить неоднозначность между обычной внутренней работой в reference repo и состоянием, которое project repo может принять как отдельную версию эталона.
+
+== 2. Что считается release
+- Любое принятое изменение в корневом `00-meta/` считается новым release scope эталонной модели.
+- Release scope определяется результирующим состоянием корневого `00-meta/` после принятой wave.
+- Если wave не меняет корневой `00-meta/`, она может оставаться внутренней wave reference repo и не обязана считаться новым release эталона.
+
+== 3. Release identity
+- Каждый release scope обязан иметь явный release identifier.
+- Release identifier должен быть машиночитаемым и однозначно указывать на принятую версию эталона.
+- Project repo должен ссылаться именно на этот release identifier, а не на неформальное описание изменения.
+- До отдельного утверждения схемы versioning допускается временный стабильный release identifier, если он однозначно различает последовательные release scope.
+
+== 4. Связь с workflow
+- Release возникает только после принятой wave, а не при любом локальном черновом редактировании.
+- Формализация, approval, implementation, verify и trace sync выполняются по общему workflow эталона.
+- После этого release scope фиксируется через release identifier и может быть передан в project adoption.
+
+== 5. Что запрещено
+- Считать ready-for-adoption версией состояние эталона без явного release identifier.
+- Смешивать неутвержденный draft в root `00-meta/` с опубликованным release scope.
+- Считать product-local изменение новым release эталона.

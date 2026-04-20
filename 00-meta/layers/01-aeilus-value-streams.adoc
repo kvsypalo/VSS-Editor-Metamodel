@@ -1,0 +1,62 @@
+= 01 Aeilus Value Streams
+
+== Path
+`domains/<domain>/01-layer-aeilus-value-streams/`
+
+== Purpose
+Слой фиксирует верхнеуровневые потоки ценности, их входы и выходы, ключевых акторов и ожидаемый value outcome.
+
+== Activation
+- Этот слой входит в канонический стек `01-33`.
+- Домен может пометить слой как `unused` в `00-meta`, если локально не моделирует value streams.
+- Для верхнеуровневого product domain слой считается foundational-by-default и должен быть явно оценен до закрытия первой волны анализа.
+- Дочерний домен может не materialize локальный `VALUE-*` только при явной фиксации inheritance от родителя или отсутствия independent actor, value outcome или value movement.
+
+== Typical objects
+- `VALUE-*`
+
+== Special fields
+- `value_stream_type`
+- `actor`: в этом слое используется `actor`, а не `customer`
+- `entry_point`
+- `exit_point`
+- `value_outcome`
+- `anti_value`
+
+== Traceability rules
+- Каждый `VALUE-*` должен быть связан минимум с одним `GOAL-*` и одним `PROC-*`.
+- Проверки по слою 01 используют `actor`, а не `customer`.
+- Если верхнеуровневый product domain не materialize слой `01`, omission требует явной причины, source basis и связанного `RISK-*`.
+- Product wave, меняющая actor-facing behavior, должна обновить или создать `VALUE-*` с явной фиксацией `value_outcome` и `anti_value`.
+
+== Key rules
+- В этом слое используется `actor`, а не `customer`.
+- Value stream связывается минимум с `GOAL-*` и `PROC-*`.
+- Для верхнеуровневого product domain слой `01` не считается optional-by-default.
+- Если подтверждены product purpose, user flow или value movement, materialize минимум один `VALUE-*`.
+- `anti_value` фиксирует какую потерю, трение, риск, delay или нежелательный outcome wave устраняет, снижает или осознанно добавляет как trade-off.
+
+== Related layers
+- Downstream: `04 Strategy Product`, `06 Processes`.
+- Supporting context: `03 Stakeholders Motivation`.
+
+== Authoring notes
+- Смысловая часть `VALUE-*` пишется на русском аналитическом языке с сохранением source-derived English terms там, где они являются устойчивой частью продукта; карточка должна оставаться human-readable и domain-first, а верхние разделы не должны сваливаться в формалистский prose about coverage or wave mechanics.
+- Используй `actor` последовательно и в текстовой части карточки, и в YAML-полях.
+- Если value streams локально не моделируются, это должно быть явно отражено через `unused_layers` в слое `00-meta`.
+- Для верхнеуровневого product domain молчаливый пропуск слоя `01` запрещен: укажи причину omission, source basis и linked `RISK-*`.
+- Для child domain явно фиксируй, слой унаследован от родителя или локально отсутствует independent value stream.
+- Если product signal не содержит явного описания ценности и anti-value, wave не считается достаточно сформулированной для downstream-этапов; сначала запроси недостающий value contract.
+- `VALUE-*` должна звучать как описание реального value movement для actor, а не как техническая или governance-формула.
+- `VALUE-*` должен описывать прикладной поток ценности для actor через предметные сущности и действия домена, а не подменяться product goal, process glue или общей continuity-formulation.
+- Если source basis дает точные domain nouns и verbs, используй их: какие именно объекты редактируются, через какие сущности проходит value и какой usable result получает actor.
+- Для верхнеуровневого product domain хороший `VALUE-*` обычно отвечает на три вопроса: что actor делает в предметных терминах, через какие domain objects или value movements проходит работа и какой usable outcome actor получает на выходе.
+- Для product change wave хороший `VALUE-*` отвечает и на четвертый вопрос: какая anti-value уменьшается, устраняется или осознанно принимается как trade-off.
+- Если `VALUE-*` становится слишком абстрактным и начинает звучать как `GOAL-*` или `PROC-*`, карточку нужно уточнить в сторону domain semantics.
+
+== Quality example
+- actor открывает редактор и визуально описывает, как value проходит через converters, flows и связанные элементы схемы
+- value movement фиксируется через конкретные domain objects, а не через абстрактное `user completes a session`
+- value outcome выражен как usable schema artifact, который можно уточнять, обсуждать, импортировать или экспортировать
+
+Этот пример не заменяет local domain wording, но показывает ожидаемый quality bar: предметная лексика, короткая формулировка и явный value outcome.

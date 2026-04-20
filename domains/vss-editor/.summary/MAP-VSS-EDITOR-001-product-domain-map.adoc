@@ -1,0 +1,182 @@
+= VSS Editor Product Domain Map
+
+== Краткое описание
+Домен `vss-editor` описывает статический браузерный редактор схем потока ценности Æilus. Продукт позволяет собрать и отредактировать схему из converters, flows, element types и текстовых пометок, а затем выгрузить результат в JSON или PNG.
+
+Первая wave materialize подтвержденный code-driven scope одного верхнеуровневого домена без дочерних доменов. Помимо базовых предметных слоев в домене теперь явно зафиксированы прикладная оболочка редактора, baseline-оценка модели доступа и оценка непрерывности ключевого пользовательского маршрута.
+
+== Текущее состояние
+В репозитории эталонной модели до этой wave не было product-local домена для VSS Editor. Исходная source basis ограничена web bundle `index.html`, `app.js`, `styles.css` и встроенной help-модалью продукта из каталога `C:\MetaModel\Example code\vss-editor-2.4`.
+
+== Что подтверждено
+- Продукт работает как browser-only single-page editor без серверной части и без build-step.
+- Редактор хранит schema state в памяти страницы и поддерживает `New`, `Open`, `Add Schema`, `Export JSON`, `Export PNG`, `Undo`, панорамирование, масштабирование, выделение и редактирование свойств.
+- В домене отдельно materialized слой приложения `10`, baseline-оценка доступа `31` и оценка critical path `33`.
+
+== Замечания аналитика
+Source basis не включает runtime telemetry, backend contracts, user interviews и formal product documentation. Поэтому в этой wave materialized только те слои, которые прямо подтверждаются UI и кодом продукта.
+
+== Требуемые изменения
+Новых product changes не запрошено. Требуется formalize текущую подтвержденную модель продукта в approval-ready виде.
+
+== Решение по карточке
+Статус карточки: review
+Статус валидации: validated
+Статус изменения: no_change
+Статус апрува: not_submitted
+
+Проверил аналитик: Konstantin Sypalo
+Дата проверки: 2026-04-20
+
+Утвердил:
+Дата утверждения:
+
+== Связанные объекты
+
+|===
+| Категория | ID | Наименование | Ссылка | Комментарий
+| Поток ценности | VALUE-VSS-EDITOR-001 | Визуальное редактирование схемы ценности | ../01-layer-aeilus-value-streams/VALUE-VSS-EDITOR-001-edit-value-system-schema.adoc | Основной value movement домена
+| Процесс | PROC-VSS-EDITOR-001 | Сборка и корректировка схемы | ../06-layer-processes/PROC-VSS-EDITOR-001-author-and-adjust-schema.adoc | Базовый пользовательский процесс
+| Application | APP-VSS-EDITOR-001 | VSS Editor browser application | ../10-layer-applications-architecture/APP-VSS-EDITOR-001-browser-schema-editor.adoc | Прикладная оболочка продукта
+| Access | ACCESS-VSS-EDITOR-001 | Baseline local editor access model | ../31-layer-access-rights/ACCESS-VSS-EDITOR-001-local-single-user-access-baseline.adoc | Явная фиксация модели доступа
+| Critical path | CRIT-VSS-EDITOR-001 | Authoring session continuity | ../33-layer-critical-path/CRIT-VSS-EDITOR-001-authoring-session-continuity.adoc | Явная оценка непрерывности ключевого маршрута
+| Источник | SRC-VSS-EDITOR-001 | Исходный web bundle v2.4 | ../24-layer-knowledge-sources/SRC-VSS-EDITOR-001-web-bundle-source-basis.adoc | Основная source basis wave
+| Traceability | TRACE-VSS-EDITOR-001 | Цепочка value-to-test | ../25-layer-traceability/TRACE-VSS-EDITOR-001-core-user-journey-trace.adoc | Сквозная связность первой волны
+|===
+
+== Источники
+
+|===
+| ID | Источник | Ссылка | Уровень доверия | Комментарий
+| SRC-VSS-EDITOR-001 | Исходный web bundle v2.4 | C:/MetaModel/Example code/vss-editor-2.4 | high | Подтверждает UI, state model и пользовательские команды редактора
+|===
+
+== Артефакты
+
+|===
+| ID | Артефакт | Ссылка | Комментарий
+|===
+
+'''
+== Технические поля
+
+[source,yaml]
+----
+Полное_имя_файла: MAP-VSS-EDITOR-001-product-domain-map.adoc
+type: domain-map
+layer: 00 meta
+name: Product domain map for VSS Editor
+title: VSS Editor Product Domain Map
+status: review
+version: 1.0.0
+owner: analysis
+domain: vss-editor
+tags:
+  - product
+  - domain-map
+  - vss-editor
+
+summary: Верхнеуровневая карта продукта VSS Editor и используемых слоев первой wave.
+description: Верхнеуровневая карта продукта VSS Editor и используемых слоев первой wave.
+
+card_status: review
+validation_status: validated
+change_status: no_change
+approval_status: not_submitted
+
+current_state_text: |
+  В эталонном репозитории появился новый верхнеуровневый product domain `vss-editor`.
+  Доменная wave ограничена подтвержденным scope web bundle v2.4 без child domains.
+
+validated_facts_text: |
+  - Продукт работает как browser-only single-page editor.
+  - Подтверждены команды New, Open, Add Schema, Export JSON и Export PNG.
+  - Подтверждены канонические domain objects для value, process, application, scenario, requirement, rule, data, code, source, test, access assessment, critical-path assessment и traceability.
+
+validation_notes_text: |
+  Анализ опирается только на UI-разметку и код v2.4.
+  Отдельные слои вне подтвержденного source basis помечены как unused.
+
+change_request_text: |
+  Новых изменений продукта не запрошено.
+  Требуется formalize текущий подтвержденный scope в review-ready модель.
+
+source_refs:
+  - SRC-VSS-EDITOR-001
+artifact_refs: []
+artifact_notations: {}
+artifact_style_reference: none
+mandatory_input_status: complete
+refusal_reasons: []
+resulting_risk_refs: []
+relations:
+  value_refs:
+    - VALUE-VSS-EDITOR-001
+  process_refs:
+    - PROC-VSS-EDITOR-001
+  application_refs:
+    - APP-VSS-EDITOR-001
+  scenario_refs:
+    - SCN-VSS-EDITOR-001
+    - SCN-VSS-EDITOR-002
+    - SCN-VSS-EDITOR-003
+    - SCN-VSS-EDITOR-004
+    - SCN-VSS-EDITOR-005
+    - SCN-VSS-EDITOR-006
+  requirement_refs:
+    - REQ-VSS-EDITOR-001
+    - REQ-VSS-EDITOR-002
+    - REQ-VSS-EDITOR-003
+    - REQ-VSS-EDITOR-004
+  access_refs:
+    - ACCESS-VSS-EDITOR-001
+  critical_path_refs:
+    - CRIT-VSS-EDITOR-001
+  traceability_refs:
+    - TRACE-VSS-EDITOR-001
+created_at: 2026-04-20
+updated_at: 2026-04-20
+validated_by: Konstantin Sypalo
+validated_at: 2026-04-20
+approved_by: ""
+approved_at: ""
+domain_role: product
+parent_domain: ""
+reference_release: RM-20260420-001
+used_layers:
+  - 00
+  - 01
+  - 04
+  - 06
+  - 07
+  - 08
+  - 09
+  - 10
+  - 13
+  - 14
+  - 20
+  - 24
+  - 25
+  - 31
+  - 33
+unused_layers:
+  - 02
+  - 03
+  - 05
+  - 11
+  - 12
+  - 15
+  - 16
+  - 17
+  - 18
+  - 19
+  - 21
+  - 22
+  - 23
+  - 26
+  - 27
+  - 28
+  - 29
+  - 30
+  - 32
+----

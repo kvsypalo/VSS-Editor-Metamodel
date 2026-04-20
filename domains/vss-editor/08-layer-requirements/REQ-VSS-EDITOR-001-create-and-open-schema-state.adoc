@@ -1,0 +1,127 @@
+= Create And Open Schema State
+
+== Краткое описание
+Редактор должен позволять начать работу либо с новой пустой схемы по умолчанию, либо с существующей JSON-схемы, загруженной из файла. Обе точки входа должны переводить пользователя в редактируемое состояние canvas.
+
+== Текущее состояние
+Команды `New` и `Open` доступны из `Schema` menu. `New` пересоздает schema state через `createEmptySchema()`, а `Open` читает JSON-файл через `FileReader`, нормализует его и заменяет текущую схему.
+
+== Что подтверждено
+- `New` создает schema с `schema`, `nodes`, `flows`, `elements` и `texts`.
+- `Open` использует hidden `fileInput`, парсит JSON и при успехе выполняет `normalizeSchema`, `selectSchema`, `centerView` и `render`.
+- После обоих действий пользователь оказывается в состоянии, пригодном для дальнейшего редактирования.
+
+== Замечания аналитика
+Source basis не показывает валидацию пользовательского JSON beyond successful parsing and normalization. Requirement фиксирует только подтвержденное поведение текущей реализации.
+
+== Требуемые изменения
+Новых изменений не требуется.
+
+== Решение по карточке
+Статус карточки: review
+Статус валидации: validated
+Статус изменения: no_change
+Статус апрува: not_submitted
+
+Проверил аналитик: Konstantin Sypalo
+Дата проверки: 2026-04-20
+
+Утвердил:
+Дата утверждения:
+
+== Связанные объекты
+
+|===
+| Категория | ID | Наименование | Ссылка | Комментарий
+| Scenario | SCN-VSS-EDITOR-001 | Создать новую схему | ../07-layer-scenarios-ux/SCN-VSS-EDITOR-001-create-new-schema.adoc | Primary route для пустой схемы
+| Scenario | SCN-VSS-EDITOR-002 | Открыть JSON-схему | ../07-layer-scenarios-ux/SCN-VSS-EDITOR-002-open-schema-from-json.adoc | Primary route для существующей схемы
+| Test | TEST-VSS-EDITOR-001 | Проверка создания новой схемы | ../20-layer-quality-testing/TEST-VSS-EDITOR-001-create-new-schema-defaults.adoc | Validating test для New
+| Test | TEST-VSS-EDITOR-002 | Проверка открытия JSON-схемы | ../20-layer-quality-testing/TEST-VSS-EDITOR-002-open-json-schema.adoc | Validating test для Open
+|===
+
+== Источники
+
+|===
+| ID | Источник | Ссылка | Уровень доверия | Комментарий
+| SRC-VSS-EDITOR-001 | Исходный web bundle v2.4 | C:/MetaModel/Example code/vss-editor-2.4/app.js | high | Подтверждает `createEmptySchema`, `btnNew` и `btnOpen`
+|===
+
+== Артефакты
+
+|===
+| ID | Артефакт | Ссылка | Комментарий
+|===
+
+'''
+== Технические поля
+
+[source,yaml]
+----
+Полное_имя_файла: REQ-VSS-EDITOR-001-create-and-open-schema-state.adoc
+type: requirement
+layer: 08 requirements
+name: Create and open schema state
+title: Create And Open Schema State
+status: review
+version: 1.0.0
+owner: analysis
+domain: vss-editor
+tags:
+  - requirement
+  - schema-lifecycle
+  - json
+
+summary: Requirement на создание новой схемы и открытие существующей JSON-схемы.
+description: Requirement на создание новой схемы и открытие существующей JSON-схемы.
+
+card_status: review
+validation_status: validated
+change_status: no_change
+approval_status: not_submitted
+
+current_state_text: |
+  `New` и `Open` уже реализованы в schema menu.
+  Обе команды завершаются переходом к редактируемому состоянию canvas.
+
+validated_facts_text: |
+  - `New` создает default schema через `createEmptySchema()`.
+  - `Open` читает JSON-файл и заменяет текущий state при успешном parse.
+  - После операции вызываются `centerView` и `render`.
+
+validation_notes_text: |
+  Дополнительная semantic validation структуры JSON в source basis не обнаружена.
+
+change_request_text: |
+  Новых изменений не требуется.
+
+source_refs:
+  - SRC-VSS-EDITOR-001
+artifact_refs: []
+artifact_notations: {}
+artifact_style_reference: none
+mandatory_input_status: complete
+refusal_reasons: []
+resulting_risk_refs: []
+relations:
+  scenario_refs:
+    - SCN-VSS-EDITOR-001
+    - SCN-VSS-EDITOR-002
+  test_refs:
+    - TEST-VSS-EDITOR-001
+    - TEST-VSS-EDITOR-002
+created_at: 2026-04-20
+updated_at: 2026-04-20
+validated_by: Konstantin Sypalo
+validated_at: 2026-04-20
+approved_by: ""
+approved_at: ""
+requirement_type: baseline
+priority: high
+acceptance_criteria: |
+  - `New` создает schema с default metadata, node, flow и element.
+  - `Open` загружает JSON-файл и переводит редактор в готовое к редактированию состояние.
+criticality: high
+critical_path_refs: []
+failure_scenario_refs: []
+recovery_expectation: Actor может продолжить редактирование сразу после создания или открытия схемы.
+----

@@ -1,0 +1,44 @@
+= 29 Compliance
+
+== Path
+`domains/<domain>/29-layer-compliance/`
+
+== Purpose
+Слой хранит regulatory constraints, policy obligations, audit controls и compliance impact assessment.
+
+== Activation
+- Этот слой входит в канонический стек `01-33`.
+- Слой является самостоятельным canonical layer даже при отсутствии новых гипотез.
+
+== Typical objects
+- `COMP-*`
+
+== Special fields
+- `record_mode`: `baseline_constraint`, `initiative_assessment`, `mixed`
+- `hard_constraints_text`
+- `context_text`
+- `assessment_subject_refs`
+- `affected_requirement_refs`
+- `compliance_scope`
+- `regulation_refs`
+- `control_requirements`
+- `compliance_decision`: `within_constraints`, `changes_required`, `constraint_violation`, `unknown`, `not_applicable`
+
+== Traceability rules
+- Baseline `COMP-*` может существовать без `HYP-*`, если фиксирует постоянный product constraint.
+- Initiative-specific `COMP-*` должен быть связан хотя бы с одной `HYP-*`, `CHANGE-*` или другим assessment subject.
+- Каждый `COMP-*` с решением `unknown`, `changes_required`, `constraint_violation` или неполным mandatory input должен иметь хотя бы один `RISK-*`, `REQ-*` или `CHANGE-*`.
+
+== Key rules
+- Compliance constraints фиксируются как постоянные product obligations, а не только как локальный gate текущей инициативы.
+- `not_applicable` допустим только при явном объяснении неприменимости.
+- Отказ от заполнения не является `not_applicable`.
+
+== Related layers
+- Upstream: `26 Business Hypotheses`, `22 Changes Roadmap`.
+- Downstream: `08 Requirements`, `18 Risks`, `22 Changes Roadmap`, `25 Traceability`.
+
+== Authoring notes
+- Карточка должна явно разделять две части: `Жесткие требования и ограничения` и `Контекст и оценка влияния`.
+- В hard constraints нужно фиксировать конкретные regulatory, policy или contract obligations, а не размытые формулировки.
+- Baseline constraint cards могут переиспользоваться многими инициативами, а initiative-specific assessment cards могут ссылаться на существующие baseline cards вместо дублирования их содержимого.

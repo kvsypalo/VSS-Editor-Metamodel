@@ -1,0 +1,38 @@
+= Antora Service Layer
+
+Этот каталог хранит только служебную инфраструктуру Antora.
+Он не меняет каноническую структуру `00-meta/`, `common/` и `domains/` и не содержит альтернативную копию канона.
+
+== Назначение
+
+- `antora-playbook.yml` задает локальную сборку сайта.
+- `reference-model/antora.yml` объявляет компонент Antora.
+- `ui/bundle/` хранит локальный extracted UI bundle для автономной сборки без загрузки с GitLab.
+- `tools/sync-content.ps1` создает junction-based view на реальные каталоги репозитория и генерирует navigation по publication rules из root `00-meta/`.
+- `build-site.ps1` запускает sync и затем Antora build.
+
+== Публикационное представление
+
+- Antora показывает канонический контент репозитория, а не отдельную параллельную модель.
+- Актуальный канонический набор слоев определяется root `00-meta/layers/`; Antora только укрупняет reading flow домена.
+- `00-meta/`, `common/` и `domains/` публикуются как page-source; service/infrastructure файлы из `Antora/` не публикуются.
+- `.summary/` домена materialize как блок `Summary` и не исключается из domain reading flow.
+- domain navigation строится блоками `Summary`, `Ценность и контекст`, `Поведение продукта`, `Ограничения и контроль`, `Change`, `Техническая информация`, `Поддомены`.
+- change-oriented layers публикуются отдельно от baseline-oriented блоков, чтобы future scope не смешивался с основным reading flow.
+
+== Использование
+
+1. Запусти `powershell -ExecutionPolicy Bypass -File .\tools\sync-content.ps1` из каталога `Antora/`.
+2. Запусти `powershell -ExecutionPolicy Bypass -File .\build-site.ps1` или вручную `npx antora antora-playbook.yml`.
+3. Открой собранный сайт из `Antora/site/`.
+
+`build-site.ps1` сам ищет Node.js в стандартных каталогах Windows и временно добавляет найденный `nodejs` в `PATH` процесса.
+Для ручного запуска через `npx` путь к Node.js должен быть доступен в `PATH`.
+Playbook уже использует локальный UI bundle из `Antora/ui/bundle`, поэтому runtime-загрузка внешнего UI больше не требуется.
+
+== Важное ограничение
+
+Единственный не-AsciiDoc файл, который сохраняется на корне репозитория намеренно, это `AGENTS.md`.
+Он не включается в Antora navigation как page-source и остается compatibility shim для agent tooling.
+
+Секция `Технические поля` карточек должна быть скрыта в user-facing публикации UI bundle.

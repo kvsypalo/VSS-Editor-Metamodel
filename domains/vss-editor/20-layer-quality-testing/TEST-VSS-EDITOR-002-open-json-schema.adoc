@@ -1,0 +1,121 @@
+= Open JSON Schema Test
+
+== Краткое описание
+Тест проверяет, что команда `Open` загружает корректный JSON-файл схемы и делает его новым текущим editor state. Проверка закрывает primary scenario открытия существующей схемы.
+
+== Текущее состояние
+Тест materialized как validating test specification по подтвержденному поведению `fileMode = "open"` и ветке успешного parse JSON.
+
+== Что подтверждено
+- JSON-файл читается через `FileReader` и `JSON.parse`.
+- Ветка `open` заменяет `state.schema` загруженным объектом.
+- После загрузки вызываются `selectSchema`, `centerView` и `render`.
+
+== Замечания аналитика
+Тест не покрывает failure parse; эта ветка вынесена в отдельный failure scenario и отдельный test object.
+
+== Требуемые изменения
+Новых изменений не требуется.
+
+== Решение по карточке
+Статус карточки: review
+Статус валидации: validated
+Статус изменения: no_change
+Статус апрува: not_submitted
+
+Проверил аналитик: Konstantin Sypalo
+Дата проверки: 2026-04-20
+
+Утвердил:
+Дата утверждения:
+
+== Связанные объекты
+
+|===
+| Категория | ID | Наименование | Ссылка | Комментарий
+| Scenario | SCN-VSS-EDITOR-002 | Открыть JSON-схему | ../07-layer-scenarios-ux/SCN-VSS-EDITOR-002-open-schema-from-json.adoc | Scenario under validation
+| Requirement | REQ-VSS-EDITOR-001 | Создание и открытие схемы | ../08-layer-requirements/REQ-VSS-EDITOR-001-create-and-open-schema-state.adoc | Acceptance criteria source
+|===
+
+== Источники
+
+|===
+| ID | Источник | Ссылка | Уровень доверия | Комментарий
+| SRC-VSS-EDITOR-001 | app.js | C:/MetaModel/Example code/vss-editor-2.4/app.js | high | Подтверждает ветку successful open
+|===
+
+== Артефакты
+
+|===
+| ID | Артефакт | Ссылка | Комментарий
+|===
+
+'''
+== Технические поля
+
+[source,yaml]
+----
+Полное_имя_файла: TEST-VSS-EDITOR-002-open-json-schema.adoc
+type: test
+layer: 20 quality-testing
+name: Open JSON schema test
+title: Open JSON Schema Test
+status: review
+version: 1.0.0
+owner: analysis
+domain: vss-editor
+tags:
+  - test
+  - scenario
+  - open
+
+summary: Тест на замену текущего editor state корректно загруженной JSON-схемой.
+description: Тест на замену текущего editor state корректно загруженной JSON-схемой.
+
+card_status: review
+validation_status: validated
+change_status: no_change
+approval_status: not_submitted
+
+current_state_text: |
+  Тест пока существует как validating specification по коду и UI route.
+
+validated_facts_text: |
+  - `Open` использует file input и JSON parse.
+  - Успешная ветка заменяет весь schema state.
+  - После загрузки view центрируется.
+
+validation_notes_text: |
+  Failure route проверяется отдельно в TEST-VSS-EDITOR-006.
+
+change_request_text: |
+  Новых изменений не требуется.
+
+source_refs:
+  - SRC-VSS-EDITOR-001
+artifact_refs: []
+artifact_notations: {}
+artifact_style_reference: none
+mandatory_input_status: complete
+refusal_reasons: []
+resulting_risk_refs: []
+relations:
+  scenario_refs:
+    - SCN-VSS-EDITOR-002
+  requirement_refs:
+    - REQ-VSS-EDITOR-001
+created_at: 2026-04-20
+updated_at: 2026-04-20
+validated_by: Konstantin Sypalo
+validated_at: 2026-04-20
+approved_by: ""
+approved_at: ""
+test_type: scenario-validation
+test_scope: open-json-schema
+acceptance_criteria_refs:
+  - REQ-VSS-EDITOR-001
+scenario_refs:
+  - SCN-VSS-EDITOR-002
+critical_path_coverage: false
+failure_scenario_refs: []
+----

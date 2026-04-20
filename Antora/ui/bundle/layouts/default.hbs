@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{#if page.title}}{{page.title}} | {{/if}}{{site.title}}</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f5f1e8;
+      --paper: #fffdf8;
+      --ink: #1d1b19;
+      --muted: #6b645b;
+      --accent: #9a3412;
+      --line: #ddd2c2;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: linear-gradient(180deg, #efe7d8 0%, var(--bg) 100%);
+      color: var(--ink);
+      font-family: Georgia, "Times New Roman", serif;
+      line-height: 1.65;
+    }
+
+    a { color: var(--accent); }
+
+    .shell {
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 24px 0 48px;
+    }
+
+    .masthead {
+      padding: 24px 0 12px;
+      border-bottom: 1px solid var(--line);
+      margin-bottom: 24px;
+    }
+
+    .brand {
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    .title {
+      margin: 0;
+      font-size: clamp(2rem, 5vw, 3.6rem);
+      line-height: 1.05;
+      font-weight: 700;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 24px;
+    }
+
+    .article {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      padding: clamp(20px, 4vw, 44px);
+      box-shadow: 0 18px 50px rgba(74, 54, 33, 0.08);
+    }
+
+    .meta {
+      margin-bottom: 18px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .article h1,
+    .article h2,
+    .article h3,
+    .article h4 {
+      line-height: 1.15;
+      margin-top: 1.5em;
+      margin-bottom: 0.55em;
+    }
+
+    .article h1:first-child { margin-top: 0; }
+
+    .article pre,
+    .article code {
+      font-family: Consolas, "Courier New", monospace;
+    }
+
+    .article pre {
+      overflow-x: auto;
+      background: #f7f1e7;
+      border: 1px solid var(--line);
+      padding: 14px;
+    }
+
+    .article table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.2rem 0;
+    }
+
+    .article th,
+    .article td {
+      border: 1px solid var(--line);
+      padding: 10px 12px;
+      vertical-align: top;
+    }
+
+    .article h2#_технические_поля,
+    .article h2#_технические_поля + .sectionbody,
+    .article h3#_технические_поля,
+    .article h3#_технические_поля + .sectionbody {
+      display: none;
+    }
+
+    .footer {
+      margin-top: 24px;
+      padding-top: 12px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body class="article">
+  <div class="shell">
+    <header class="masthead">
+      <div class="brand">Reference Model</div>
+      <h1 class="title">{{#if page.title}}{{page.title}}{{else}}{{site.title}}{{/if}}</h1>
+    </header>
+    <main class="layout">
+      <article class="article">
+        <div class="meta">
+          {{#if componentVersion.displayVersion}}Версия: {{componentVersion.displayVersion}}{{else}}Версия: current{{/if}}
+        </div>
+        {{{page.contents}}}
+      </article>
+    </main>
+    <footer class="footer">
+      Generated with local Antora UI bundle.
+    </footer>
+  </div>
+</body>
+</html>

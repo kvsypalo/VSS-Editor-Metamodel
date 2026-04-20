@@ -1,0 +1,194 @@
+= BASE-CARD-SCHEMA-001
+
+Базовая карточка должна оформляться в виде человекочитаемого AsciiDoc-документа с верхними смысловыми разделами и завершающим блоком технических полей.
+
+== Канонический формат карточки
+
+[source,adoc]
+----
+= <title>
+
+== Краткое описание
+<summary>
+
+== Текущее состояние
+<current_state_text>
+
+== Что подтверждено
+<validated_facts_text>
+
+== Замечания аналитика
+<validation_notes_text>
+
+== Требуемые изменения
+<change_request_text>
+
+== Решение по карточке
+Статус карточки: <card_status>  
+Статус валидации: <validation_status>  
+Статус изменения: <change_status>  
+Статус апрува: <approval_status>
+
+Проверил аналитик: <validated_by>  
+Дата проверки: <validated_at>
+
+Утвердил: <approved_by>  
+Дата утверждения: <approved_at>
+
+== Связанные объекты
+
+|===
+| Категория | ID | Наименование | Ссылка | Комментарий 
+| Объект | OBJ-... | ... | ... | ... 
+|===
+
+== Источники
+
+|===
+| ID | Источник | Ссылка | Уровень доверия | Комментарий 
+| SRC-ORIGIN-... | ... | ... | ... | ... 
+|===
+
+== Артефакты
+
+|===
+| ID | Артефакт | Ссылка | Комментарий 
+| ART-DIAGRAM-... | ... | ... | ... 
+|===
+
+'''
+== Технические поля
+
+[source,yaml]
+----
+Полное_имя_файла: <FILE-NAME.adoc>
+type: <card_type>
+layer: <layer_number_and_name>
+name: <object_name>
+title: <human_readable_title>
+status: <draft|review|approved|obsolete|archived>
+version: <version>
+owner: <owner>
+domain: <domain>
+tags:
+	- <tag1>
+	- <tag2>
+
+summary: <short_summary>
+description: <main_description>
+
+card_status: <draft|review|approved|obsolete|archived>
+validation_status: <not_validated|validated|partially_validated|rejected|needs_clarification>
+change_status: <no_change|change_identified|new_requirement|approved_for_implementation|in_implementation|implemented|in_testing|tested_failed|tested_passed|accepted|cancelled>
+approval_status: <not_submitted|submitted|approved|rejected>
+
+current_state_text: |
+	<text>
+
+validated_facts_text: |
+	<text>
+
+validation_notes_text: |
+	<text>
+
+change_request_text: |
+	<text>
+
+source_refs:
+	- SRC-ORIGIN-...
+artifact_refs:
+	- ART-DIAGRAM-...
+
+mandatory_input_status: <complete|partial|refused|not_applicable>
+refusal_reasons:
+	- <reason>
+resulting_risk_refs:
+	- ISSUE-...
+
+relations:
+	group_a:
+		- OBJ-A-...
+	group_b:
+		- OBJ-B-...
+
+created_at: <date>
+updated_at: <date>
+validated_by: <person_or_role>
+validated_at: <date>
+approved_by: <person_or_role>
+approved_at: <date>
+----
+----
+
+== Обязательные смысловые блоки
+
+|===
+| Блок | Назначение 
+| `Краткое описание` | кратко формулирует предмет карточки 
+| `Текущее состояние` | фиксирует состояние объекта на момент анализа 
+| `Что подтверждено` | перечисляет верифицированные факты 
+| `Замечания аналитика` | фиксирует оговорки, ограничения и неопределенности 
+| `Требуемые изменения` | описывает запрос на изменение или уточнение 
+| `Решение по карточке` | фиксирует статусы, валидацию и апрув 
+| `Связанные объекты` | показывает прикладные связи в читаемом виде 
+| `Источники` | фиксирует источники знаний и уровень доверия 
+| `Артефакты` | перечисляет связанные артефакты 
+| `Технические поля` | содержит машиночитаемые поля карточки 
+|===
+
+== Обязательные технические поля
+
+|===
+| Поле | Назначение 
+| `Полное_имя_файла` | уникальный постоянный идентификатор хранения 
+| `type` | тип карточки 
+| `layer` | номер и название слоя 
+| `name` | наименование объекта 
+| `title` | человекочитаемый заголовок 
+| `status` | общий статус карточки 
+| `version` | версия карточки 
+| `owner` | владелец карточки 
+| `domain` | домен объекта 
+| `tags` | теги классификации 
+| `summary` | краткое описание 
+| `description` | основное описание 
+| `card_status` | статус жизненного цикла карточки 
+| `validation_status` | статус аналитической валидации 
+| `change_status` | статус изменения 
+| `approval_status` | статус апрува 
+| `current_state_text` | текст текущего состояния 
+| `validated_facts_text` | подтвержденные факты 
+| `validation_notes_text` | замечания аналитика 
+| `change_request_text` | описание требуемого изменения 
+| `source_refs` | ссылки на источники 
+| `artifact_refs` | ссылки на артефакты 
+| `artifact_notations` | соответствие diagram/source-артефактов и их нотаций 
+| `artifact_style_reference` | ссылка на governing style source для артефактов 
+| `mandatory_input_status` | статус заполнения обязательных данных по карточке или gate 
+| `refusal_reasons` | причины отказа от заполнения обязательных данных 
+| `resulting_risk_refs` | риски, возникающие из-за пропуска или отказа 
+| `relations` | структурированные связи с другими объектами 
+| `created_at` | дата создания 
+| `updated_at` | дата изменения 
+| `validated_by` | кто провел проверку 
+| `validated_at` | дата проверки 
+| `approved_by` | кем утверждено 
+| `approved_at` | дата утверждения 
+|===
+
+== Правило оформления
+
+- верхняя часть карточки должна быть понятна человеку без чтения YAML
+- верхняя смысловая часть карточки должна быть самостоятельным человекочитаемым описанием объекта, не должна выглядеть как механический пересказ YAML и пишется на рабочем языке репозитория; source-derived product terms могут сохраняться в оригинале, если это точнее перевода
+- нижний блок `Технические поля` остается единым источником машиночитаемых значений
+- смысловые разделы и технические поля не должны противоречить друг другу
+- если обязательные данные по карточке или feasibility-gate не заполнены, карточка должна явно зафиксировать `mandatory_input_status`, причину отказа и связанный риск
+- если карточка ссылается на diagram/source-артефакты через `artifact_refs`, она должна явно фиксировать их нотации в `artifact_notations`
+- для артефактов, подпадающих под корпоративные diagram rules, в `artifact_style_reference` указывается governing документ, например `ARTIFACT-NOTATION-GOVERNANCE-001`
+- относительные ссылки на локальные документы оформляй через `xref:` там, где нужен navigable Antora link
+
+== Layer-specific obligations
+
+Layer-specific card obligations определяются самими layer-docs в `../layers/`.
+
+Агрегированная summary layer obligations хранится в `../layers-summary/`.

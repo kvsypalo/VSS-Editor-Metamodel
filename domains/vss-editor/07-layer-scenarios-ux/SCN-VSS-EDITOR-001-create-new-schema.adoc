@@ -1,0 +1,125 @@
+= Create New Schema
+
+== Краткое описание
+Актер начинает работу с чистого листа: открывает меню `Schema`, выбирает `New` и получает заготовку схемы, с которой можно сразу продолжать предметную работу. Вместо пустого технического холста редактор сразу выдает минимальный стартовый набор объектов, чтобы было от чего отталкиваться при обсуждении системы.
+
+== Текущее состояние
+Сценарий уже реализован и начинается с подтверждения сброса текущей работы. После этого редактор открывает новую схему в центре экрана и переводит актера в состояние, где можно сразу менять название схемы, двигать converter и перестраивать flows.
+
+== Что подтверждено
+- `createEmptySchema()` создает стартовую схему с metadata, одним converter, двумя внешними flows и одним value element.
+- После команды `New` редактор выбирает схему как текущий объект, центрирует вид и заново показывает рабочую поверхность.
+- Заголовок новой схемы по умолчанию - `New Value System`.
+
+== Замечания аналитика
+В исходниках подтвержден только стандартный browser confirmation dialog. Отдельный сценарий на сохранение перед сбросом или на восстановление несохраненной работы не найден.
+
+== Требуемые изменения
+Новых изменений не требуется.
+
+== Решение по карточке
+Статус карточки: review
+Статус валидации: validated
+Статус изменения: no_change
+Статус апрува: not_submitted
+
+Проверил аналитик: Konstantin Sypalo
+Дата проверки: 2026-04-20
+
+Утвердил:
+Дата утверждения:
+
+== Связанные объекты
+
+|===
+| Категория | ID | Наименование | Ссылка | Комментарий
+| Requirement | REQ-VSS-EDITOR-001 | Создание и открытие схемы | ../08-layer-requirements/REQ-VSS-EDITOR-001-create-and-open-schema-state.adoc | Requirement сценария `New`
+| Test | TEST-VSS-EDITOR-001 | Проверка создания новой схемы | ../20-layer-quality-testing/TEST-VSS-EDITOR-001-create-new-schema-defaults.adoc | Validating test
+| Data | DATA-VSS-EDITOR-001 | Schema aggregate | ../13-layer-data-architecture/DATA-VSS-EDITOR-001-schema-document-aggregate.adoc | Объект, который создается сценарием
+|===
+
+== Источники
+
+|===
+| ID | Источник | Ссылка | Уровень доверия | Комментарий
+| SRC-VSS-EDITOR-001 | app.js | C:/MetaModel/Example code/vss-editor-2.4/app.js | high | Подтверждает `createEmptySchema` и обработчик `btnNew`
+|===
+
+== Артефакты
+
+|===
+| ID | Артефакт | Ссылка | Комментарий
+|===
+
+'''
+== Технические поля
+
+[source,yaml]
+----
+Полное_имя_файла: SCN-VSS-EDITOR-001-create-new-schema.adoc
+type: scenario
+layer: 07 scenarios-ux
+name: Create new schema
+title: Create New Schema
+status: review
+version: 1.0.0
+owner: analysis
+domain: vss-editor
+tags:
+  - scenario
+  - create
+  - schema
+
+summary: Актер начинает новую схему и получает готовую стартовую заготовку для дальнейшей работы.
+description: Актер начинает новую схему и получает готовую стартовую заготовку для дальнейшей работы.
+
+card_status: review
+validation_status: validated
+change_status: no_change
+approval_status: not_submitted
+
+current_state_text: |
+  Сценарий `New` доступен из schema menu и дает актеру готовую отправную точку вместо пустого холста.
+
+validated_facts_text: |
+  - Создается default schema aggregate с node, flows и element.
+  - Вид центрируется после пересоздания схемы.
+  - Выбранным объектом становится сама схема.
+
+validation_notes_text: |
+  Отдельный recovery scenario на отмену browser confirm в этой wave не materialized.
+
+change_request_text: |
+  Новых изменений не требуется.
+
+source_refs:
+  - SRC-VSS-EDITOR-001
+artifact_refs: []
+artifact_notations: {}
+artifact_style_reference: none
+mandatory_input_status: complete
+refusal_reasons: []
+resulting_risk_refs: []
+relations:
+  requirement_refs:
+    - REQ-VSS-EDITOR-001
+  test_refs:
+    - TEST-VSS-EDITOR-001
+  data_refs:
+    - DATA-VSS-EDITOR-001
+created_at: 2026-04-20
+updated_at: 2026-04-20
+validated_by: Konstantin Sypalo
+validated_at: 2026-04-20
+approved_by: ""
+approved_at: ""
+scenario_type: primary
+primary_actor: schema author
+entry_point: Schema menu -> New
+expected_outcome: Актер получает новую редактируемую схему с базовым набором объектов и может сразу перейти к описанию своей системы.
+is_failure_scenario: false
+critical_path_step_refs: []
+fallback_outcome: Если актер отменяет подтверждение сброса, текущая схема остается открытой без изменений.
+test_refs:
+  - TEST-VSS-EDITOR-001
+----

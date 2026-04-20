@@ -1,0 +1,37 @@
+= 18 Risks
+
+== Path
+`domains/<domain>/18-layer-risks/`
+
+== Purpose
+Слой фиксирует риски, причины, последствия, критические точки отказа, неопределенности и риск-сценарии.
+
+== Activation
+- Этот слой входит в канонический стек `01-33`.
+- Домен может пометить слой как `unused`, только если локально действительно отсутствуют отдельные risk cards.
+
+== Typical objects
+- `RISK-*`
+
+== Special fields
+- `risk_type`
+- `cause`
+- `impact`
+- `probability`
+
+== Traceability rules
+- Каждый `RISK-*` должен иметь контроль, `NFR-*` или изменение.
+- Каждый `SCN-*` типа `failure` или `degraded`, связанный с critical path, должен иметь хотя бы один `RISK-*`, `REQ-*` или `CHANGE-*`.
+- Каждый `ECON-*`, `ENGCAP-*`, `COMP-*`, `SEC-*`, `ACCESS-*`, `PERF-*`, `CRIT-*` с решением `unknown`, `changes_required`, `constraint_violation` или неполным mandatory input должен иметь хотя бы один `RISK-*`, `REQ-*` или `CHANGE-*`.
+- Каждый отказ от обязательного заполнения feasibility-данных должен иметь явную причину и хотя бы один связанный `RISK-*`.
+
+== Key rules
+- Риск не должен оставаться без контроля, требования, change или другого управленческого ответа.
+- Риски критического пути должны быть связаны с `CRIT-*`, `PROC-*`, `SCN-*`, `REQ-*`, `TEST-*` или `METRIC-*`.
+
+== Related layers
+- Upstream: практически все слои модели, особенно `12 Integrations`, `13 Data Architecture`, `15 Technology Architecture`, `16 Operations`, `26-33 Validation Layers`.
+- Downstream: `08 Requirements`, `20 Quality Testing`, `22 Changes Roadmap`, `17 NFR Quality Attributes`, `33 Critical Path`.
+
+== Authoring notes
+- Если карточка фиксирует critical path или failure scenario, она обязана использовать явные cross-layer links, а не оставаться изолированным риском.

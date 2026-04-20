@@ -1,0 +1,125 @@
+= Export Schema Artifacts
+
+== Краткое описание
+Актер завершает очередной цикл работы и выводит схему наружу в том формате, который нужен дальше по работе. JSON нужен, чтобы вернуться к той же схеме позже и продолжить редактирование, а PNG - чтобы показать текущую картину коллегам, приложить к обсуждению или использовать как наглядный снимок состояния.
+
+== Текущее состояние
+Сценарий уже реализован как две соседние команды одного и того же рабочего шага. Актер не покидает редактор, а просто выбирает, нужен ли ему рабочий файл для продолжения редактирования или визуальный результат для показа.
+
+== Что подтверждено
+- Export JSON использует имя текущей схемы и сохраняет весь schema state.
+- Export PNG выводит саму диаграмму как отдельный визуальный результат.
+- Если диаграмма пуста, редактор явно сообщает, что экспортировать нечего.
+
+== Замечания аналитика
+Две export-команды объединены в один сценарий, потому что для пользователя это один и тот же шаг завершения работы: вынести текущую схему из редактора в нужном формате.
+
+== Требуемые изменения
+Новых изменений не требуется.
+
+== Решение по карточке
+Статус карточки: review
+Статус валидации: validated
+Статус изменения: no_change
+Статус апрува: not_submitted
+
+Проверил аналитик: Konstantin Sypalo
+Дата проверки: 2026-04-20
+
+Утвердил:
+Дата утверждения:
+
+== Связанные объекты
+
+|===
+| Категория | ID | Наименование | Ссылка | Комментарий
+| Requirement | REQ-VSS-EDITOR-003 | Импорт и экспорт schema assets | ../08-layer-requirements/REQ-VSS-EDITOR-003-import-and-export-schema-assets.adoc | Requirement export route
+| Test | TEST-VSS-EDITOR-005 | Проверка экспорта JSON и PNG | ../20-layer-quality-testing/TEST-VSS-EDITOR-005-export-json-and-png.adoc | Validating test
+| Value | VALUE-VSS-EDITOR-001 | Визуальное редактирование схемы | ../01-layer-aeilus-value-streams/VALUE-VSS-EDITOR-001-edit-value-system-schema.adoc | Export закрывает value outcome в переносимый артефакт
+|===
+
+== Источники
+
+|===
+| ID | Источник | Ссылка | Уровень доверия | Комментарий
+| SRC-VSS-EDITOR-001 | app.js | C:/MetaModel/Example code/vss-editor-2.4/app.js | high | Подтверждает `btnSaveFile`, `btnExportPng` и `exportPng()`
+|===
+
+== Артефакты
+
+|===
+| ID | Артефакт | Ссылка | Комментарий
+|===
+
+'''
+== Технические поля
+
+[source,yaml]
+----
+Полное_имя_файла: SCN-VSS-EDITOR-005-export-schema-artifacts.adoc
+type: scenario
+layer: 07 scenarios-ux
+name: Export schema artifacts
+title: Export Schema Artifacts
+status: review
+version: 1.0.0
+owner: analysis
+domain: vss-editor
+tags:
+  - scenario
+  - export
+  - artifact
+
+summary: Актер завершает работу над схемой и выводит ее в JSON для продолжения или в PNG для обсуждения.
+description: Актер завершает работу над схемой и выводит ее в JSON для продолжения или в PNG для обсуждения.
+
+card_status: review
+validation_status: validated
+change_status: no_change
+approval_status: not_submitted
+
+current_state_text: |
+  JSON и PNG export уже доступны из schema menu как два формата вывода одного и того же рабочего результата.
+
+validated_facts_text: |
+  - JSON export сериализует весь schema state.
+  - PNG export рендерит только content group диаграммы.
+  - При пустом diagram content PNG export дает явный сигнал `Nothing to export`.
+
+validation_notes_text: |
+  Route объединяет JSON и PNG export из-за общего entry point и общей пользовательской цели - вынести схему из редактора.
+
+change_request_text: |
+  Новых изменений не требуется.
+
+source_refs:
+  - SRC-VSS-EDITOR-001
+artifact_refs: []
+artifact_notations: {}
+artifact_style_reference: none
+mandatory_input_status: complete
+refusal_reasons: []
+resulting_risk_refs: []
+relations:
+  requirement_refs:
+    - REQ-VSS-EDITOR-003
+  test_refs:
+    - TEST-VSS-EDITOR-005
+  value_refs:
+    - VALUE-VSS-EDITOR-001
+created_at: 2026-04-20
+updated_at: 2026-04-20
+validated_by: Konstantin Sypalo
+validated_at: 2026-04-20
+approved_by: ""
+approved_at: ""
+scenario_type: primary
+primary_actor: schema author
+entry_point: Schema menu -> Export JSON or Export PNG
+expected_outcome: Актер получает файл с текущей схемой в формате, который подходит либо для дальнейшей работы, либо для внешнего обсуждения.
+is_failure_scenario: false
+critical_path_step_refs: []
+fallback_outcome: Если в схеме нет содержимого для PNG, редактор не ломает текущую сессию и просто сообщает, что экспортировать нечего.
+test_refs:
+  - TEST-VSS-EDITOR-005
+----

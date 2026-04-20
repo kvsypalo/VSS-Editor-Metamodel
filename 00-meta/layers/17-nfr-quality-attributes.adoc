@@ -1,0 +1,33 @@
+= 17 NFR Quality Attributes
+
+== Path
+`domains/<domain>/17-layer-nfr-quality-attributes/`
+
+== Purpose
+Слой содержит общие NFR и quality attributes, которые не вынесены в специальные слои вроде security, performance или compliance.
+
+== Activation
+- Этот слой входит в канонический стек `01-33`.
+- Домен может пометить слой как `unused`, если все значимые NFR уже оформлены в специализированных слоях.
+
+== Typical objects
+- `NFR-*`
+
+== Special fields
+- Отдельные layer-specific поля не заданы. Используется `BASE-CARD-SCHEMA-001`.
+
+== Traceability rules
+- Каждый `RISK-*` должен иметь контроль, `NFR-*` или изменение.
+- Явные product constraints по performance, security, compliance, access rights и critical path не должны молча оставаться в общем NFR-контейнере.
+
+== Key rules
+- Явные product constraints по performance, security, compliance, access rights и critical path оформляются в слоях `27-33`, а не растворяются по умолчанию в общем NFR-контейнере.
+- Этот слой используется для общих quality attributes, не выделенных в специализированные canonical layers.
+
+== Related layers
+- Upstream: `08 Requirements`, `15 Technology Architecture`.
+- Downstream: `18 Risks`, `20 Quality Testing`.
+- Neighbor layers: `29 Compliance`, `30 Security`, `31 Access Rights`, `32 Performance`, `33 Critical Path`.
+
+== Authoring notes
+- Перед созданием `NFR-*` проверь, не относится ли ограничение точнее к слоям `29-33`.

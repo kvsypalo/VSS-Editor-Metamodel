@@ -1,0 +1,126 @@
+= Import Additional Schema
+
+== Краткое описание
+Актер берет еще один фрагмент схемы и добавляет его в уже открытую работу через `Add Schema`. Сценарий нужен не для замены текущей картины, а для ее расширения: собрать в одном canvas несколько частей системы и дальше править их вместе.
+
+== Текущее состояние
+Сценарий уже реализован как добавление второй схемы к текущей рабочей картине. Если у объектов совпадают идентификаторы, редактор разводит их автоматически, чтобы актер получил единый рабочий canvas с корректными ссылками.
+
+== Что подтверждено
+- `btnImport` использует тот же file input, что и `Open`, и запускает сценарий объединения схемы с текущей рабочей картиной.
+- `importWithPrefix()` добавляет в текущую работу nodes, flows, elements и texts из второго файла.
+- При дублировании ID редактор автоматически разводит imported objects и обновляет их связи.
+
+== Замечания аналитика
+Source basis не подтверждает более сложные merge rules вроде semantic deduplication или объединения одноименных объектов по смыслу.
+
+== Требуемые изменения
+Новых изменений не требуется.
+
+== Решение по карточке
+Статус карточки: review
+Статус валидации: validated
+Статус изменения: no_change
+Статус апрува: not_submitted
+
+Проверил аналитик: Konstantin Sypalo
+Дата проверки: 2026-04-20
+
+Утвердил:
+Дата утверждения:
+
+== Связанные объекты
+
+|===
+| Категория | ID | Наименование | Ссылка | Комментарий
+| Requirement | REQ-VSS-EDITOR-003 | Импорт и экспорт schema assets | ../08-layer-requirements/REQ-VSS-EDITOR-003-import-and-export-schema-assets.adoc | Requirement сценария import
+| Test | TEST-VSS-EDITOR-003 | Проверка импорта схемы | ../20-layer-quality-testing/TEST-VSS-EDITOR-003-import-schema-with-prefixing.adoc | Validating test
+| Rule | RULE-VSS-EDITOR-003 | Prefix remapping при import | ../09-layer-domain-rules/RULE-VSS-EDITOR-003-import-prefixes-colliding-identifiers.adoc | Основное merge rule сценария
+|===
+
+== Источники
+
+|===
+| ID | Источник | Ссылка | Уровень доверия | Комментарий
+| SRC-VSS-EDITOR-001 | app.js | C:/MetaModel/Example code/vss-editor-2.4/app.js | high | Подтверждает `btnImport` и `importWithPrefix()`
+|===
+
+== Артефакты
+
+|===
+| ID | Артефакт | Ссылка | Комментарий
+|===
+
+'''
+== Технические поля
+
+[source,yaml]
+----
+Полное_имя_файла: SCN-VSS-EDITOR-003-import-additional-schema.adoc
+type: scenario
+layer: 07 scenarios-ux
+name: Import additional schema
+title: Import Additional Schema
+status: review
+version: 1.0.0
+owner: analysis
+domain: vss-editor
+tags:
+  - scenario
+  - import
+  - merge
+
+summary: Актер расширяет текущую схему дополнительным JSON-фрагментом и продолжает работать с общим canvas.
+description: Актер расширяет текущую схему дополнительным JSON-фрагментом и продолжает работать с общим canvas.
+
+card_status: review
+validation_status: validated
+change_status: no_change
+approval_status: not_submitted
+
+current_state_text: |
+  Сценарий `Add Schema` уже реализован и добавляет новую схему к текущей рабочей картине.
+
+validated_facts_text: |
+  - Import добавляет imported nodes, flows, elements и texts к текущему состоянию.
+  - ID collisions закрываются префиксом.
+  - Cross-references imported объектов переназначаются на новые IDs.
+
+validation_notes_text: |
+  Source basis не показывает conflict resolution beyond ID remapping.
+
+change_request_text: |
+  Новых изменений не требуется.
+
+source_refs:
+  - SRC-VSS-EDITOR-001
+artifact_refs: []
+artifact_notations: {}
+artifact_style_reference: none
+mandatory_input_status: complete
+refusal_reasons: []
+resulting_risk_refs: []
+relations:
+  requirement_refs:
+    - REQ-VSS-EDITOR-003
+  rule_refs:
+    - RULE-VSS-EDITOR-003
+  test_refs:
+    - TEST-VSS-EDITOR-003
+created_at: 2026-04-20
+updated_at: 2026-04-20
+validated_by: Konstantin Sypalo
+validated_at: 2026-04-20
+approved_by: ""
+approved_at: ""
+scenario_type: primary
+primary_actor: schema author
+entry_point: Schema menu -> Add Schema -> choose JSON file
+expected_outcome: Imported schema objects are appended to the current editable canvas with remapped colliding identifiers.
+expected_outcome: Актер видит на одном canvas и исходную, и добавленную схему и может дальше редактировать их как единую рабочую картину.
+is_failure_scenario: false
+critical_path_step_refs: []
+fallback_outcome: Если файл не читается как JSON, импорт не происходит, а текущая схема остается в том же состоянии.
+test_refs:
+  - TEST-VSS-EDITOR-003
+----

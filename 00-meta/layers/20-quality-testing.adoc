@@ -1,0 +1,42 @@
+= 20 Quality Testing
+
+== Path
+`domains/<domain>/20-layer-quality-testing/`
+
+== Purpose
+Слой описывает тестовые подходы, quality gates, acceptance criteria coverage, critical-path coverage и evidence по качеству.
+
+== Activation
+- Этот слой входит в канонический стек `01-33`.
+- Домен может пометить слой как `unused`, если локально не ведет отдельные test cards.
+
+== Typical objects
+- `TEST-*`
+
+== Special fields
+- `test_type`
+- `test_scope`
+- `acceptance_criteria_refs`
+- `scenario_refs`
+- `critical_path_coverage`
+- `failure_scenario_refs`
+
+== Traceability rules
+- Каждый `TEST-*` должен проверять процесс, требование, API или правило.
+- Каждый `TEST-*`, который проверяет user-facing route, expected outcome, failure, degraded или recovery behavior, должен иметь хотя бы один явный linked `SCN-*`.
+- Каждый `PROC-*` с `critical_path = true` должен иметь хотя бы один `TEST-*`, `METRIC-*` или `PERF-*`.
+- Каждый `CRIT-*`, который задает continuity contract, должен быть связан хотя бы с одним `TEST-*` и `METRIC-*`, либо явно фиксировать их отсутствие как gap/risk.
+
+== Key rules
+- `TEST-*` должен проверять процесс, требование, API или правило.
+- Если `TEST-*` materialize как validating pair для сценария, отсутствие обратной ссылки на `SCN-*` считается нарушением и не считается review-ready состоянием.
+- Для critical path обязательна явная проверка основного и отказного маршрута либо зафиксированный gap/risk.
+
+== Related layers
+- Upstream: `06 Processes`, `07 Scenarios UX`, `08 Requirements`, `09 Domain Rules`, `11 API Interfaces`, `33 Critical Path`.
+- Downstream: `25 Traceability`, `18 Risks`.
+
+== Authoring notes
+- Если карточка слоя 20 фиксирует critical path или scenario failure coverage, она не может оставаться изолированной: обязательны явные связи с `PROC-*`, `SCN-*` или `REQ-*`, которые она подтверждает.
+- Для scenario-oriented tests ссылка назад на сценарий фиксируется явно и в prose, и в `scenario_refs`, чтобы проверяемый маршрут не терялся за общим `REQ-*` или `PROC-*` контекстом.
+- Если обязательное звено цепочки еще не создано, это должно быть зафиксировано как gap и связанный `RISK-*`.

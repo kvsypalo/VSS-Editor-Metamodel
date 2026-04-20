@@ -1,0 +1,30 @@
+= LAYER-STRUCTURE-RULES-001
+
+== Базовые правила
+1. `common/` содержит общие объекты.
+2. `domains/<domain>/` содержит объекты верхнеуровневого домена.
+3. `domains/<domain>/domains/<child-domain>/` содержит объекты дочернего домена.
+4. `Antora/` допускается только как service layer и не меняет канонические пути объектных слоев.
+
+== Важные правила
+- root `00-meta/` задает канонический набор слоев, repository-wide rules и статические layer-documents в `../layers/`
+- root `00-meta/` хранит aggregate layer summaries в `../layers-summary/`
+- полный доменный канонический стек определяется root canonical layer set, а `.summary/` обслуживает только meta/context уровень домена
+- публикационное представление Antora определяется root governance и укрупняет reading flow без изменения canonical paths или layer semantics
+- для верхнеуровневого product domain слой `01` считается foundational-by-default и должен быть явно оценен до закрытия первой волны анализа
+- omission слоя `01` для верхнеуровневого product domain требует явной причины, source basis и связанного `RISK-*`
+- child domain может не materialize локальный `VALUE-*` только при явной фиксации inheritance или отсутствия independent value stream
+- любой домен должен иметь собственного ответственного через `owner` в `MAP-*` и оставаться максимально автономным в пределах своего scope
+- product wave стартует в исходном домене и каскадируется в другие домены только после подтвержденного impact-check
+- домен и дочерний домен могут не использовать часть слоев, но не могут создавать новые слои или удалять существующие
+- новые канонические слои добавляются в хвост числового списка без перенумерации уже принятых базовых слоев
+- статическое описание каждого слоя находится в отдельном файле внутри `../layers/`
+- aggregate layer-specific summaries хранятся только в `../layers-summary/`
+- layer-specific semantics, object prefixes, special fields, traceability rules и authoring notes не хранятся вне `../layers/` и `../layers-summary/`
+- при добавлении, удалении или изменении слоя нужно обновлять и `../layers/`, и `../layers-summary/`
+- publication mapping Antora фиксируется в `../governance/ANTORA-PUBLICATION-VIEW-RULES-001.adoc` и обновляется вместе с service-layer реализацией
+- канонический формат layer-docs, summaries и card files — `.adoc`; исключение на root допускается только для `AGENTS.md`
+- артефакты живут в `artifacts/`, а карточки артефактов и источников живут в `24-layer-knowledge-sources/`
+- списки, реестры и матрицы живут в `indexes/`
+- пустые слои допустимы
+- отказ от заполнения обязательных validation-данных не считается молчаливо допустимым: причина отказа и связанный риск фиксируются явно

@@ -1,0 +1,45 @@
+= LAYER-CANONICAL-TABLES-002
+
+Каноническая таблица полного набора слоев, их canonical names, canonical paths и ссылок на static layer docs.
+
+Детальная semantics, object prefixes, special fields, traceability rules и authoring notes каждого слоя хранятся в `../layers/`.
+
+Если меняется набор слоев, их canonical names или canonical paths, эта таблица должна быть обновлена в том же change set вместе с `../layers/`.
+
+|===
+| № | Каноническое имя | Русское название | Английское название | Canonical path | Static doc 
+| 00 | meta | Meta и доменный контекст | Meta and domain context | `domains/<domain>/.summary/` | xref:00-meta/layers/00-meta.adoc[00-meta] 
+| 01 | aeilus-value-streams | Слой потоков ценности по Aeilus | Aeilus value streams layer | `domains/<domain>/01-layer-aeilus-value-streams/` | xref:00-meta/layers/01-aeilus-value-streams.adoc[01] 
+| 02 | context-boundaries | Слой контекста и границ продукта | Product context and boundaries layer | `domains/<domain>/02-layer-context-boundaries/` | xref:00-meta/layers/02-context-boundaries.adoc[02] 
+| 03 | stakeholders-motivation | Слой стейкхолдеров и мотивации | Stakeholders and motivation layer | `domains/<domain>/03-layer-stakeholders-motivation/` | xref:00-meta/layers/03-stakeholders-motivation.adoc[03] 
+| 04 | strategy-product | Слой стратегии и продуктового управления | Strategy and product management layer | `domains/<domain>/04-layer-strategy-product/` | xref:00-meta/layers/04-strategy-product.adoc[04] 
+| 05 | business-architecture | Слой бизнес-архитектуры | Business architecture layer | `domains/<domain>/05-layer-business-architecture/` | xref:00-meta/layers/05-business-architecture.adoc[05] 
+| 06 | processes | Слой процессов | Process layer | `domains/<domain>/06-layer-processes/` | xref:00-meta/layers/06-processes.adoc[06] 
+| 07 | scenarios-ux | Слой пользовательских сценариев и UX-логики | User scenarios and UX logic layer | `domains/<domain>/07-layer-scenarios-ux/` | xref:00-meta/layers/07-scenarios-ux.adoc[07] 
+| 08 | requirements | Слой требований | Requirements layer | `domains/<domain>/08-layer-requirements/` | xref:00-meta/layers/08-requirements.adoc[08] 
+| 09 | domain-rules | Слой предметной области и бизнес-правил | Domain model and business rules layer | `domains/<domain>/09-layer-domain-rules/` | xref:00-meta/layers/09-domain-rules.adoc[09] 
+| 10 | applications-architecture | Слой приложений и системной архитектуры | Applications and system architecture layer | `domains/<domain>/10-layer-applications-architecture/` | xref:00-meta/layers/10-applications-architecture.adoc[10] 
+| 11 | api-interfaces | Слой API и интерфейсов | API and interfaces layer | `domains/<domain>/11-layer-api-interfaces/` | xref:00-meta/layers/11-api-interfaces.adoc[11] 
+| 12 | integrations | Слой интеграций | Integrations layer | `domains/<domain>/12-layer-integrations/` | xref:00-meta/layers/12-integrations.adoc[12] 
+| 13 | data-architecture | Слой данных и информационной архитектуры | Data and information architecture layer | `domains/<domain>/13-layer-data-architecture/` | xref:00-meta/layers/13-data-architecture.adoc[13] 
+| 14 | code-implementation | Слой кода и реализации | Code and implementation layer | `domains/<domain>/14-layer-code-implementation/` | xref:00-meta/layers/14-code-implementation.adoc[14] 
+| 15 | technology-architecture | Слой технологической архитектуры | Technology architecture layer | `domains/<domain>/15-layer-technology-architecture/` | xref:00-meta/layers/15-technology-architecture.adoc[15] 
+| 16 | operations | Слой эксплуатации и операционной модели | Operations and operating model layer | `domains/<domain>/16-layer-operations/` | xref:00-meta/layers/16-operations.adoc[16] 
+| 17 | nfr-quality-attributes | Слой нефункциональных требований и характеристик качества | NFR and quality attributes layer | `domains/<domain>/17-layer-nfr-quality-attributes/` | xref:00-meta/layers/17-nfr-quality-attributes.adoc[17] 
+| 18 | risks | Слой рисков | Risks layer | `domains/<domain>/18-layer-risks/` | xref:00-meta/layers/18-risks.adoc[18] 
+| 19 | technical-debt | Слой технического долга | Technical debt layer | `domains/<domain>/19-layer-technical-debt/` | xref:00-meta/layers/19-technical-debt.adoc[19] 
+| 20 | quality-testing | Слой качества и тестирования | Quality and testing layer | `domains/<domain>/20-layer-quality-testing/` | xref:00-meta/layers/20-quality-testing.adoc[20] 
+| 21 | observability | Слой наблюдаемости и измеримости | Observability and measurability layer | `domains/<domain>/21-layer-observability/` | xref:00-meta/layers/21-observability.adoc[21] 
+| 22 | changes-roadmap | Слой изменений, инициатив и дорожной карты | Changes, initiatives and roadmap layer | `domains/<domain>/22-layer-changes-roadmap/` | xref:00-meta/layers/22-changes-roadmap.adoc[22] 
+| 23 | development-tasks | Слой постановки задач на развитие | Development tasks layer | `domains/<domain>/23-layer-development-tasks/` | xref:00-meta/layers/23-development-tasks.adoc[23] 
+| 24 | knowledge-sources | Слой управления знаниями и источниками истины | Knowledge management and sources of truth layer | `domains/<domain>/24-layer-knowledge-sources/` | xref:00-meta/layers/24-knowledge-sources.adoc[24] 
+| 25 | traceability | Сквозной слой связности | Cross-layer traceability layer | `domains/<domain>/25-layer-traceability/` | xref:00-meta/layers/25-traceability.adoc[25] 
+| 26 | business-hypotheses | Слой бизнес-гипотез | Business hypotheses layer | `domains/<domain>/26-layer-business-hypotheses/` | xref:00-meta/layers/26-business-hypotheses.adoc[26] 
+| 27 | economics-validation | Слой экономической валидации | Economics validation layer | `domains/<domain>/27-layer-economics-validation/` | xref:00-meta/layers/27-economics-validation.adoc[27] 
+| 28 | engineering-process-capability | Слой готовности процесса разработки | Engineering process capability layer | `domains/<domain>/28-layer-engineering-process-capability/` | xref:00-meta/layers/28-engineering-process-capability.adoc[28] 
+| 29 | compliance | Слой комплайнса | Compliance layer | `domains/<domain>/29-layer-compliance/` | xref:00-meta/layers/29-compliance.adoc[29] 
+| 30 | security | Слой безопасности | Security layer | `domains/<domain>/30-layer-security/` | xref:00-meta/layers/30-security.adoc[30] 
+| 31 | access-rights | Слой ролей и прав доступа | Access rights layer | `domains/<domain>/31-layer-access-rights/` | xref:00-meta/layers/31-access-rights.adoc[31] 
+| 32 | performance | Слой производительности | Performance layer | `domains/<domain>/32-layer-performance/` | xref:00-meta/layers/32-performance.adoc[32] 
+| 33 | critical-path | Слой критического пути | Critical path layer | `domains/<domain>/33-layer-critical-path/` | xref:00-meta/layers/33-critical-path.adoc[33] 
+|===

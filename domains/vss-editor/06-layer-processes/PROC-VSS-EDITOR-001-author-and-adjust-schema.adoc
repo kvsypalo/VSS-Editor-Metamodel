@@ -1,0 +1,151 @@
+= Author And Adjust Schema
+
+== Краткое описание
+Это верхнеуровневый процесс работы со схемой ценности. Он начинается с того, что актер входит в редактор с пустым холстом или уже подготовленным JSON-файлом, затем собирает или уточняет схему на canvas, при необходимости подмешивает второй фрагмент через import и завершает цикл выгрузкой результата в JSON или PNG.
+
+У процесса есть понятный старт, рабочая середина и финиш. Стартом является появление редактируемой схемы в редакторе, рабочая часть состоит из последовательных правок converters, flows, element types и заметок, а финишем становится переносимый результат, который можно открыть снова или вынести в обсуждение.
+
+== Текущее состояние
+Весь процесс выполняется внутри одной браузерной страницы и держится на текущем schema state в памяти. Отдельного серверного хранения или фоновой синхронизации нет: если актеру нужен результат за пределами текущей сессии, процесс должен завершиться явным экспортом.
+
+== Что подтверждено
+- Процесс начинается через `Schema` menu: актер создает новую схему, открывает существующую или добавляет еще один JSON-фрагмент в текущую работу.
+- Основная работа идет на canvas и в properties panel: актер меняет состав схемы, параметры объектов и связи между ними.
+- Процесс завершается export-командой, которая превращает текущую схему в JSON или PNG.
+
+== Замечания аналитика
+Исходники достаточно малы, поэтому процесс пока остается одной верхнеуровневой карточкой. В таком виде он фиксирует старт, участников, шаги, результат и отказной путь.
+
+== Требуемые изменения
+Новых изменений не требуется.
+
+== Решение по карточке
+Статус карточки: review
+Статус валидации: validated
+Статус изменения: no_change
+Статус апрува: not_submitted
+
+Проверил аналитик: Konstantin Sypalo
+Дата проверки: 2026-04-20
+
+Утвердил:
+Дата утверждения:
+
+== Связанные объекты
+
+|===
+| Категория | ID | Наименование | Ссылка | Комментарий
+| Value | VALUE-VSS-EDITOR-001 | Визуальное редактирование схемы | ../01-layer-aeilus-value-streams/VALUE-VSS-EDITOR-001-edit-value-system-schema.adoc | Процесс реализует value movement
+| Goal | GOAL-VSS-EDITOR-001 | Поддерживать редактируемую схему | ../04-layer-strategy-product/GOAL-VSS-EDITOR-001-maintain-editable-schema-authoring.adoc | Процесс поддерживает goal
+| Application | APP-VSS-EDITOR-001 | VSS Editor browser application | ../10-layer-applications-architecture/APP-VSS-EDITOR-001-browser-schema-editor.adoc | Прикладная среда, в которой выполняется процесс
+| Scenario | SCN-VSS-EDITOR-004 | Редактировать схему на canvas | ../07-layer-scenarios-ux/SCN-VSS-EDITOR-004-edit-schema-on-canvas.adoc | Основной сценарий процесса
+| Critical path | CRIT-VSS-EDITOR-001 | Непрерывность маршрута от открытия до экспорта | ../33-layer-critical-path/CRIT-VSS-EDITOR-001-authoring-session-continuity.adoc | Оценка end-to-end цепочки процесса
+|===
+
+== Источники
+
+|===
+| ID | Источник | Ссылка | Уровень доверия | Комментарий
+| SRC-VSS-EDITOR-001 | Исходный web bundle v2.4 | C:/MetaModel/Example code/vss-editor-2.4 | high | Подтверждает полный authoring cycle и команды меню
+|===
+
+== Артефакты
+
+|===
+| ID | Артефакт | Ссылка | Комментарий
+|===
+
+'''
+== Технические поля
+
+[source,yaml]
+----
+Полное_имя_файла: PROC-VSS-EDITOR-001-author-and-adjust-schema.adoc
+type: process
+layer: 06 processes
+name: Author and adjust schema
+title: Author And Adjust Schema
+status: review
+version: 1.0.0
+owner: analysis
+domain: vss-editor
+tags:
+  - process
+  - authoring
+  - schema
+
+summary: Верхнеуровневый процесс, в котором актер получает редактируемую схему, уточняет ее и доводит до экспортируемого результата.
+description: Верхнеуровневый процесс, в котором актер получает редактируемую схему, уточняет ее и доводит до экспортируемого результата.
+
+card_status: review
+validation_status: validated
+change_status: no_change
+approval_status: not_submitted
+
+current_state_text: |
+  Процесс выполняется целиком в браузере и опирается на текущую редактируемую схему в памяти страницы.
+  Если работу нужно сохранить или передать дальше, процесс должен завершиться JSON или PNG export.
+
+validated_facts_text: |
+  - Старт процесса задается командами `New`, `Open` и `Add Schema`.
+  - Основные шаги процесса проходят через canvas, properties panel и команды добавления объектов.
+  - Финиш процесса подтвержден экспортом в JSON или PNG.
+
+validation_notes_text: |
+  Автоматическое persistence-хранилище в source basis не обнаружено.
+  Поэтому конец процесса в текущем продукте - это не автосохранение, а явная выгрузка результата.
+
+change_request_text: |
+  Новых изменений не требуется.
+
+source_refs:
+  - SRC-VSS-EDITOR-001
+artifact_refs: []
+artifact_notations: {}
+artifact_style_reference: none
+mandatory_input_status: complete
+refusal_reasons: []
+resulting_risk_refs: []
+relations:
+  value_refs:
+    - VALUE-VSS-EDITOR-001
+  goal_refs:
+    - GOAL-VSS-EDITOR-001
+  app_refs:
+    - APP-VSS-EDITOR-001
+  scenario_refs:
+    - SCN-VSS-EDITOR-001
+    - SCN-VSS-EDITOR-002
+    - SCN-VSS-EDITOR-003
+    - SCN-VSS-EDITOR-004
+    - SCN-VSS-EDITOR-005
+    - SCN-VSS-EDITOR-006
+  requirement_refs:
+    - REQ-VSS-EDITOR-001
+    - REQ-VSS-EDITOR-002
+    - REQ-VSS-EDITOR-003
+    - REQ-VSS-EDITOR-004
+  critical_path_refs:
+    - CRIT-VSS-EDITOR-001
+created_at: 2026-04-20
+updated_at: 2026-04-20
+validated_by: Konstantin Sypalo
+validated_at: 2026-04-20
+approved_by: ""
+approved_at: ""
+trigger: Actor opens the editor and needs to create, continue or combine a value-system schema.
+inputs:
+  - Empty canvas or existing schema JSON
+  - User actions in schema menu, canvas and properties panel
+outputs:
+  - Updated working schema inside the current session
+  - Exported JSON or PNG artifact when the actor finishes the session
+result: Actor получает уточненную схему, которую можно продолжить редактировать, переоткрыть или показать другим участникам работы.
+participants:
+  - schema author
+  - browser editor runtime
+critical_path: true
+criticality_level: business-critical
+failure_impact: Если актер не может открыть, править или выгрузить схему, продукт не доводит основную ценность до переносимого результата.
+fallback_process_refs: []
+----

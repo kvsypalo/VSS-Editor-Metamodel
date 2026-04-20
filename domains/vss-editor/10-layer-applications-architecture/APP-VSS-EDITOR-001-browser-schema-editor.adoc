@@ -1,0 +1,124 @@
+= VSS Editor Browser Application
+
+== Краткое описание
+`VSS Editor` как приложение - это одностраничный браузерный редактор, в котором actor открывает, собирает, уточняет и выгружает схему value system. Для домена это не абстрактная техническая оболочка, а конкретная прикладная среда, где сходятся toolbar, canvas, свойства объектов, import/export и help-модель продукта.
+
+== Текущее состояние
+В текущей версии приложение работает локально в браузере и не опирается на отдельный backend или build pipeline. Вся основная предметная работа проходит внутри одного UI shell с canvas и правой панелью свойств.
+
+== Что подтверждено
+- `index.html` задает toolbar, schema menu, canvas, properties panel, status bar и help modal.
+- `app.js` реализует состояние схемы, рендер диаграммы, команды меню и взаимодействие с canvas.
+- `styles.css` оформляет editor-like layout с четким разделением рабочей области и панели свойств.
+
+== Замечания аналитика
+Продукт small-scale, поэтому в этой wave приложение materialized одной `APP-*` карточкой без дальнейшего разбиения на внутренние subsystem cards.
+
+== Требуемые изменения
+Новых изменений не требуется.
+
+== Решение по карточке
+Статус карточки: review
+Статус валидации: validated
+Статус изменения: no_change
+Статус апрува: not_submitted
+
+Проверил аналитик: Konstantin Sypalo
+Дата проверки: 2026-04-20
+
+Утвердил:
+Дата утверждения:
+
+== Связанные объекты
+
+|===
+| Категория | ID | Наименование | Ссылка | Комментарий
+| Process | PROC-VSS-EDITOR-001 | Сборка и корректировка схемы | ../06-layer-processes/PROC-VSS-EDITOR-001-author-and-adjust-schema.adoc | Основной процесс выполняется внутри этого приложения
+| Code | CODE-VSS-EDITOR-001 | Static browser editor bundle | ../14-layer-code-implementation/CODE-VSS-EDITOR-001-static-browser-editor-bundle.adoc | Реализация приложения
+| Access | ACCESS-VSS-EDITOR-001 | Baseline local editor access model | ../31-layer-access-rights/ACCESS-VSS-EDITOR-001-local-single-user-access-baseline.adoc | Access assessment прикладной оболочки
+|===
+
+== Источники
+
+|===
+| ID | Источник | Ссылка | Уровень доверия | Комментарий
+| SRC-VSS-EDITOR-001 | Исходный web bundle v2.4 | C:/MetaModel/Example code/vss-editor-2.4 | high | Подтверждает состав и роль прикладной оболочки
+|===
+
+== Артефакты
+
+|===
+| ID | Артефакт | Ссылка | Комментарий
+|===
+
+'''
+== Технические поля
+
+[source,yaml]
+----
+Полное_имя_файла: APP-VSS-EDITOR-001-browser-schema-editor.adoc
+type: application
+layer: 10 applications-architecture
+name: VSS Editor browser application
+title: VSS Editor Browser Application
+status: review
+version: 1.0.0
+owner: analysis
+domain: vss-editor
+tags:
+  - application
+  - browser
+  - editor
+
+summary: Одностраничное браузерное приложение, в котором проходит весь пользовательский маршрут редактирования схемы.
+description: Одностраничное браузерное приложение, в котором проходит весь пользовательский маршрут редактирования схемы.
+
+card_status: review
+validation_status: validated
+change_status: no_change
+approval_status: not_submitted
+
+current_state_text: |
+  Приложение работает как локальный browser editor без backend.
+  Весь пользовательский маршрут проходит внутри одного UI shell.
+
+validated_facts_text: |
+  - HTML задает прикладную оболочку редактора.
+  - JavaScript реализует доменную и UI-логику.
+  - CSS формирует рабочую раскладку editor-like интерфейса.
+
+validation_notes_text: |
+  Для текущей версии отдельное subsystem decomposition на уровне приложения не подтверждено.
+
+change_request_text: |
+  Новых изменений не требуется.
+
+source_refs:
+  - SRC-VSS-EDITOR-001
+artifact_refs: []
+artifact_notations: {}
+artifact_style_reference: none
+mandatory_input_status: complete
+refusal_reasons: []
+resulting_risk_refs: []
+relations:
+  process_refs:
+    - PROC-VSS-EDITOR-001
+  code_refs:
+    - CODE-VSS-EDITOR-001
+  scenario_refs:
+    - SCN-VSS-EDITOR-001
+    - SCN-VSS-EDITOR-002
+    - SCN-VSS-EDITOR-003
+    - SCN-VSS-EDITOR-004
+    - SCN-VSS-EDITOR-005
+    - SCN-VSS-EDITOR-006
+  access_refs:
+    - ACCESS-VSS-EDITOR-001
+created_at: 2026-04-20
+updated_at: 2026-04-20
+validated_by: Konstantin Sypalo
+validated_at: 2026-04-20
+approved_by: ""
+approved_at: ""
+----
