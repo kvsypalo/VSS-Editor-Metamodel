@@ -1,0 +1,38 @@
+= 13 Data Architecture
+
+== Path
+`domains/<domain>/13-layer-data-architecture/`
+
+== Purpose
+Слой хранит информационные объекты, модели данных, хранилища и data flows.
+
+== Activation
+- Этот слой входит в канонический стек `01-33`.
+- Домен может пометить слой как `unused`, если локально не ведет отдельные data cards.
+
+== Typical objects
+- `DATA-*`
+
+== Special fields
+- Отдельные layer-specific поля не заданы. Используется `BASE-CARD-SCHEMA-001`.
+
+== Traceability rules
+- В root-правилах нет отдельного минимального link contract специально для `DATA-*`.
+- Существенные data constraints должны быть согласованы с `REQ-*`, `INT-*`, `SEC-*` и `RISK-*`.
+- Если `DATA-*` materialize подтвержденную code-derived structure, объект должен сохранять явную связь хотя бы с одним `RULE-*`, `REQ-*` или подтверждающим `CODE-*`.
+
+== Key rules
+- Модели данных и data flows описываются отдельно от кода и приложений.
+- Существенные data constraints должны быть согласованы с требованиями, интеграциями, безопасностью и рисками.
+- Если код подтверждает устойчивую структуру schema document или других внутренних объектов, их нельзя оставлять только внутри `CODE-*`; они materialize как `DATA-*`.
+- Для editor-like domains `DATA-*` должны фиксировать как минимум состав объекта, его реквизиты, связи между объектами, роль каждого реквизита и значимые state transitions, если это подтверждено source basis.
+
+== Related layers
+- Upstream: `08 Requirements`, `09 Domain Rules`, `12 Integrations`.
+- Downstream: `14 Code Implementation`, `18 Risks`, `30 Security`.
+
+== Authoring notes
+- Смысловая часть subject cards этого слоя пишется на русском аналитическом языке с сохранением source-derived English terms там, где они являются устойчивой частью продукта; карточка должна оставаться human-readable и domain-first, а верхние разделы не должны сваливаться в формалистский prose about coverage or wave mechanics.
+- `DATA-*` должна объяснять человеческим языком смысл объекта, его ограничения и роль реквизитов, а не только перечислять поля, связи и структуру хранения.
+- Schema, node, flow, text, element и другие устойчивые object types оформляются отдельно или в явной группировке, если они имеют самостоятельные реквизиты, lifecycle или edit semantics.
+- Если code-derived properties доступны пользователю через UI или участвуют в persistence, validation, import, export или rendering logic, они должны быть отражены в data model явно, а не только в prose внутри requirement или `CODE-*` card.

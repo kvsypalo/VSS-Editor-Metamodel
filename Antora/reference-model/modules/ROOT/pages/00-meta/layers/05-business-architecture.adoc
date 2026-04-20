@@ -1,0 +1,31 @@
+= 05 Business Architecture
+
+== Path
+`domains/<domain>/05-layer-business-architecture/`
+
+== Purpose
+Слой фиксирует capability-модель, сервисы, бизнес-домены, распределение ответственности и ключевые бизнесовые конструкты решения.
+
+== Activation
+- Этот слой входит в канонический стек `01-33`.
+- Домен может пометить слой как `unused`, если локально не выделяет отдельные business architecture cards.
+
+== Typical objects
+- В текущих root-правилах для этого слоя не зафиксирован отдельный канонический object prefix.
+
+== Special fields
+- Отдельные layer-specific поля не заданы. Используется `BASE-CARD-SCHEMA-001`.
+
+== Traceability rules
+- В root-правилах не задано дополнительных минимальных traceability links специально для этого слоя.
+
+== Key rules
+- В этом слое оформляется бизнесовая структура решения, а не техническая реализация.
+- Он служит опорой для процессов, требований и приложений.
+
+== Related layers
+- Upstream: `02 Context Boundaries`, `04 Strategy Product`.
+- Downstream: `06 Processes`, `08 Requirements`, `10 Applications Architecture`.
+
+== Authoring notes
+- Root-правила не задают дополнительных authoring notes для этого слоя кроме `CARD-CREATION-RULES-001` и `BASE-CARD-SCHEMA-001`.

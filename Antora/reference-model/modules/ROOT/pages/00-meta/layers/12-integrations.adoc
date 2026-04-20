@@ -1,0 +1,32 @@
+= 12 Integrations
+
+== Path
+`domains/<domain>/12-layer-integrations/`
+
+== Purpose
+Слой фиксирует интеграции, внешние подключения, обмены и каналы связи между системами.
+
+== Activation
+- Этот слой входит в канонический стек `01-33`.
+- Домен может пометить слой как `unused`, если локально не фиксирует отдельные integration cards.
+
+== Typical objects
+- `INT-*`
+
+== Special fields
+- Отдельные layer-specific поля не заданы. Используется `BASE-CARD-SCHEMA-001`.
+
+== Traceability rules
+- В root-правилах нет отдельного минимального link contract специально для `INT-*`.
+- Для существенных интеграций должны быть определены связанные `API-*`, `DATA-*`, `RISK-*` и `REQ-*`.
+
+== Key rules
+- Интеграция описывает связку систем и данных между ними, а не отдельный endpoint.
+- Для существенных интеграций должны быть определены связанные API, данные, риски и требования.
+
+== Related layers
+- Upstream: `10 Applications Architecture`, `11 API Interfaces`.
+- Downstream: `13 Data Architecture`, `18 Risks`, `08 Requirements`, `30 Security`.
+
+== Authoring notes
+- Root-правила не задают дополнительных authoring notes для этого слоя кроме `CARD-CREATION-RULES-001` и `BASE-CARD-SCHEMA-001`.

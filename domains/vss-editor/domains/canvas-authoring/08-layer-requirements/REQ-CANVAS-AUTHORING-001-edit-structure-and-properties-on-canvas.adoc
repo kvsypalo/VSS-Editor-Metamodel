@@ -1,0 +1,121 @@
+= Edit Structure And Properties On Canvas
+
+== Краткое описание
+Редактор должен поддерживать прямое уточнение структуры схемы и свойств объектов прямо на canvas. Актор должен иметь возможность управлять converters, flows, element types и text annotations в одном интерактивном authoring loop без выхода из рабочей схемы.
+
+== Текущее состояние
+В текущей реализации этот contract уже выполняется через связку canvas handlers и properties panel. Изменения к schema, node, flow и text объектам сразу применяются к открытой схеме и видны в той же рабочей поверхности.
+
+== Что подтверждено
+- Canvas interaction и properties panel работают как единый editing surface.
+- Правки структуры и свойств происходят над одной и той же открытой схемой.
+- Graph rules локального authoring route подтверждены отдельными parent-level `RULE-*` карточками.
+
+== Замечания аналитика
+Requirement child domain удерживает локальный authoring contract в целом. Детализированные object-level acceptance branches уже раскрыты в parent domain data/rule/test cards.
+
+== Требуемые изменения
+Новых изменений не требуется.
+
+== Решение по карточке
+Статус карточки: approved
+Статус валидации: validated
+Статус изменения: no_change
+Статус апрува: approved
+
+Проверил аналитик: Konstantin Sypalo
+Дата проверки: 2026-04-20
+
+Утвердил: Konstantin Sypalo
+Дата утверждения: 2026-04-20
+== Связанные объекты
+
+|===
+| Категория | ID | Наименование | Ссылка | Комментарий
+| Scenario | SCN-CANVAS-AUTHORING-001 | Уточнение схемы на canvas | ../07-layer-scenarios-ux/SCN-CANVAS-AUTHORING-001-refine-schema-on-canvas.adoc | Локальный child-domain route
+| Parent requirement | REQ-VSS-EDITOR-002 | Интерактивное редактирование объектов | ../../../08-layer-requirements/REQ-VSS-EDITOR-002-edit-diagram-objects-and-properties.adoc | Детализированный editing contract родителя
+| Parent test | TEST-VSS-EDITOR-004 | Проверка редактирования схемы | ../../../20-layer-quality-testing/TEST-VSS-EDITOR-004-edit-schema-objects.adoc | Validating test локального authoring route
+|===
+
+== Источники
+
+|===
+| ID | Источник | Ссылка | Уровень доверия | Комментарий
+| SRC-CANVAS-AUTHORING-001 | Canvas authoring in app.js | C:/MetaModel/Example code/vss-editor-2.4/app.js | high | Подтверждает child-domain contract на direct editing
+|===
+
+== Артефакты
+
+|===
+| ID | Артефакт | Ссылка | Комментарий
+|===
+
+'''
+== Технические поля
+
+[source,yaml]
+----
+Полное_имя_файла: REQ-CANVAS-AUTHORING-001-edit-structure-and-properties-on-canvas.adoc
+type: requirement
+layer: 08 requirements
+name: Edit structure and properties on canvas
+title: Edit Structure And Properties On Canvas
+status: approved
+version: 2026-04-20
+owner: analysis
+domain: canvas-authoring
+tags:
+  - requirement
+  - canvas
+  - authoring
+
+summary: Requirement на непрерывное canvas authoring редактирование структуры и свойств схемы.
+description: Requirement на непрерывное canvas authoring редактирование структуры и свойств схемы.
+
+card_status: approved
+validation_status: validated
+change_status: no_change
+approval_status: approved
+
+current_state_text: |
+  Canvas authoring already works as one interactive surface around the opened schema.
+
+validated_facts_text: |
+  - Schema, node, flow and text editing share one runtime context.
+  - Direct manipulation and property editing are both confirmed.
+  - Parent rules make graph semantics explicit inside this child domain.
+
+validation_notes_text: |
+  Card holds the child-domain contract and delegates detailed object semantics to the parent domain cards.
+
+change_request_text: |
+  Новых изменений не требуется.
+
+source_refs:
+  - SRC-CANVAS-AUTHORING-001
+artifact_refs: []
+artifact_notations: {}
+artifact_style_reference: none
+mandatory_input_status: complete
+refusal_reasons: []
+resulting_risk_refs: []
+relations:
+  scenario_refs:
+    - SCN-CANVAS-AUTHORING-001
+created_at: 2026-04-20
+updated_at: 2026-04-20
+validated_by: Konstantin Sypalo
+validated_at: 2026-04-20
+approved_by: Konstantin Sypalo
+approved_at: 2026-04-20
+requirement_type: baseline
+priority: high
+acceptance_criteria: |
+  - Актор может менять структуру и свойства схемы прямо на canvas и в properties panel.
+  - Актор может добавлять и двигать graph objects внутри открытой схемы.
+  - После штатной правки Актор остается в том же authoring session и может продолжить работу.
+criticality: high
+critical_path_refs: []
+failure_scenario_refs: []
+recovery_expectation: После любой штатной правки схема остается доступной для следующего шага authoring cycle.
+----

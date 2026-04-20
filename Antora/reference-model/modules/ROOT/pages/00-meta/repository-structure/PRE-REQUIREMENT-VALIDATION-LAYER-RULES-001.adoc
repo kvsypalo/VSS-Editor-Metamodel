@@ -1,0 +1,54 @@
+= PRE-REQUIREMENT-VALIDATION-LAYER-RULES-001
+
+Этот документ задает только общий workflow для pre-requirement validation и работы с validation-oriented assessment.
+
+Layer-specific semantics, fields, object types, traceability rules и detailed cluster summary не хранятся в этом файле.
+
+== 1. Назначение
+- зафиксировать общий workflow оценки до детализации и изменения требований
+- не позволять молча пропускать обязательные assessment inputs
+- зафиксировать работу с incomplete inputs, risks, change decisions и baseline reuse
+
+== 2. Источники правил
+- per-layer validation semantics определяются в `../layers/`
+- агрегированная summary по validation cluster хранится в `../layers-summary/PRE-REQUIREMENT-VALIDATION-LAYER-RULES-001.adoc`
+- при расхождении между layer docs и summary docs приоритет у `../layers/`
+
+== 3. Базовый порядок работы
+1. Определи, требуется ли pre-requirement assessment до изменения или детализации требований.
+2. Собери assessment inputs из relevant layer docs.
+3. Проверь completeness обязательных входных данных.
+4. Результат assessment может:
+	- подтвердить, что change intent укладывается в действующие ограничения;
+	- потребовать новых или уточненных artifacts downstream;
+	- выявить ужесточение уже существующих обязательств;
+	- выявить деградацию достижимости текущих обязательств и тем самым породить риск, исключение или новую архитектурную задачу;
+	- показать необходимость change, task, risk или архитектурного решения для возврата в допустимые границы.
+5. Не считай assessment завершенным, если обязательный слой оценки был молчаливо пропущен.
+
+== 4. Правила работы с требованиями
+- assessment может приводить к созданию, уточнению, ужесточению или отклонению change intent до появления новых требований
+- переход к требованиям должен оставаться traceable и подтверждаться через relevant layer docs и traceability artifacts
+- конкретные layer-specific requirement rules не фиксируются в этом документе
+
+== 5. Правила отказа от заполнения данных
+- Агент или аналитик обязан запросить данные по каждому обязательному слою оценки влияния.
+- Если пользователь или источник отказывается отвечать, в соответствующей карточке фиксируются `mandatory_input_status`, `refusal_reasons`, `resulting_risk_refs`.
+- Отказ от заполнения не считается эквивалентом `not_applicable`.
+- `not_applicable` допустим только если влияние действительно отсутствует и причина этого явно записана.
+
+== 6. Правила переиспользования карточек
+- baseline assessment cards могут переиспользоваться многими инициативами
+- initiative-specific assessment cards могут ссылаться на существующие baseline cards вместо дублирования их содержимого
+- если assumptions, impact scope или решение различаются, создаются отдельные assessment cards, а не общий placeholder
+
+== 7. Минимальный результат impact assessment
+- assessment считается завершенным только если результат traceable, не имеет молчаливых пропусков и приводит к явному outcome
+- outcome может быть выражен через requirements, changes, tasks, risks, exception decision или reject decision
+- конкретные chains и layer-specific contracts хранятся в `../layers/` и `../layers-summary/`
+
+== 8. Что запрещено
+- считать assessment завершенным без проверки relevant layers
+- молчаливо пропускать обязательный assessment input
+- подменять отказ от заполнения значением `not_applicable`
+- фиксировать layer-specific semantics только в repository-structure документах

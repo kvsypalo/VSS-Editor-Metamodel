@@ -1,0 +1,71 @@
+= ROOT-TREE-000
+
+Каноническая структура репозитория и место хранения статического описания слоев.
+
+== Верхний принцип
+- root `00-meta/` хранит repository-wide governance, schemas, naming rules, templates, traceability rules и статический layer-reference
+- root `00-meta/` также хранит aggregate layer summaries в `layers-summary/`
+- root `Antora/` допускается только как service layer для playbook, navigation, UI-related настроек и служебных скриптов Antora
+- `common/` хранит общие объекты, которые не должны дублироваться по доменам
+- `domains/<domain>/` хранит объекты верхнеуровневого домена
+- `domains/<domain>/domains/<child-domain>/` хранит объекты дочернего домена
+
+== Ключевые правила
+- канонический набор слоев определяется только root `00-meta/`
+- статическое описание всех слоев находится в `00-meta/layers/`
+- агрегированное описание всего набора слоев находится в `00-meta/layers-summary/`
+- полный доменный стек определяется root canonical layer set; `.summary/` используется только для локального meta/context уровня домена
+- Antora publication view определяется отдельным root governance и группирует канонический domain content для reading flow без смены canonical paths
+- для верхнеуровневого product domain слой `01` является foundational-by-default и не может быть молча пропущен
+- omission слоя `01` для верхнеуровневого product domain требует явной причины, source basis и linked `RISK-*`
+- child domain может не materialize локальный слой `01` только при явной фиксации inheritance или отсутствии independent value stream
+- каждый домен должен быть максимально автономным: иметь собственного ответственного в `MAP-*` через поле `owner` и собственный wave-scope
+- product wave стартует в исходном домене, затем проверяет root, parent и sibling domains и каскадируется только в подтвержденно затронутые домены
+- новые канонические слои добавляются только в хвост числового списка без перенумерации уже принятой части канона
+- домен может отметить слой как unused, но не может удалить, переименовать или переопределить канонический слой локально
+- при добавлении, удалении или изменении слоя должны быть обновлены `00-meta/layers/` и `00-meta/layers-summary/`
+- канонический формат документов репозитория — `.adoc`; исключение на root допускается только для `AGENTS.md` как compatibility shim
+- `Antora/` не должен дублировать канон и не может становиться альтернативным tree-root для `00-meta/`, `common/` или `domains/`
+- domain `.summary/` остается частью канонического дерева и может materialize как Summary entry point в Antora publication view
+
+== Корневой 00-meta
+[source,text]
+----
+repo/
+├── Antora/
+├── 00-meta/
+│   ├── governance/
+│   ├── layers/
+│   ├── layers-summary/
+│   ├── naming-rules/
+│   ├── repository-structure/
+│   ├── schemas/
+│   ├── templates/
+│   ├── traceability-rules/
+│   └── validate_model.py
+├── common/
+└── domains/
+----
+
+== Базовое дерево домена
+[source,text]
+----
+repo/
+├── Antora/
+├── 00-meta/
+├── common/
+└── domains/
+    └── <domain>/
+        ├── .summary/
+        ├── <layer-directories-defined-by-root-canon>/
+        ├── indexes/
+        ├── domains/
+            └── <child-domain>/
+                ├── .summary/
+                ├── <layer-directories-defined-by-root-canon>/
+                ├── indexes/
+                └── artifacts/
+        └── artifacts/
+----
+
+Фактический список layer directories смотри в `../layers-summary/LAYER-CANONICAL-TABLES-002.adoc`.

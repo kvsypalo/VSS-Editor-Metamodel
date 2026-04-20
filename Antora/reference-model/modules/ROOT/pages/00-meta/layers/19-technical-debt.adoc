@@ -1,0 +1,32 @@
+= 19 Technical Debt
+
+== Path
+`domains/<domain>/19-layer-technical-debt/`
+
+== Purpose
+Слой хранит технический долг, компромиссы реализации и накопленные ограничения решения.
+
+== Activation
+- Этот слой входит в канонический стек `01-33`.
+- Домен может пометить слой как `unused`, если локально не ведет отдельные debt cards.
+
+== Typical objects
+- `DEBT-*`
+
+== Special fields
+- Отдельные layer-specific поля не заданы. Используется `BASE-CARD-SCHEMA-001`.
+
+== Traceability rules
+- В root-правилах нет отдельного минимального link contract специально для `DEBT-*`.
+- Если долг порождает или усиливает риск, это должно быть связано с `RISK-*`, а план его погашения должен быть выражен через `CHANGE-*` или `TASK-*`.
+
+== Key rules
+- Technical debt фиксирует осознанный компромисс или накопленное ограничение, а не любое неудобство.
+- Долг должен быть связан с затронутыми компонентами, требованиями или рисками.
+
+== Related layers
+- Upstream: `08 Requirements`, `14 Code Implementation`, `15 Technology Architecture`, `18 Risks`.
+- Downstream: `18 Risks`, `22 Changes Roadmap`, `23 Development Tasks`.
+
+== Authoring notes
+- Root-правила не задают дополнительных authoring notes для этого слоя кроме `CARD-CREATION-RULES-001` и `BASE-CARD-SCHEMA-001`.

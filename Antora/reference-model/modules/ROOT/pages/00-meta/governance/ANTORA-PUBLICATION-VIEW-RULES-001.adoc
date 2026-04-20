@@ -1,0 +1,114 @@
+= ANTORA-PUBLICATION-VIEW-RULES-001
+
+Канонические правила публикационного представления reference-model в Antora.
+
+== 1. Назначение
+- зафиксировать, что Antora публикует канонический контент репозитория без альтернативной модели слоев
+- определить audience-oriented publication view для domain reading flow
+- исключить смешивание service-layer деталей публикации с user-facing содержимым сайта
+- зафиксировать separation между baseline reading flow и change-oriented content
+
+== 2. Базовые принципы
+- актуальный канонический набор слоев определяется root `00-meta/layers/`; Antora не заменяет канонические слои и не меняет их пути
+- Antora публикует только канонический контент из `00-meta/`, `common/` и `domains/`
+- `Antora/` остается service layer и не является альтернативным tree-root для модели
+- domain-local `.summary/` materialize как Summary entry point домена, но не заменяет полный канонический стек домена
+- audience-oriented navigation нужна для reading flow, а не для переопределения layer semantics
+- change-oriented content materialize отдельно от baseline-oriented publication blocks
+
+== 3. Общее укрупнение канонических слоев
+
+|===
+| Группа | Канонические слои | Смысл
+
+| Meta/context
+| `00`
+| Мета и контекст домена
+
+| Value stream
+| `01`
+| Поток ценности
+
+| Context/strategy
+| `02-04`
+| Контекст, стейкхолдеры, стратегия
+
+| Business behavior/rules
+| `05-09`
+| Бизнес-структура, процессы, сценарии, требования, правила
+
+| Technical structure
+| `10-15`
+| Архитектура, интерфейсы, интеграции, данные, код, технологии
+
+| Operations/control
+| `16-21`
+| Эксплуатация, качество, риски, тесты, наблюдаемость
+
+| Change/knowledge
+| `22-25`
+| Изменения, задачи, знания, traceability
+
+| Validation/continuity
+| `26-33`
+| Гипотезы, валидация, continuity-aware assessment и контрольные слои pre-requirement анализа
+|===
+
+== 4. Audience-oriented блоки Antora
+
+|===
+| Блок в Antora | Какие слои попадают | Что показываем
+
+| Summary
+| Отдельная summary-страница домена
+| Короткий вход в домен без обхода всего канона
+
+| Ценность и контекст
+| `01`, `02`, `03`, `04`, `05`
+| Value, boundaries, stakeholders, goal, business architecture
+
+| Поведение продукта
+| `06`, `07`, `09`, `33`
+| Процессы, сценарии, domain rules, critical path
+
+| Ограничения и контроль
+| `08`, `17`, `18`, `29`, `30`, `31`, `32`
+| Требования, quality/NFR, риски, compliance, security, access, performance
+
+| Change
+| `19`, `22`, `23`, `26`, `27`, `28`
+| Technical debt, roadmap/change, tasks, hypotheses, validation, process capability
+
+| Техническая информация
+| `10`, `11`, `12`, `13`, `14`, `15`, `16`, `20`, `21`, `24`, `25`
+| Архитектура, API, интеграции, данные, код, технологии, operations, tests, metrics, sources, traceability
+
+| Поддомены
+| Отдельные summary и те же укрупненные блоки дочерних доменов
+| Child-domain navigation по той же схеме
+|===
+
+== 5. Что показываем в Antora
+- Summary-страницы доменов из `.summary/` как отдельную точку входа в домен
+- доменные карточки из `domains/`, когда они попадают в audience-oriented publication blocks
+- change-oriented блок `Change` отдельно от baseline-oriented блоков
+- root `00-meta/` как governance, layer docs, summary docs, schemas, templates и repository rules
+- `common/`, если этот раздел materialize в репозитории
+- человекочитаемую часть карточек
+- укрупненную audience-oriented navigation: сначала Summary, затем контекст, поведение, контроль, Change и техническая информация
+
+== 6. Что не показываем в Antora
+- `AGENTS.md`; он остается compatibility shim и не является page-source Antora
+- секцию `Технические поля` как user-facing section
+- service/infrastructure контент из `Antora/`: playbook, build scripts, UI bundle, sync tooling
+- альтернативную копию канона или параллельную layer model
+- baseline-oriented и change-oriented navigation в одном publication block
+- сырые служебные детали сборки, например junction/sync/build механику
+
+== 7. Правила исполнения publication view
+- `Antora/tools/sync-content.ps1` обязан строить navigation по audience-oriented блокам домена, а не только по плоскому списку файлов
+- Summary-блок домена строится из `.summary/` страниц этого домена
+- дочерние домены materialize отдельным блоком `Поддомены` и повторяют ту же publication scheme
+- service-layer файлы не становятся частью user-facing navigation
+- hiding `Технические поля` в публикации считается обязательной частью Antora UI behavior
+- при изменении publication mapping или service layout нужно обновлять root `00-meta/`, `Antora/` и root `AGENTS.md` в одном change set

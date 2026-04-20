@@ -1,0 +1,129 @@
+= Workspace Lifecycle Trace
+
+== Краткое описание
+Карточка фиксирует локальную цепочку child domain `workspace-lifecycle`: родительский process приводит Актора к рабочей схеме, child-domain scenario удерживает file/session lifecycle, локальный requirement формализует contract, а детальные parent-level scenarios и tests дают подтверждающее раскрытие веток `New`, `Open`, `Add Schema`, `Export` и invalid-JSON refusal.
+
+== Текущее состояние
+Цепочка child domain уже читается из существующего product scope, но теперь получила собственную `TRACE-*` карточку для автономной review и Antora navigation в слое `25`.
+
+== Что подтверждено
+- Child domain держится на одном локальном scenario и одном локальном requirement.
+- Детализация локальной цепочки раскрывается через parent-level `SCN-VSS-EDITOR-001/002/003/005/006`.
+- Failure branch замыкается существующим validating test `TEST-VSS-EDITOR-006`.
+
+== Замечания аналитика
+Карточка намеренно использует связи вверх к родительскому домену, потому что decomposition не создает новый product route, а выделяет локальный участок общего маршрута.
+
+== Требуемые изменения
+Новых изменений не требуется.
+
+== Решение по карточке
+Статус карточки: approved
+Статус валидации: validated
+Статус изменения: no_change
+Статус апрува: approved
+
+Проверил аналитик: Konstantin Sypalo
+Дата проверки: 2026-04-20
+
+Утвердил: Konstantin Sypalo
+Дата утверждения: 2026-04-20
+== Связанные объекты
+
+|===
+| Категория | ID | Наименование | Ссылка | Комментарий
+| Process | PROC-VSS-EDITOR-001 | Сборка и корректировка схемы | ../../../06-layer-processes/PROC-VSS-EDITOR-001-author-and-adjust-schema.adoc | Upstream process frame
+| Scenario | SCN-WORKSPACE-LIFECYCLE-001 | Управление рабочим состоянием схемы | ../07-layer-scenarios-ux/SCN-WORKSPACE-LIFECYCLE-001-manage-schema-workspace-state.adoc | Local scenario anchor
+| Requirement | REQ-WORKSPACE-LIFECYCLE-001 | Ведение рабочей схемы и файловых операций | ../08-layer-requirements/REQ-WORKSPACE-LIFECYCLE-001-manage-workspace-entry-and-file-operations.adoc | Local requirement anchor
+| Test | TEST-VSS-EDITOR-006 | Проверка отказа на невалидный JSON | ../../../20-layer-quality-testing/TEST-VSS-EDITOR-006-reject-invalid-json.adoc | Validating failure branch
+| Critical path | CRIT-VSS-EDITOR-001 | Authoring session continuity | ../../../33-layer-critical-path/CRIT-VSS-EDITOR-001-authoring-session-continuity.adoc | Связь child domain с общим continuity route
+|===
+
+== Источники
+
+|===
+| ID | Источник | Ссылка | Уровень доверия | Комментарий
+| SRC-WORKSPACE-LIFECYCLE-001 | File workspace lifecycle source basis | ../24-layer-knowledge-sources/SRC-WORKSPACE-LIFECYCLE-001-file-workspace-source-basis.adoc | high | Локальный source basis child domain
+|===
+
+== Артефакты
+
+|===
+| ID | Артефакт | Ссылка | Комментарий
+|===
+
+'''
+== Технические поля
+
+[source,yaml]
+----
+Полное_имя_файла: TRACE-WORKSPACE-LIFECYCLE-001-workspace-lifecycle-trace.adoc
+type: traceability-rule
+layer: 25 traceability
+name: Workspace lifecycle trace
+title: Workspace Lifecycle Trace
+status: approved
+version: 2026-04-20
+owner: analysis
+domain: workspace-lifecycle
+tags:
+  - traceability
+  - workspace
+  - child-domain
+
+summary: Локальная цепочка child domain от общего процесса к workspace scenario, requirement и validating parent branches.
+description: Локальная цепочка child domain от общего процесса к workspace scenario, requirement и validating parent branches.
+
+card_status: approved
+validation_status: validated
+change_status: no_change
+approval_status: approved
+
+current_state_text: |
+  Workspace-lifecycle chain is now explicitly materialized as a child-domain traceability object.
+
+validated_facts_text: |
+  - One local scenario anchors the child domain behavior.
+  - One local requirement anchors the child domain contract.
+  - Existing parent routes and tests provide the detailed downstream evidence.
+
+validation_notes_text: |
+  Trace intentionally keeps upward links to the parent process and continuity assessment because this child domain is a slice of the same end-to-end authoring route.
+
+change_request_text: |
+  Новых изменений не требуется.
+
+source_refs:
+  - SRC-WORKSPACE-LIFECYCLE-001
+artifact_refs: []
+artifact_notations: {}
+artifact_style_reference: none
+mandatory_input_status: complete
+refusal_reasons: []
+resulting_risk_refs: []
+relations:
+  process_refs:
+    - PROC-VSS-EDITOR-001
+  scenario_refs:
+    - SCN-WORKSPACE-LIFECYCLE-001
+  requirement_refs:
+    - REQ-WORKSPACE-LIFECYCLE-001
+  test_refs:
+    - TEST-VSS-EDITOR-001
+    - TEST-VSS-EDITOR-002
+    - TEST-VSS-EDITOR-003
+    - TEST-VSS-EDITOR-005
+    - TEST-VSS-EDITOR-006
+  critical_path_refs:
+    - CRIT-VSS-EDITOR-001
+created_at: 2026-04-20
+updated_at: 2026-04-20
+validated_by: Konstantin Sypalo
+validated_at: 2026-04-20
+approved_by: Konstantin Sypalo
+approved_at: 2026-04-20
+rule_type: scenario-validation-chain
+source_layer: 06
+target_layer: 33
+required_link_type: process-workspace-scenario-requirement-parent-tests
+----

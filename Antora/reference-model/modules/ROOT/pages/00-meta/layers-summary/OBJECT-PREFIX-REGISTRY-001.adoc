@@ -1,0 +1,51 @@
+= OBJECT-PREFIX-REGISTRY-001
+
+Агрегированный registry канонических object prefixes по слоям.
+
+Этот документ дублирует object-prefix knowledge из `../layers/` и нужен для обзора всего стека сразу.
+
+Если меняется набор prefixes или их layer ownership, этот registry должен быть обновлен вместе с `../layers/`.
+
+== Prefixes по слоям
+
+|===
+| Слой | Prefixes | Комментарий 
+| 00 | `MAP` | локальные meta/context карты домена 
+| 01 | `VALUE` | value streams 
+| 02 | `CTX` | context and boundaries objects 
+| 03 | — | отдельный fixed prefix в root rules не задан 
+| 04 | `GOAL`, `KPI` | goals and KPIs 
+| 05 | — | отдельный fixed prefix в root rules не задан 
+| 06 | `PROC` | process objects 
+| 07 | `SCN` | scenario objects 
+| 08 | `REQ` | requirement objects 
+| 09 | `RULE` | domain rule objects 
+| 10 | `APP` | application objects 
+| 11 | `API` | API/interface objects 
+| 12 | `INT` | integration objects 
+| 13 | `DATA` | data architecture objects 
+| 14 | `CODE` | code implementation objects 
+| 15 | `TECH` | technology objects 
+| 16 | `OPS` | operations objects 
+| 17 | `NFR` | general NFR objects 
+| 18 | `RISK` | risk objects 
+| 19 | `DEBT` | technical debt objects 
+| 20 | `TEST` | testing objects 
+| 21 | `METRIC`, `ALERT`, `DASH` | observability objects 
+| 22 | `CHANGE`, `EPIC`, `FEAT` | roadmap and change objects 
+| 23 | `TASK` | development task objects 
+| 24 | `SRC`, `ART`, `REF` | sources, artifacts and local references 
+| 25 | `TRACE` | traceability objects 
+| 26 | `HYP` | business hypothesis objects 
+| 27 | `ECON` | economics validation objects 
+| 28 | `ENGCAP` | engineering process capability objects 
+| 29 | `COMP` | compliance objects 
+| 30 | `SEC` | security objects 
+| 31 | `ACCESS` | access-rights objects 
+| 32 | `PERF` | performance objects 
+| 33 | `CRIT` | critical-path objects 
+|===
+
+== Правило именования
+- формат имени файла задается `../naming-rules/NAMING-CONVENTIONS-001.adoc`
+- этот registry хранит только canon списка prefixes и их layer ownership

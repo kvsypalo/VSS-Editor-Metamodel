@@ -1,0 +1,30 @@
+= 03 Stakeholders Motivation
+
+== Path
+`domains/<domain>/03-layer-stakeholders-motivation/`
+
+== Purpose
+Слой хранит стейкхолдеров, их мотивацию, интересы, ожидания, конфликты и критерии успеха, которые влияют на модель продукта или домена.
+
+== Activation
+- Этот слой входит в канонический стек `01-33`.
+- Домен может пометить слой как `unused`, если локально не ведет отдельные stakeholder или motivation cards.
+
+== Typical objects
+- В текущих root-правилах для этого слоя не зафиксирован отдельный канонический object prefix.
+
+== Special fields
+- Отдельные layer-specific поля не заданы. Используется `BASE-CARD-SCHEMA-001`.
+
+== Traceability rules
+- В root-правилах не задано дополнительных минимальных traceability links специально для этого слоя.
+
+== Key rules
+- Мотивация и конфликтующие интересы фиксируются как явные управленческие входы, а не скрываются внутри требований.
+- Этот слой помогает объяснить происхождение целей, ограничений и change priorities.
+
+== Related layers
+- Downstream: `04 Strategy Product`, `08 Requirements`, `22 Changes Roadmap`.
+
+== Authoring notes
+- Root-правила не задают дополнительных authoring notes для этого слоя кроме `CARD-CREATION-RULES-001` и `BASE-CARD-SCHEMA-001`.

@@ -1,0 +1,50 @@
+= 07 Scenarios UX
+
+== Path
+`domains/<domain>/07-layer-scenarios-ux/`
+
+== Purpose
+Слой хранит пользовательские сценарии, основной flow, alternate, failure, degraded и recovery routes, а также UX-логику поведения.
+
+== Activation
+- Этот слой входит в канонический стек `01-33`.
+- Домен может пометить слой как `unused`, если локально не фиксирует отдельные scenario cards.
+
+== Typical objects
+- `SCN-*`
+
+== Special fields
+- `scenario_type`: `primary`, `alternate`, `failure`, `degraded`, `recovery`
+- `primary_actor`
+- `entry_point`
+- `expected_outcome`
+- `is_failure_scenario`
+- `critical_path_step_refs`
+- `fallback_outcome`
+- `test_refs`
+
+== Traceability rules
+- Каждый `SCN-*` должен иметь хотя бы один `TEST-*`, который явно проверяет этот сценарий; до появления такой связи карточка не считается review-ready, а gap фиксируется через `RISK-*`.
+- Каждый `SCN-*` типа `failure` или `degraded`, связанный с critical path, должен иметь хотя бы один `RISK-*`, `REQ-*` или `CHANGE-*`.
+- `07-layer-scenarios-ux/` фиксирует основной и отказной flow, а `33-layer-critical-path/` связывает их в единый continuity contract.
+
+== Key rules
+- Failure и degraded scenarios оформляются явно, а не растворяются в основном flow.
+- Новый `SCN-*` materialize в той же wave хотя бы с одним validating `TEST-*`, а не откладывается на later wave без явной причины и связанного gap/risk.
+- Если сценарий относится к критическому пути, он должен быть связан с `REQ-*`, `TEST-*`, `METRIC-*`, `PERF-*` или `RISK-*`.
+- Если code или UI source подтверждает несколько разных пользовательских routes или outcome, их нельзя сворачивать в один агрегированный `SCN-*` без явной причины.
+- Для editor-like products materialize минимум отдельные scenarios на create/open, edit, import, export и на подтвержденные failure, degraded или recovery routes, если они различаются по действиям пользователя, состоянию UI или expected outcome.
+
+== Related layers
+- Upstream: `06 Processes`.
+- Downstream: `08 Requirements`, `20 Quality Testing`, `21 Observability`, `33 Critical Path`.
+- Cross-layer links: `18 Risks`, `22 Changes Roadmap`, `32 Performance`, `25 Traceability`.
+
+== Authoring notes
+- Смысловая часть subject cards этого слоя пишется на русском аналитическом языке с сохранением source-derived English terms там, где они являются устойчивой частью продукта; карточка должна оставаться human-readable и domain-first, а верхние разделы не должны сваливаться в формалистский prose about coverage or wave mechanics.
+- Routes, состояния UI и expected outcome описываются естественным языком, близким к пользовательскому и предметному маршруту, а не через канцелярские конструкции.
+- Явная связь на validating `TEST-*` фиксируется не только в prose, но и в `test_refs`, чтобы scenario coverage оставалась читаемой и машиночитаемой.
+- Failure и degraded scenarios, связанные с critical path, не должны оставаться изолированными: обязательна явная связь с `REQ-*`, `RISK-*` или `CHANGE-*`.
+- Если обязательное звено еще не оформлено, карточка должна явно фиксировать gap и связанный `RISK-*`.
+- Scenario card должна фиксировать ключевые действия пользователя, редактируемые сущности, существенные input parameters и observable outcome, если это подтверждено source basis.
+- Если пользовательский маршрут проходит через разные object types или mode transitions, их следует отражать отдельными `SCN-*` или явными scenario segments, а не скрывать внутри общей prose-формулировки.
