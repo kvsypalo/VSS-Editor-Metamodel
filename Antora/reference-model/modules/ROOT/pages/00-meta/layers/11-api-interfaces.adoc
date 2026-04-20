@@ -1,0 +1,35 @@
+= 11 API Interfaces
+
+== Path
+`domains/<domain>/11-layer-api-interfaces/`
+
+== Purpose
+Слой хранит API-контракты, методы, endpoints, интерфейсы и interface agreements.
+
+== Activation
+- Этот слой входит в канонический стек `01-33`.
+- Домен может пометить слой как `unused`, если локально не ведет отдельные API contracts.
+
+== Typical objects
+- `API-*`
+
+== Special fields
+- `api_type`
+- `protocol`
+- `method`
+- `endpoint`
+
+== Traceability rules
+- Каждый `PROC-*` должен быть связан с `APP-*` или `API-*`.
+- Каждый `TEST-*` должен проверять процесс, требование, API или правило.
+
+== Key rules
+- API-карточка фиксирует внешний или внутренний интерфейс как самостоятельный contract.
+- Процессы, использующие API, должны ссылаться на него явно.
+
+== Related layers
+- Upstream: `08 Requirements`, `10 Applications Architecture`.
+- Downstream: `12 Integrations`, `20 Quality Testing`, `30 Security`.
+
+== Authoring notes
+- Для новых API security assessment считается обязательным и должен быть отражен в слое `30 Security`.

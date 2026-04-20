@@ -1,0 +1,125 @@
+= Canvas Authoring Trace
+
+== Краткое описание
+Карточка фиксирует локальную цепочку child domain `canvas-authoring`: родительский process приводит Актора к открытому рабочему холсту, child-domain scenario удерживает authoring loop, локальный requirement фиксирует contract, а parent-level rules, data objects и validating test раскрывают semantics редактирования.
+
+== Текущее состояние
+Цепочка child domain уже читается из существующего product scope, но теперь получила собственную `TRACE-*` карточку для автономной review и Antora navigation в слое `25`.
+
+== Что подтверждено
+- Child domain держится на одном локальном scenario и одном локальном requirement.
+- Детализация локальной цепочки раскрывается через parent-level `SCN-VSS-EDITOR-004`, `RULE-VSS-EDITOR-001/002/004` и `DATA-VSS-EDITOR-002/003/004/005`.
+- Локальный authoring route замыкается существующим validating test `TEST-VSS-EDITOR-004`.
+
+== Замечания аналитика
+Карточка намеренно использует связи вверх к родительскому домену, потому что decomposition не создает новый product route, а выделяет локальный участок общего authoring маршрута.
+
+== Требуемые изменения
+Новых изменений не требуется.
+
+== Решение по карточке
+Статус карточки: approved
+Статус валидации: validated
+Статус изменения: no_change
+Статус апрува: approved
+
+Проверил аналитик: Konstantin Sypalo
+Дата проверки: 2026-04-20
+
+Утвердил: Konstantin Sypalo
+Дата утверждения: 2026-04-20
+== Связанные объекты
+
+|===
+| Категория | ID | Наименование | Ссылка | Комментарий
+| Process | PROC-VSS-EDITOR-001 | Сборка и корректировка схемы | ../../../06-layer-processes/PROC-VSS-EDITOR-001-author-and-adjust-schema.adoc | Upstream process frame
+| Scenario | SCN-CANVAS-AUTHORING-001 | Уточнение схемы на canvas | ../07-layer-scenarios-ux/SCN-CANVAS-AUTHORING-001-refine-schema-on-canvas.adoc | Local scenario anchor
+| Requirement | REQ-CANVAS-AUTHORING-001 | Прямое редактирование структуры и свойств на canvas | ../08-layer-requirements/REQ-CANVAS-AUTHORING-001-edit-structure-and-properties-on-canvas.adoc | Local requirement anchor
+| Test | TEST-VSS-EDITOR-004 | Проверка редактирования схемы | ../../../20-layer-quality-testing/TEST-VSS-EDITOR-004-edit-schema-objects.adoc | Validating local authoring route
+| Critical path | CRIT-VSS-EDITOR-001 | Authoring session continuity | ../../../33-layer-critical-path/CRIT-VSS-EDITOR-001-authoring-session-continuity.adoc | Связь child domain с общим continuity route
+|===
+
+== Источники
+
+|===
+| ID | Источник | Ссылка | Уровень доверия | Комментарий
+| SRC-CANVAS-AUTHORING-001 | Canvas authoring source basis | ../24-layer-knowledge-sources/SRC-CANVAS-AUTHORING-001-canvas-authoring-source-basis.adoc | high | Локальный source basis child domain
+|===
+
+== Артефакты
+
+|===
+| ID | Артефакт | Ссылка | Комментарий
+|===
+
+'''
+== Технические поля
+
+[source,yaml]
+----
+Полное_имя_файла: TRACE-CANVAS-AUTHORING-001-canvas-authoring-trace.adoc
+type: traceability-rule
+layer: 25 traceability
+name: Canvas authoring trace
+title: Canvas Authoring Trace
+status: approved
+version: 2026-04-20
+owner: analysis
+domain: canvas-authoring
+tags:
+  - traceability
+  - canvas
+  - child-domain
+
+summary: Локальная цепочка child domain от общего процесса к canvas scenario, requirement и validating parent semantics.
+description: Локальная цепочка child domain от общего процесса к canvas scenario, requirement и validating parent semantics.
+
+card_status: approved
+validation_status: validated
+change_status: no_change
+approval_status: approved
+
+current_state_text: |
+  Canvas-authoring chain is now explicitly materialized as a child-domain traceability object.
+
+validated_facts_text: |
+  - One local scenario anchors the child domain behavior.
+  - One local requirement anchors the child domain contract.
+  - Existing parent rules, data and tests provide the detailed downstream evidence.
+
+validation_notes_text: |
+  Trace intentionally keeps upward links to the parent process and continuity assessment because this child domain is a slice of the same end-to-end authoring route.
+
+change_request_text: |
+  Новых изменений не требуется.
+
+source_refs:
+  - SRC-CANVAS-AUTHORING-001
+artifact_refs: []
+artifact_notations: {}
+artifact_style_reference: none
+mandatory_input_status: complete
+refusal_reasons: []
+resulting_risk_refs: []
+relations:
+  process_refs:
+    - PROC-VSS-EDITOR-001
+  scenario_refs:
+    - SCN-CANVAS-AUTHORING-001
+  requirement_refs:
+    - REQ-CANVAS-AUTHORING-001
+  test_refs:
+    - TEST-VSS-EDITOR-004
+  critical_path_refs:
+    - CRIT-VSS-EDITOR-001
+created_at: 2026-04-20
+updated_at: 2026-04-20
+validated_by: Konstantin Sypalo
+validated_at: 2026-04-20
+approved_by: Konstantin Sypalo
+approved_at: 2026-04-20
+rule_type: scenario-validation-chain
+source_layer: 06
+target_layer: 33
+required_link_type: process-canvas-scenario-requirement-parent-rules-data-tests
+----

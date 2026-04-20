@@ -1,0 +1,32 @@
+= 16 Operations
+
+== Path
+`domains/<domain>/16-layer-operations/`
+
+== Purpose
+Слой хранит operating model, поддержку, эксплуатационные процессы и сопровождение решения.
+
+== Activation
+- Этот слой входит в канонический стек `01-33`.
+- Домен может пометить слой как `unused`, если локально не фиксирует отдельные operational cards.
+
+== Typical objects
+- `OPS-*`
+
+== Special fields
+- Отдельные layer-specific поля не заданы. Используется `BASE-CARD-SCHEMA-001`.
+
+== Traceability rules
+- В root-правилах нет отдельного минимального link contract специально для `OPS-*`.
+- Существенные run-time ограничения должны сохранять явные связи с `METRIC-*`, `PERF-*` и `RISK-*`.
+
+== Key rules
+- Эксплуатационные объекты отделяются от процессов разработки и от application structure.
+- Существенные run-time ограничения должны быть согласованы с observability, performance и risks.
+
+== Related layers
+- Upstream: `10 Applications Architecture`, `15 Technology Architecture`, `06 Processes`.
+- Downstream: `21 Observability`, `18 Risks`, `32 Performance`.
+
+== Authoring notes
+- Root-правила не задают дополнительных authoring notes для этого слоя кроме `CARD-CREATION-RULES-001` и `BASE-CARD-SCHEMA-001`.

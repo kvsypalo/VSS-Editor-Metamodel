@@ -1,0 +1,52 @@
+= 06 Processes
+
+== Path
+`domains/<domain>/06-layer-processes/`
+
+== Purpose
+Слой описывает процессы, шаги, участников, входы и выходы, fallback-механизмы и точки деградации.
+
+== Activation
+- Этот слой входит в канонический стек `01-33`.
+- Домен может пометить слой как `unused`, если локально не фиксирует отдельные process cards.
+
+== Typical objects
+- `PROC-*`
+
+== Special fields
+- `trigger`
+- `inputs`
+- `outputs`
+- `result`
+- `participants`
+- `critical_path`: `true`, `false`
+- `criticality_level`: `mission-critical`, `business-critical`, `important`, `supporting`
+- `failure_impact`
+- `fallback_process_refs`
+
+== Traceability rules
+- Каждый `PROC-*` должен иметь хотя бы один `SCN-*`.
+- Каждый `PROC-*` должен иметь хотя бы одно `REQ-*`.
+- Каждый `PROC-*` должен быть связан с `APP-*` или `API-*`.
+- Каждый `PROC-*` должен иметь хотя бы один `SRC-*`.
+- Каждый `PROC-*` с `critical_path = true` должен иметь хотя бы один `SCN-*` типа `primary` или `failure`, хотя бы один `REQ-*` и хотя бы один `TEST-*`, `METRIC-*` или `PERF-*`.
+- У каждого `PROC-*` с `critical_path = true` должна быть явная chain `SCN -> REQ -> TEST/METRIC/PERF`, либо зафиксированный `RISK-*` на отсутствующее звено.
+
+== Key rules
+- Процесс должен явно фиксировать шаги, роли, fallback и точки деградации.
+- Если процесс образует существенный end-to-end critical chain, continuity contract поднимается в `33-layer-critical-path/`.
+- `06-layer-processes/` хранит детальные шаги процесса и роли, но именно `33-layer-critical-path/` определяет обязательный end-to-end critical chain.
+
+== Related layers
+- Upstream: `01 Aeilus Value Streams`, `04 Strategy Product`, `05 Business Architecture`.
+- Downstream: `07 Scenarios UX`, `08 Requirements`, `10 Applications Architecture`, `11 API Interfaces`, `33 Critical Path`.
+- Cross-layer links: `18 Risks`, `20 Quality Testing`, `21 Observability`, `24 Knowledge Sources`, `25 Traceability`.
+
+== Authoring notes
+- Смысловая часть subject cards этого слоя пишется на русском аналитическом языке с сохранением source-derived English terms там, где они являются устойчивой частью продукта; карточка должна оставаться human-readable и domain-first, а верхние разделы не должны сваливаться в формалистский prose about coverage or wave mechanics.
+- Шаги, переходы, fallback и failure routes описываются естественным языком, близким к пользовательскому и предметному маршруту, а не через канцелярские конструкции.
+- Если карточка `PROC-*` фиксирует `critical_path = true` или важный отказной путь, она не должна оставаться изолированным описанием: обязательны явные связи с `SCN-*` и `REQ-*`.
+- Если одно из обязательных звеньев еще не оформлено, карточка должна явно фиксировать gap и связанный `RISK-*`, а не молчаливый пропуск.
+- `PROC-*` должен описывать реальные шаги, переходы, участников и failure points над предметными объектами домена, а не быть только связующей карточкой между `VALUE-*`, `SCN-*` и `REQ-*`.
+- Если исходники позволяют увидеть конкретные операции над schema objects, converters, flows, properties, import/export routes или другими domain entities, эти шаги должны быть названы прямо.
+- Process card может быть cross-layer-connected, но ее ценность - в явном operational semantics, а не в перечислении ссылок.

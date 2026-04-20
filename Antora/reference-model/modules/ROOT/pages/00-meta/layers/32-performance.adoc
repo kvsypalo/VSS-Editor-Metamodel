@@ -1,0 +1,52 @@
+= 32 Performance
+
+== Path
+`domains/<domain>/32-layer-performance/`
+
+== Purpose
+Слой хранит latency targets, throughput limits, capacity ceilings, workload assumptions и performance impact assessment.
+
+== Activation
+- Этот слой входит в канонический стек `01-33`.
+- Слой является самостоятельным canonical layer даже при отсутствии новых гипотез.
+
+== Typical objects
+- `PERF-*`
+
+== Special fields
+- `record_mode`: `baseline_constraint`, `initiative_assessment`, `mixed`
+- `hard_constraints_text`
+- `context_text`
+- `assessment_subject_refs`
+- `affected_requirement_refs`
+- `performance_scope`
+- `latency_target`
+- `throughput_target`
+- `capacity_assumption`
+- `critical_path_budget`
+- `performance_decision`: `within_constraints`, `changes_required`, `constraint_violation`, `unknown`, `not_applicable`
+
+== Traceability rules
+- Baseline `PERF-*` может существовать без `HYP-*`, если фиксирует постоянный product constraint.
+- Initiative-specific `PERF-*` должен быть связан хотя бы с одной `HYP-*`, `CHANGE-*` или другим assessment subject.
+- Каждый `PERF-*` с решением `unknown`, `changes_required`, `constraint_violation` или неполным mandatory input должен иметь хотя бы один `RISK-*`, `REQ-*` или `CHANGE-*`.
+- Если performance относится к critical path, карточка должна быть связана с `CRIT-*`.
+- Каждая `METRIC-*` с `critical_path_metric = true` должна быть связана хотя бы с одним `PROC-*`, `SCN-*` или `PERF-*`.
+- Каждый `PROC-*` с `critical_path = true` должен иметь хотя бы один `TEST-*`, `METRIC-*` или `PERF-*`.
+
+== Key rules
+- Явные performance constraints оформляются в этом слое, а не растворяются по умолчанию в общем NFR.
+- Если performance относится к critical path, карточка должна быть связана с `CRIT-*`.
+- Performance trade-offs и workload assumptions фиксируются в `context_text`, а не смешиваются с baseline constraints.
+
+== Related layers
+- Upstream: `26 Business Hypotheses`, `22 Changes Roadmap`.
+- Downstream: `33 Critical Path`, `08 Requirements`, `18 Risks`, `21 Observability`, `25 Traceability`.
+- Neighbor layer: `17 NFR Quality Attributes`.
+
+== Authoring notes
+- Карточка должна явно разделять две части: `Жесткие требования и ограничения` и `Контекст и оценка влияния`.
+- `critical_path_budget` заполняется, если performance относится к end-to-end chain, зафиксированной в `CRIT-*`.
+- Если карточка фиксирует critical path или failure-related performance behavior, она не должна оставаться изолированной: нужны явные связи с `CRIT-*`, `PROC-*`, `SCN-*`, `REQ-*`, `TEST-*`, `METRIC-*` или связанный `RISK-*` на отсутствующее звено.
+- `not_applicable` допустим только при явном объяснении неприменимости.
+- Baseline constraint cards могут переиспользоваться многими инициативами, а initiative-specific assessment cards могут ссылаться на существующие baseline cards вместо дублирования их содержимого.

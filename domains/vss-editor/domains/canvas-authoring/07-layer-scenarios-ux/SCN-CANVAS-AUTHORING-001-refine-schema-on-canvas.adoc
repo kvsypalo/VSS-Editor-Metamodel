@@ -1,0 +1,121 @@
+= Refine Schema On Canvas
+
+== Краткое описание
+В этом дочернем домене Актор последовательно уточняет рабочую схему прямо на canvas: двигает блоки, меняет свойства, добавляет объекты, проверяет композицию и сразу видит результат каждого шага в одном интерактивном рабочем поле.
+
+== Текущее состояние
+Сценарий уже реализован как непрерывное взаимодействие между canvas и правой панелью свойств. Работа не дробится на отдельные экраны, а держится как один authoring loop вокруг текущей схемы.
+
+== Что подтверждено
+- Canvas поддерживает drag, selection, rectangle selection, zoom и pan.
+- Properties panel поддерживает schema, node, flow и text editing.
+- Локальные graph objects и их связи меняются прямо внутри открытой рабочей схемы.
+
+== Замечания аналитика
+Детализированный parent-level route уже materialized как `SCN-VSS-EDITOR-004`. Эта child-domain карточка удерживает ту же предметную ветку на уровне decomposition и Antora navigation.
+
+== Требуемые изменения
+Новых изменений не требуется.
+
+== Решение по карточке
+Статус карточки: approved
+Статус валидации: validated
+Статус изменения: no_change
+Статус апрува: approved
+
+Проверил аналитик: Konstantin Sypalo
+Дата проверки: 2026-04-20
+
+Утвердил: Konstantin Sypalo
+Дата утверждения: 2026-04-20
+== Связанные объекты
+
+|===
+| Категория | ID | Наименование | Ссылка | Комментарий
+| Requirement | REQ-CANVAS-AUTHORING-001 | Прямое редактирование структуры и свойств на canvas | ../08-layer-requirements/REQ-CANVAS-AUTHORING-001-edit-structure-and-properties-on-canvas.adoc | Локальный requirement child domain
+| Parent scenario | SCN-VSS-EDITOR-004 | Редактировать схему на canvas | ../../../07-layer-scenarios-ux/SCN-VSS-EDITOR-004-edit-schema-on-canvas.adoc | Детализированный route canvas authoring
+| Parent rule | RULE-VSS-EDITOR-001 | Тип и маршрут flow по endpoints | ../../../09-layer-domain-rules/RULE-VSS-EDITOR-001-derive-flow-type-and-routing-from-endpoints.adoc | Локальная flow semantics
+| Parent rule | RULE-VSS-EDITOR-002 | Каскадное удаление node | ../../../09-layer-domain-rules/RULE-VSS-EDITOR-002-delete-node-cascades-dependent-objects.adoc | Локальная integrity semantics
+| Parent rule | RULE-VSS-EDITOR-004 | Пустой routing = все elements | ../../../09-layer-domain-rules/RULE-VSS-EDITOR-004-empty-flow-routing-means-all-converter-elements.adoc | Локальная routing semantics
+|===
+
+== Источники
+
+|===
+| ID | Источник | Ссылка | Уровень доверия | Комментарий
+| SRC-CANVAS-AUTHORING-001 | app.js canvas authoring branch | C:/MetaModel/Example code/vss-editor-2.4/app.js | high | Подтверждает interaction loop и editing controls
+|===
+
+== Артефакты
+
+|===
+| ID | Артефакт | Ссылка | Комментарий
+|===
+
+'''
+== Технические поля
+
+[source,yaml]
+----
+Полное_имя_файла: SCN-CANVAS-AUTHORING-001-refine-schema-on-canvas.adoc
+type: scenario
+layer: 07 scenarios-ux
+name: Refine schema on canvas
+title: Refine Schema On Canvas
+status: approved
+version: 2026-04-20
+owner: analysis
+domain: canvas-authoring
+tags:
+  - scenario
+  - canvas
+  - editing
+
+summary: Актор уточняет структуру и свойства схемы в одном непрерывном canvas loop.
+description: Актор уточняет структуру и свойства схемы в одном непрерывном canvas loop.
+
+card_status: approved
+validation_status: validated
+change_status: no_change
+approval_status: approved
+
+current_state_text: |
+  Child domain scenario already works as a continuous authoring loop across canvas and properties panel.
+
+validated_facts_text: |
+  - Canvas supports direct manipulation of graph objects.
+  - Properties panel applies edits to the same opened schema.
+  - Graph rules become observable inside the same loop.
+
+validation_notes_text: |
+  Parent route stays as the detailed user scenario, while this card keeps the child-domain decomposition boundary.
+
+change_request_text: |
+  Новых изменений не требуется.
+
+source_refs:
+  - SRC-CANVAS-AUTHORING-001
+artifact_refs: []
+artifact_notations: {}
+artifact_style_reference: none
+mandatory_input_status: complete
+refusal_reasons: []
+resulting_risk_refs: []
+relations:
+  requirement_refs:
+    - REQ-CANVAS-AUTHORING-001
+created_at: 2026-04-20
+updated_at: 2026-04-20
+validated_by: Konstantin Sypalo
+validated_at: 2026-04-20
+approved_by: Konstantin Sypalo
+approved_at: 2026-04-20
+scenario_type: primary
+primary_actor: schema author
+entry_point: Existing editable schema on the canvas
+expected_outcome: Актор получает обновленную рабочую схему и остается внутри непрерывного authoring session.
+is_failure_scenario: false
+critical_path_step_refs: []
+fallback_outcome: Если отдельная правка отменяется или не завершается, Актор сохраняет текущую схему и может продолжить следующий editing step.
+test_refs: []
+----

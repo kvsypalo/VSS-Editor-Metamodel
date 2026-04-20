@@ -1,0 +1,38 @@
+= 14 Code Implementation
+
+== Path
+`domains/<domain>/14-layer-code-implementation/`
+
+== Purpose
+Слой содержит кодовые модули, техническую реализацию требований и привязку решений к executable implementation.
+
+== Activation
+- Этот слой входит в канонический стек `01-33`.
+- Домен может пометить слой как `unused`, если локально не фиксирует отдельные code cards.
+
+== Typical objects
+- `CODE-*`
+
+== Special fields
+- Отдельные layer-specific поля не заданы. Используется `BASE-CARD-SCHEMA-001`.
+
+== Traceability rules
+- В root-правилах нет отдельного минимального link contract специально для `CODE-*`.
+- Если изменение реализовано в коде, должны быть синхронизированы `REQ-*`, `TEST-*` и `TRACE-*`.
+- Если `CODE-*` подтверждает user-facing flows, domain rules или data semantics, объект должен быть связан хотя бы с одним `SCN-*`, `RULE-*` или `DATA-*`, либо с `RISK-*` на явно зафиксированное omission.
+
+== Key rules
+- Этот слой отражает структуру и ответственность кода, но не заменяет requirements, API или architecture layers.
+- Если изменение реализовано в коде, должны быть синхронизированы требования, tests и traceability.
+- `14-layer-code-implementation/` отражает место и способ реализации, но не является конечным хранилищем для user scenarios, object fields, domain rules или data semantics.
+- `CODE-*` не считается достаточным покрытием editor-like продукта, если подтвержденные object semantics и user flows не подняты в `07`, `09` и `13`.
+
+== Related layers
+- Upstream: `08 Requirements`, `10 Applications Architecture`, `11 API Interfaces`, `13 Data Architecture`.
+- Downstream: `19 Technical Debt`, `20 Quality Testing`, `25 Traceability`.
+
+== Authoring notes
+- Смысловая часть subject cards этого слоя пишется на русском аналитическом языке с сохранением source-derived English terms там, где они являются устойчивой частью продукта; карточка должна оставаться human-readable и domain-first, а верхние разделы не должны сваливаться в формалистский prose about coverage or wave mechanics.
+- `CODE-*` может ссылаться на technical details, модули и implementation specifics, но верхняя часть карточки все равно должна объяснять предметную роль реализации в нормальной читаемой прозе.
+- Если code analysis выявляет user-facing flows, object properties, normalization logic, validation behavior или semantic invariants, `CODE-*` обязан ссылаться на соответствующие `SCN-*`, `RULE-*` и `DATA-*`, а не подменять их собственным описанием.
+- Если такие объекты еще не materialize, code-derived gap должен быть явно зафиксирован и закрыт в той же change wave либо связанным `RISK-*`.

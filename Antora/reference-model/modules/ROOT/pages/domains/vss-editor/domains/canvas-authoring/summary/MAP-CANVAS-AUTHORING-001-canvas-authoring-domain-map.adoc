@@ -1,0 +1,163 @@
+= Canvas Authoring Domain Map
+
+== Краткое описание
+Дочерний домен `canvas-authoring` описывает непрерывное уточнение схемы на рабочем холсте: редактирование converters, flows, element types и text annotations, а также прямую работу с properties panel, drag, selection, zoom и pan.
+
+Этот child domain наследует value contract родительского домена `vss-editor` и не materialize собственный layer `01`, потому что Актор и прикладная ценность здесь совпадают с общим authoring route продукта.
+
+== Текущее состояние
+Домен выделен из общего product scope, чтобы удерживать отдельную ответственность за структуру графа, редактирование свойств и интерактивное поведение canvas. Source basis остается той же - web bundle `index.html`, `app.js`, `styles.css` из каталога `C:\MetaModel\Example code\vss-editor-2.4`.
+
+== Что подтверждено
+- Canvas и properties panel образуют единый authoring surface без отдельных экранов.
+- Актор может добавлять и менять converters, flows, value elements и text annotations.
+- Правки на canvas опираются на локальные graph rules родительского домена и сразу видимы в рабочей схеме.
+
+== Замечания аналитика
+Child domain выделен по смысловой границе непрерывного authoring cycle. Он отличается от file/workspace lifecycle собственными interaction rules и собственной change surface.
+
+== Требуемые изменения
+Новых изменений продукта не запрошено. Требуется явно materialize child domain по канону repository structure и publication view.
+
+== Решение по карточке
+Статус карточки: approved
+Статус валидации: validated
+Статус изменения: no_change
+Статус апрува: approved
+
+Проверил аналитик: Konstantin Sypalo
+Дата проверки: 2026-04-20
+
+Утвердил: Konstantin Sypalo
+Дата утверждения: 2026-04-20
+== Связанные объекты
+
+|===
+| Категория | ID | Наименование | Ссылка | Комментарий
+| Parent domain | MAP-VSS-EDITOR-001 | VSS Editor Product Domain Map | ../../.summary/MAP-VSS-EDITOR-001-product-domain-map.adoc | Родительский домен и унаследованный контекст
+| Process | PROC-VSS-EDITOR-001 | Сборка и корректировка схемы | ../../06-layer-processes/PROC-VSS-EDITOR-001-author-and-adjust-schema.adoc | Общий процесс, внутри которого живет child domain
+| Scenario | SCN-CANVAS-AUTHORING-001 | Уточнение схемы на canvas | ../07-layer-scenarios-ux/SCN-CANVAS-AUTHORING-001-refine-schema-on-canvas.adoc | Локальный сценарий child domain
+| Requirement | REQ-CANVAS-AUTHORING-001 | Прямое редактирование структуры и свойств на canvas | ../08-layer-requirements/REQ-CANVAS-AUTHORING-001-edit-structure-and-properties-on-canvas.adoc | Локальный requirement child domain
+| Source | SRC-CANVAS-AUTHORING-001 | Source basis canvas authoring | ../24-layer-knowledge-sources/SRC-CANVAS-AUTHORING-001-canvas-authoring-source-basis.adoc | Локальный source basis
+| Traceability | TRACE-CANVAS-AUTHORING-001 | Canvas authoring trace | ../25-layer-traceability/TRACE-CANVAS-AUTHORING-001-canvas-authoring-trace.adoc | Локальная сквозная цепочка
+|===
+
+== Источники
+
+|===
+| ID | Источник | Ссылка | Уровень доверия | Комментарий
+| SRC-CANVAS-AUTHORING-001 | Canvas authoring in web bundle v2.4 | C:/MetaModel/Example code/vss-editor-2.4 | high | Подтверждает interaction surface и graph editing behavior
+|===
+
+== Артефакты
+
+|===
+| ID | Артефакт | Ссылка | Комментарий
+|===
+
+'''
+== Технические поля
+
+[source,yaml]
+----
+Полное_имя_файла: MAP-CANVAS-AUTHORING-001-canvas-authoring-domain-map.adoc
+type: domain-map
+layer: 00 meta
+name: Canvas authoring domain map
+title: Canvas Authoring Domain Map
+status: approved
+version: 2026-04-20
+owner: analysis
+domain: canvas-authoring
+tags:
+  - child-domain
+  - canvas
+  - authoring
+
+summary: Дочерний домен непрерывного редактирования схемы на canvas внутри VSS Editor.
+description: Дочерний домен непрерывного редактирования схемы на canvas внутри VSS Editor.
+
+card_status: approved
+validation_status: validated
+change_status: no_change
+approval_status: approved
+
+current_state_text: |
+  Child domain materialized для interactive graph editing, properties panel and canvas interaction rules.
+  Independent value layer не создается, потому что домен наследует value contract родительского `vss-editor`.
+
+validated_facts_text: |
+  - Подтверждены прямые правки schema, node, flow and text objects.
+  - Подтверждены drag, selection, zoom and pan as one authoring surface.
+  - Домен может развиваться автономно как canvas behavior scope.
+
+validation_notes_text: |
+  Scope child domain выделен по смысловой границе canvas authoring, а не по количеству JS handlers.
+
+change_request_text: |
+  Новых изменений продукта не запрошено.
+  Требуется materialize child domain для domain decomposition и Antora publication view.
+
+source_refs:
+  - SRC-CANVAS-AUTHORING-001
+artifact_refs: []
+artifact_notations: {}
+artifact_style_reference: none
+mandatory_input_status: complete
+refusal_reasons: []
+resulting_risk_refs: []
+relations:
+  process_refs:
+    - PROC-VSS-EDITOR-001
+  scenario_refs:
+    - SCN-CANVAS-AUTHORING-001
+  requirement_refs:
+    - REQ-CANVAS-AUTHORING-001
+  traceability_refs:
+    - TRACE-CANVAS-AUTHORING-001
+created_at: 2026-04-20
+updated_at: 2026-04-20
+validated_by: Konstantin Sypalo
+validated_at: 2026-04-20
+approved_by: Konstantin Sypalo
+approved_at: 2026-04-20
+domain_role: child
+parent_domain: vss-editor
+reference_release: RM-20260420-001
+used_layers:
+  - 00
+  - 07
+  - 08
+  - 24
+  - 25
+unused_layers:
+  - 01
+  - 02
+  - 03
+  - 04
+  - 05
+  - 06
+  - 09
+  - 10
+  - 11
+  - 12
+  - 13
+  - 14
+  - 15
+  - 16
+  - 17
+  - 18
+  - 19
+  - 20
+  - 21
+  - 22
+  - 23
+  - 26
+  - 27
+  - 28
+  - 29
+  - 30
+  - 31
+  - 32
+  - 33
+----

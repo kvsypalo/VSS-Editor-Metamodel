@@ -1,0 +1,122 @@
+= Manage Workspace Entry And File Operations
+
+== Краткое описание
+Редактор должен удерживать рабочую схему как единое editable workspace state. Актор должен иметь возможность начать новую схему, открыть существующую, добавить внешний фрагмент, выгрузить результат и безопасно пережить ошибочный входной JSON без потери уже открытой работы.
+
+== Текущее состояние
+В текущей реализации все перечисленные операции уже живут в schema menu и вокруг общего `state.schema`. `New`, `Open`, `Add Schema`, `Export JSON`, `Export PNG` и invalid-JSON handling образуют один локальный contract child domain.
+
+== Что подтверждено
+- Entry routes и file routes используют общий browser-only workspace state.
+- Import и export меняют или выносят схему без переключения в другой runtime context.
+- Parse error не разрушает текущее рабочее состояние.
+
+== Замечания аналитика
+Requirement child domain удерживает именно локальный lifecycle contract. Детализированные acceptance branches остаются раскрытыми в родительских `REQ-VSS-EDITOR-*` и `SCN-VSS-EDITOR-*`.
+
+== Требуемые изменения
+Новых изменений не требуется.
+
+== Решение по карточке
+Статус карточки: approved
+Статус валидации: validated
+Статус изменения: no_change
+Статус апрува: approved
+
+Проверил аналитик: Konstantin Sypalo
+Дата проверки: 2026-04-20
+
+Утвердил: Konstantin Sypalo
+Дата утверждения: 2026-04-20
+== Связанные объекты
+
+|===
+| Категория | ID | Наименование | Ссылка | Комментарий
+| Scenario | SCN-WORKSPACE-LIFECYCLE-001 | Управление рабочим состоянием схемы | ../07-layer-scenarios-ux/SCN-WORKSPACE-LIFECYCLE-001-manage-schema-workspace-state.adoc | Локальный child-domain route
+| Parent requirement | REQ-VSS-EDITOR-001 | Создание и открытие схемы | ../../../08-layer-requirements/REQ-VSS-EDITOR-001-create-and-open-schema-state.adoc | Детализация entry branch
+| Parent requirement | REQ-VSS-EDITOR-003 | Импорт и экспорт schema assets | ../../../08-layer-requirements/REQ-VSS-EDITOR-003-import-and-export-schema-assets.adoc | Детализация import/export branch
+| Parent requirement | REQ-VSS-EDITOR-004 | Отказ от невалидного JSON без потери state | ../../../08-layer-requirements/REQ-VSS-EDITOR-004-reject-invalid-json-without-state-loss.adoc | Детализация failure branch
+|===
+
+== Источники
+
+|===
+| ID | Источник | Ссылка | Уровень доверия | Комментарий
+| SRC-WORKSPACE-LIFECYCLE-001 | File workspace lifecycle in app.js | C:/MetaModel/Example code/vss-editor-2.4/app.js | high | Подтверждает child-domain contract на schema menu и file input
+|===
+
+== Артефакты
+
+|===
+| ID | Артефакт | Ссылка | Комментарий
+|===
+
+'''
+== Технические поля
+
+[source,yaml]
+----
+Полное_имя_файла: REQ-WORKSPACE-LIFECYCLE-001-manage-workspace-entry-and-file-operations.adoc
+type: requirement
+layer: 08 requirements
+name: Manage workspace entry and file operations
+title: Manage Workspace Entry And File Operations
+status: approved
+version: 2026-04-20
+owner: analysis
+domain: workspace-lifecycle
+tags:
+  - requirement
+  - workspace
+  - file-operations
+
+summary: Requirement на единый lifecycle рабочей схемы через entry, import, export и failure-safe file handling.
+description: Requirement на единый lifecycle рабочей схемы через entry, import, export и failure-safe file handling.
+
+card_status: approved
+validation_status: validated
+change_status: no_change
+approval_status: approved
+
+current_state_text: |
+  Workspace lifecycle already operates around one editable schema state and one schema menu.
+
+validated_facts_text: |
+  - `New` и `Open` дают старт рабочей схеме.
+  - `Add Schema`, `Export JSON` и `Export PNG` продолжают ту же сессию.
+  - Parse error leaves current schema available.
+
+validation_notes_text: |
+  Карточка удерживает child-domain requirement целиком, а не повторяет каждую детальную ветку родительского домена.
+
+change_request_text: |
+  Новых изменений не требуется.
+
+source_refs:
+  - SRC-WORKSPACE-LIFECYCLE-001
+artifact_refs: []
+artifact_notations: {}
+artifact_style_reference: none
+mandatory_input_status: complete
+refusal_reasons: []
+resulting_risk_refs: []
+relations:
+  scenario_refs:
+    - SCN-WORKSPACE-LIFECYCLE-001
+created_at: 2026-04-20
+updated_at: 2026-04-20
+validated_by: Konstantin Sypalo
+validated_at: 2026-04-20
+approved_by: Konstantin Sypalo
+approved_at: 2026-04-20
+requirement_type: baseline
+priority: high
+acceptance_criteria: |
+  - Актор может начать новую схему или открыть существующую и сразу продолжить работу.
+  - Актор может импортировать дополнительную схему и выгрузить результат в JSON или PNG.
+  - Ошибочный JSON завершает только входную операцию и не разрушает текущую схему.
+criticality: high
+critical_path_refs: []
+failure_scenario_refs: []
+recovery_expectation: После любой file operation Актор либо продолжает текущую сессию, либо получает переносимый результат без потери открытой схемы.
+----

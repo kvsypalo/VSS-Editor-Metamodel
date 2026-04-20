@@ -1,0 +1,112 @@
+= File Workspace Lifecycle Source Basis
+
+== Краткое описание
+Карточка фиксирует source basis child domain `workspace-lifecycle`: обработчики schema menu, file input, import/export branches и отказную ветку по невалидному JSON внутри web bundle v2.4.
+
+== Текущее состояние
+Локальный source basis выделен из общего `SRC-VSS-EDITOR-001`, чтобы child domain имел собственную опору в слое `24` и не терял автономность при навигации и review.
+
+== Что подтверждено
+- `btnNew`, `btnOpen`, `btnImport`, `btnSaveFile`, `btnExportPng` и `fileInput.onchange` покрывают локальный scope домена.
+- Основная логика child domain сосредоточена в `app.js`.
+- Отдельних внешних источников или backend contracts для этого child domain не найдено.
+
+== Замечания аналитика
+Карточка не создает новый внешний источник, а локально выделяет подтвержденный срез общего source basis родительского домена.
+
+== Требуемые изменения
+Новых изменений не требуется.
+
+== Решение по карточке
+Статус карточки: approved
+Статус валидации: validated
+Статус изменения: no_change
+Статус апрува: approved
+
+Проверил аналитик: Konstantin Sypalo
+Дата проверки: 2026-04-20
+
+Утвердил: Konstantin Sypalo
+Дата утверждения: 2026-04-20
+== Связанные объекты
+
+|===
+| Категория | ID | Наименование | Ссылка | Комментарий
+| Parent source | SRC-VSS-EDITOR-001 | Исходный web bundle v2.4 | ../../../24-layer-knowledge-sources/SRC-VSS-EDITOR-001-web-bundle-source-basis.adoc | Общий source basis родительского домена
+| Requirement | REQ-WORKSPACE-LIFECYCLE-001 | Ведение рабочей схемы и файловых операций | ../08-layer-requirements/REQ-WORKSPACE-LIFECYCLE-001-manage-workspace-entry-and-file-operations.adoc | Child-domain requirement, который опирается на этот источник
+|===
+
+== Источники
+
+|===
+| ID | Источник | Ссылка | Уровень доверия | Комментарий
+| SRC-WORKSPACE-LIFECYCLE-001 | app.js workspace/file branches | C:/MetaModel/Example code/vss-editor-2.4/app.js | high | Подтверждает весь scope child domain
+|===
+
+== Артефакты
+
+|===
+| ID | Артефакт | Ссылка | Комментарий
+|===
+
+'''
+== Технические поля
+
+[source,yaml]
+----
+Полное_имя_файла: SRC-WORKSPACE-LIFECYCLE-001-file-workspace-source-basis.adoc
+type: knowledge-source
+layer: 24 knowledge-sources
+name: File workspace lifecycle source basis
+title: File Workspace Lifecycle Source Basis
+status: approved
+version: 2026-04-20
+owner: analysis
+domain: workspace-lifecycle
+tags:
+  - source
+  - workspace
+  - file
+
+summary: Локальный source basis child domain для schema menu, file input, import/export и invalid-JSON handling.
+description: Локальный source basis child domain для schema menu, file input, import/export и invalid-JSON handling.
+
+card_status: approved
+validation_status: validated
+change_status: no_change
+approval_status: approved
+
+current_state_text: |
+  Child domain uses a scoped slice of the same web bundle source basis as the parent domain.
+
+validated_facts_text: |
+  - Local source basis centers on `app.js` handlers for schema menu and file input.
+  - No extra backend or integration source is present.
+  - The source basis is enough to confirm entry, import, export and failure handling.
+
+validation_notes_text: |
+  Source card exists to give child-domain autonomy in layer `24`, not to duplicate an independent upstream artifact.
+
+change_request_text: |
+  Новых изменений не требуется.
+
+source_refs:
+  - SRC-VSS-EDITOR-001
+artifact_refs: []
+artifact_notations: {}
+artifact_style_reference: none
+mandatory_input_status: complete
+refusal_reasons: []
+resulting_risk_refs: []
+relations:
+  requirement_refs:
+    - REQ-WORKSPACE-LIFECYCLE-001
+created_at: 2026-04-20
+updated_at: 2026-04-20
+validated_by: Konstantin Sypalo
+validated_at: 2026-04-20
+approved_by: Konstantin Sypalo
+approved_at: 2026-04-20
+source_type: code-and-ui
+trust_level: high
+----

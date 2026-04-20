@@ -1,5 +1,5 @@
 name: reference-model
-title: Reference Model
+title: VSS Editor Product Model
 version: current
 nav:
   - modules/ROOT/nav.adoc

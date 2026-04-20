@@ -1,0 +1,31 @@
+= 10 Applications Architecture
+
+== Path
+`domains/<domain>/10-layer-applications-architecture/`
+
+== Purpose
+Слой фиксирует приложения, системные компоненты и архитектурное разбиение решения.
+
+== Activation
+- Этот слой входит в канонический стек `01-33`.
+- Домен может пометить слой как `unused`, если локально не выделяет отдельные application cards.
+
+== Typical objects
+- `APP-*`
+
+== Special fields
+- Отдельные layer-specific поля не заданы. Используется `BASE-CARD-SCHEMA-001`.
+
+== Traceability rules
+- Каждый `PROC-*` должен быть связан с `APP-*` или `API-*`.
+
+== Key rules
+- Здесь описываются системные части решения и их роли.
+- Интеграции и API оформляются в слоях `12` и `11`, а не смешиваются с application structure.
+
+== Related layers
+- Upstream: `05 Business Architecture`, `08 Requirements`.
+- Downstream: `11 API Interfaces`, `12 Integrations`, `14 Code Implementation`, `15 Technology Architecture`, `16 Operations`.
+
+== Authoring notes
+- Root-правила не задают дополнительных authoring notes для этого слоя кроме `CARD-CREATION-RULES-001` и `BASE-CARD-SCHEMA-001`.
