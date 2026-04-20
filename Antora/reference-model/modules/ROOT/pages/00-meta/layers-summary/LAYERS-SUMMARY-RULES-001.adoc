@@ -1,0 +1,34 @@
+= LAYERS-SUMMARY-RULES-001
+
+Каталог `00-meta/layers-summary/` хранит агрегированное описание всего канонического набора слоев.
+
+== Назначение
+- собрать layer-specific knowledge по всему стеку в одном месте
+- дублировать per-layer semantics из `../layers/` в обзорном формате
+- дать единый вход для обзора слоев, object prefixes, special fields, traceability summary и layer clusters
+
+== Центр правды
+- `../layers/NN-*.adoc` является каноническим source of truth для конкретного слоя
+- `../layers-summary/*.adoc` хранит агрегированные summary docs по всему набору слоев
+- при расхождении приоритет всегда у `../layers/`
+
+== Обязательная синхронизация
+- любое изменение канонического набора слоев требует синхронного обновления `../layers/` и `../layers-summary/`
+- добавление слоя считается незавершенным, если не обновлены соответствующий layer doc и summary docs
+- удаление слоя считается незавершенным, если слой не удален из summary docs и structural references
+- изменение canonical name, canonical path, object prefixes, special fields, traceability rules или authoring notes слоя требует обновления summary docs в том же change set
+
+== Состав каталога
+- `LAYER-CANONICAL-TABLES-002.adoc` — полный канонический список слоев
+- `LAYER-GROUPS-001.adoc` — обзорные группы и диапазоны слоев
+- `OBJECT-PREFIX-REGISTRY-001.adoc` — сводный registry object prefixes по слоям
+- `LAYER-SPECIAL-FIELDS-001.adoc` — агрегированные special fields и shared enums
+- `TRACEABILITY-RULES-001.adoc` — агрегированная summary всех layer-specific traceability rules
+- `PRE-REQUIREMENT-VALIDATION-LAYER-RULES-001.adoc` — агрегированная summary для validation cluster и critical-path-aware assessment
+
+== Правило работы
+- сначала читать relevant files в `../layers/`
+- затем читать нужные aggregate docs в `../layers-summary/`
+- не хранить layer semantics только в общих документах вне `../layers/` и `../layers-summary/`
+- Для subject-layer authoring notes human-readable sections по умолчанию пишутся на основном рабочем языке репозитория; source-derived English terms сохраняются только там, где они реально являются частью продукта или source basis и точнее перевода.
+- При синхронизации quality-related authoring notes сохраняй различие: subject-layer semantics остаются domain-first в `../layers/`, а подробности formalization wave и completeness концентрируются прежде всего в `CHANGE-*`, `TRACE-*` и при необходимости в `MAP-*`.

@@ -1,0 +1,122 @@
+= Manage Schema Workspace State
+
+== Краткое описание
+В этом дочернем домене Актор удерживает схему как рабочий файл и рабочую сессию: начинает новую схему, возвращается к существующей, подмешивает внешний фрагмент, выгружает результат наружу и сохраняет текущую картину, если входной JSON оказался ошибочным.
+
+== Текущее состояние
+Сценарий уже реализован как группа соседних команд вокруг одного и того же workspace state. Все операции идут через schema menu и не требуют перехода в отдельные экраны или внешние сервисы.
+
+== Что подтверждено
+- `New` и `Open` формируют базовое рабочее состояние схемы.
+- `Add Schema`, `Export JSON` и `Export PNG` работают как продолжение той же сессии.
+- Ошибка чтения JSON завершает входную операцию отказом и сохраняет текущую схему на месте.
+
+== Замечания аналитика
+Детальные user routes уже materialized в родительском домене. Здесь они собраны в один child-domain scenario, потому что для decomposition важен именно единый lifecycle рабочей схемы как предметная граница.
+
+== Требуемые изменения
+Новых изменений не требуется.
+
+== Решение по карточке
+Статус карточки: approved
+Статус валидации: validated
+Статус изменения: no_change
+Статус апрува: approved
+
+Проверил аналитик: Konstantin Sypalo
+Дата проверки: 2026-04-20
+
+Утвердил: Konstantin Sypalo
+Дата утверждения: 2026-04-20
+== Связанные объекты
+
+|===
+| Категория | ID | Наименование | Ссылка | Комментарий
+| Requirement | REQ-WORKSPACE-LIFECYCLE-001 | Ведение рабочей схемы и файловых операций | ../08-layer-requirements/REQ-WORKSPACE-LIFECYCLE-001-manage-workspace-entry-and-file-operations.adoc | Локальный requirement child domain
+| Parent scenario | SCN-VSS-EDITOR-001 | Создать новую схему | ../../../07-layer-scenarios-ux/SCN-VSS-EDITOR-001-create-new-schema.adoc | Детализированный route `New`
+| Parent scenario | SCN-VSS-EDITOR-002 | Открыть JSON-схему | ../../../07-layer-scenarios-ux/SCN-VSS-EDITOR-002-open-schema-from-json.adoc | Детализированный route `Open`
+| Parent scenario | SCN-VSS-EDITOR-003 | Импортировать дополнительную схему | ../../../07-layer-scenarios-ux/SCN-VSS-EDITOR-003-import-additional-schema.adoc | Детализированный route `Add Schema`
+| Parent scenario | SCN-VSS-EDITOR-005 | Экспортировать схему в JSON или PNG | ../../../07-layer-scenarios-ux/SCN-VSS-EDITOR-005-export-schema-artifacts.adoc | Детализированный export route
+| Parent scenario | SCN-VSS-EDITOR-006 | Ошибка невалидного JSON | ../../../07-layer-scenarios-ux/SCN-VSS-EDITOR-006-invalid-json-open-or-import.adoc | Failure boundary child domain
+|===
+
+== Источники
+
+|===
+| ID | Источник | Ссылка | Уровень доверия | Комментарий
+| SRC-WORKSPACE-LIFECYCLE-001 | app.js file workspace branch | C:/MetaModel/Example code/vss-editor-2.4/app.js | high | Подтверждает lifecycle схемы через schema menu и file input
+|===
+
+== Артефакты
+
+|===
+| ID | Артефакт | Ссылка | Комментарий
+|===
+
+'''
+== Технические поля
+
+[source,yaml]
+----
+Полное_имя_файла: SCN-WORKSPACE-LIFECYCLE-001-manage-schema-workspace-state.adoc
+type: scenario
+layer: 07 scenarios-ux
+name: Manage schema workspace state
+title: Manage Schema Workspace State
+status: approved
+version: 2026-04-20
+owner: analysis
+domain: workspace-lifecycle
+tags:
+  - scenario
+  - workspace
+  - file-lifecycle
+
+summary: Актор ведет рабочую схему как file-backed сессию от входа до выгрузки и отказного маршрута.
+description: Актор ведет рабочую схему как file-backed сессию от входа до выгрузки и отказного маршрута.
+
+card_status: approved
+validation_status: validated
+change_status: no_change
+approval_status: approved
+
+current_state_text: |
+  Child domain scenario already spans entry, interchange and failure-safe file operations around one editable schema state.
+
+validated_facts_text: |
+  - `New` и `Open` создают или возвращают рабочую схему.
+  - Import и export расширяют тот же workspace state.
+  - Invalid JSON leaves current session intact.
+
+validation_notes_text: |
+  Детальные routes вынесены в родительские `SCN-VSS-EDITOR-*`, а эта карточка удерживает их child-domain aggregation.
+
+change_request_text: |
+  Новых изменений не требуется.
+
+source_refs:
+  - SRC-WORKSPACE-LIFECYCLE-001
+artifact_refs: []
+artifact_notations: {}
+artifact_style_reference: none
+mandatory_input_status: complete
+refusal_reasons: []
+resulting_risk_refs: []
+relations:
+  requirement_refs:
+    - REQ-WORKSPACE-LIFECYCLE-001
+created_at: 2026-04-20
+updated_at: 2026-04-20
+validated_by: Konstantin Sypalo
+validated_at: 2026-04-20
+approved_by: Konstantin Sypalo
+approved_at: 2026-04-20
+scenario_type: primary
+primary_actor: schema author
+entry_point: Schema menu commands around current workspace state
+expected_outcome: Актор управляет рабочей схемой как текущей сессией и получает либо обновленное состояние, либо переносимый артефакт без разрушения открытой работы.
+is_failure_scenario: false
+critical_path_step_refs: []
+fallback_outcome: При ошибочном входном JSON Актор сохраняет текущую схему и может продолжить с ней работу.
+test_refs: []
+----

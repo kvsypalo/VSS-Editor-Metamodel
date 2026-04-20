@@ -1,0 +1,40 @@
+= REFERENCE-MODEL-RELEASE-REGISTER-001
+
+Реестр release identity эталонной модели.
+
+== 1. Назначение
+- зафиксировать канонический формат release identifier эталона
+- хранить список опубликованных release scope эталонной модели
+- дать project repos машиночитаемую и человекочитаемую точку ссылки на принятую версию эталона
+
+== 2. Формат release identifier
+Канонический формат:
+
+`RM-YYYYMMDD-NNN`
+
+Где:
+- `RM` - reference model
+- `YYYYMMDD` - дата release scope
+- `NNN` - порядковый номер release scope в пределах даты, начиная с `001`
+
+== 3. Правила использования
+- любое принятое изменение в root `00-meta/` создает новый release scope
+- каждый release scope должен получить новый `RM-YYYYMMDD-NNN`
+- идентификатор фиксируется в этом реестре и должен совпадать с release tag или release identifier, используемым в Git
+- project repo обязан ссылаться именно на значение из этого реестра
+
+== 4. Реестр release identity
+
+|===
+| Release ID | Дата | Scope | Статус | Комментарий 
+| RM-20260420-001 | 2026-04-20 | Formalize Antora publication view, domain Summary entry points and audience-oriented block navigation | published | Root `00-meta/`, `Antora/`, release register and `AGENTS.md` synchronized after the approved publication-view wave 
+| RM-20260407-003 | 2026-04-07 | Static layer reference, layer summaries, Summary rename, validator relocation | published | Root `00-meta/` and `AGENTS.md` synchronized as the current reference-model governance package 
+| RM-20260409-001 | 2026-04-09 | Restore explicit top-level layer-01 root governance after static-layer restructure regression | published | Root `00-meta/`, `layers-summary/`, release register, domain map and `AGENTS.md` synchronized after the approved corrective wave 
+| RM-20260409-002 | 2026-04-09 | Formalize code-derived materialization beyond summary and code layer | published | Root `00-meta/`, `layers-summary/`, release register, domain map and `AGENTS.md` synchronized after the approved code-driven materialization wave 
+| RM-20260409-003 | 2026-04-09 | Formalize domain-first concise subject card language | published | Root `00-meta/`, `layers-summary/`, release register, domain map and `AGENTS.md` synchronized after the approved domain-first subject-card conciseness wave 
+| RM-20260410-001 | 2026-04-10 | Formalize Russian-first human-readable subject-card prose and source-derived term retention | published | Root `00-meta/`, `layers-summary/`, templates, schema, layer docs, release register and `AGENTS.md` synchronized after the approved repository-language authoring wave 
+| RM-20260413-001 | 2026-04-13 | Formalize `.summary` path, layer-01 value and anti-value gate, and domain-origin cascade workflow | published | Root `00-meta/`, `layers-summary/`, validator, release register, `.summary` domain map and `AGENTS.md` synchronized after the approved domain-autonomy wave 
+| RM-20260414-001 | 2026-04-14 | Formalize bidirectional scenario-test linkage and same-wave scenario coverage pairing | published | Root `00-meta/`, `layers-summary/`, templates, release register, `.summary` domain map, validator hashes and `AGENTS.md` synchronized after the approved scenario-test linkage wave 
+| RM-20260414-002 | 2026-04-14 | Publish user-readable regulations for product metamodel analysis and product change execution | published | Root `00-meta/governance/`, `AGENTS.md`, release register, `.summary` domain map and validator hashes synchronized after the approved user-readable regulations wave 
+| RM-20260416-001 | 2026-04-16 | Clarify analyst-agent collaboration transparency in user-readable regulations | published | Root `00-meta/governance/`, `AGENTS.md`, release register, `.summary` domain map and validator hashes synchronized after the approved transparency refinement wave 
+|===

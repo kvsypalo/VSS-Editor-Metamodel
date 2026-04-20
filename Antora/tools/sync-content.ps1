@@ -27,6 +27,56 @@ function Sync-Junction {
     }
 }
 
+function Sync-DirectoryCopies {
+    param(
+        [string]$SourcePath,
+        [string]$TargetPath
+    )
+
+    Remove-PathIfExists -Path $TargetPath
+    if (-not (Test-Path -LiteralPath $SourcePath)) {
+        return
+    }
+
+    New-Item -ItemType Directory -Path $TargetPath | Out-Null
+    Get-ChildItem -LiteralPath $SourcePath -File -Filter *.adoc | ForEach-Object {
+        Copy-Item -LiteralPath $_.FullName -Destination (Join-Path $TargetPath $_.Name)
+    }
+}
+
+function Sync-DomainPublicationTree {
+    param(
+        [string]$SourceDomainPath,
+        [string]$TargetDomainPath
+    )
+
+    Remove-PathIfExists -Path $TargetDomainPath
+    New-Item -ItemType Directory -Path $TargetDomainPath | Out-Null
+
+    foreach ($entry in Get-ChildItem -LiteralPath $SourceDomainPath) {
+        if (-not $entry.PSIsContainer) {
+            continue
+        }
+
+        switch ($entry.Name) {
+            '.summary' {
+                Sync-DirectoryCopies -SourcePath $entry.FullName -TargetPath (Join-Path $TargetDomainPath 'summary')
+            }
+            'domains' {
+                $childDomainsTarget = Join-Path $TargetDomainPath 'domains'
+                Remove-PathIfExists -Path $childDomainsTarget
+                New-Item -ItemType Directory -Path $childDomainsTarget | Out-Null
+                foreach ($childDomain in Get-ChildItem -LiteralPath $entry.FullName -Directory | Sort-Object Name) {
+                    Sync-DomainPublicationTree -SourceDomainPath $childDomain.FullName -TargetDomainPath (Join-Path $childDomainsTarget $childDomain.Name)
+                }
+            }
+            default {
+                Sync-Junction -LinkPath (Join-Path $TargetDomainPath $entry.Name) -TargetPath $entry.FullName
+            }
+        }
+    }
+}
+
 function Get-DocTitle {
     param([string]$FilePath)
 
@@ -96,7 +146,7 @@ $captionSubdomains = New-TextFromCodePoints -CodePoints @(0x041F, 0x043E, 0x0434
 $publicationBlocks = @(
     @{
         Caption = 'Summary'
-        LayerDirs = @('.summary')
+        LayerDirs = @('summary')
     },
     @{
         Caption = $captionValueContext
@@ -256,10 +306,19 @@ function Add-DomainsNav {
 
 Sync-Junction -LinkPath (Join-Path $pagesRoot '00-meta') -TargetPath (Join-Path $repoRoot '00-meta')
 Sync-Junction -LinkPath (Join-Path $pagesRoot 'common') -TargetPath (Join-Path $repoRoot 'common')
-Sync-Junction -LinkPath (Join-Path $pagesRoot 'domains') -TargetPath (Join-Path $repoRoot 'domains')
+
+$domainsSourcePath = Join-Path $repoRoot 'domains'
+$domainsPublicationPath = Join-Path $pagesRoot 'domains'
+Remove-PathIfExists -Path $domainsPublicationPath
+if (Test-Path -LiteralPath $domainsSourcePath) {
+    New-Item -ItemType Directory -Path $domainsPublicationPath | Out-Null
+    foreach ($topDomain in Get-ChildItem -LiteralPath $domainsSourcePath -Directory | Sort-Object Name) {
+        Sync-DomainPublicationTree -SourceDomainPath $topDomain.FullName -TargetDomainPath (Join-Path $domainsPublicationPath $topDomain.Name)
+    }
+}
 
 $navLines = [System.Collections.Generic.List[string]]::new()
-$navLines.Add('* xref:index.adoc[Reference Model]')
+$navLines.Add('* xref:index.adoc[VSS Editor Product Model]')
 Add-SectionNav -Lines $navLines -SectionName '00-meta' -Caption '00-meta'
 Add-SectionNav -Lines $navLines -SectionName 'common' -Caption 'common'
 Add-DomainsNav -Lines $navLines

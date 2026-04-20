@@ -1,4 +1,4 @@
-* xref:index.adoc[Reference Model]
+* xref:index.adoc[VSS Editor Product Model]
 * 00-meta
 ** xref:00-meta/governance/ANTORA-PUBLICATION-VIEW-RULES-001.adoc[ANTORA-PUBLICATION-VIEW-RULES-001]
 ** xref:00-meta/governance/ARTIFACT-NOTATION-GOVERNANCE-001.adoc[ARTIFACT-NOTATION-GOVERNANCE-001]
@@ -60,3 +60,67 @@
 ** xref:00-meta/schemas/LAYER-SPECIAL-FIELDS-001.adoc[LAYER-SPECIAL-FIELDS-001]
 ** xref:00-meta/templates/CARD-CREATION-RULES-001.adoc[CARD-CREATION-RULES-001]
 ** xref:00-meta/traceability-rules/TRACEABILITY-RULES-001.adoc[TRACEABILITY-RULES-001]
+* domains
+** vss-editor
+*** Summary
+**** xref:domains/vss-editor/summary/MAP-VSS-EDITOR-001-product-domain-map.adoc[VSS Editor Product Domain Map]
+*** Ценность и контекст
+**** xref:domains/vss-editor/01-layer-aeilus-value-streams/VALUE-VSS-EDITOR-001-edit-value-system-schema.adoc[Edit Value System Schema]
+**** xref:domains/vss-editor/04-layer-strategy-product/GOAL-VSS-EDITOR-001-maintain-editable-schema-authoring.adoc[Maintain Editable Schema Authoring]
+*** Поведение продукта
+**** xref:domains/vss-editor/06-layer-processes/PROC-VSS-EDITOR-001-author-and-adjust-schema.adoc[Author And Adjust Schema]
+**** xref:domains/vss-editor/07-layer-scenarios-ux/SCN-VSS-EDITOR-001-create-new-schema.adoc[Create New Schema]
+**** xref:domains/vss-editor/07-layer-scenarios-ux/SCN-VSS-EDITOR-002-open-schema-from-json.adoc[Open Schema From JSON]
+**** xref:domains/vss-editor/07-layer-scenarios-ux/SCN-VSS-EDITOR-003-import-additional-schema.adoc[Import Additional Schema]
+**** xref:domains/vss-editor/07-layer-scenarios-ux/SCN-VSS-EDITOR-004-edit-schema-on-canvas.adoc[Edit Schema On Canvas]
+**** xref:domains/vss-editor/07-layer-scenarios-ux/SCN-VSS-EDITOR-005-export-schema-artifacts.adoc[Export Schema Artifacts]
+**** xref:domains/vss-editor/07-layer-scenarios-ux/SCN-VSS-EDITOR-006-invalid-json-open-or-import.adoc[Invalid JSON Open Or Import]
+**** xref:domains/vss-editor/09-layer-domain-rules/RULE-VSS-EDITOR-001-derive-flow-type-and-routing-from-endpoints.adoc[Derive Flow Type And Routing From Endpoints]
+**** xref:domains/vss-editor/09-layer-domain-rules/RULE-VSS-EDITOR-002-delete-node-cascades-dependent-objects.adoc[Delete Node Cascades Dependent Objects]
+**** xref:domains/vss-editor/09-layer-domain-rules/RULE-VSS-EDITOR-003-import-prefixes-colliding-identifiers.adoc[Import Prefixes Colliding Identifiers]
+**** xref:domains/vss-editor/09-layer-domain-rules/RULE-VSS-EDITOR-004-empty-flow-routing-means-all-converter-elements.adoc[Empty Flow Routing Means All Converter Elements]
+**** xref:domains/vss-editor/33-layer-critical-path/CRIT-VSS-EDITOR-001-authoring-session-continuity.adoc[Authoring Session Continuity]
+*** Ограничения и контроль
+**** xref:domains/vss-editor/08-layer-requirements/REQ-VSS-EDITOR-001-create-and-open-schema-state.adoc[Create And Open Schema State]
+**** xref:domains/vss-editor/08-layer-requirements/REQ-VSS-EDITOR-002-edit-diagram-objects-and-properties.adoc[Edit Diagram Objects And Properties]
+**** xref:domains/vss-editor/08-layer-requirements/REQ-VSS-EDITOR-003-import-and-export-schema-assets.adoc[Import And Export Schema Assets]
+**** xref:domains/vss-editor/08-layer-requirements/REQ-VSS-EDITOR-004-reject-invalid-json-without-state-loss.adoc[Reject Invalid JSON Without State Loss]
+**** xref:domains/vss-editor/18-layer-risks/RISK-VSS-EDITOR-001-authoring-continuity-observability-gap.adoc[Authoring Continuity Observability Gap]
+**** xref:domains/vss-editor/31-layer-access-rights/ACCESS-VSS-EDITOR-001-local-single-user-access-baseline.adoc[Local Single-User Access Baseline]
+*** Техническая информация
+**** xref:domains/vss-editor/10-layer-applications-architecture/APP-VSS-EDITOR-001-browser-schema-editor.adoc[VSS Editor Browser Application]
+**** xref:domains/vss-editor/13-layer-data-architecture/DATA-VSS-EDITOR-001-schema-document-aggregate.adoc[Schema Document Aggregate]
+**** xref:domains/vss-editor/13-layer-data-architecture/DATA-VSS-EDITOR-002-converter-node.adoc[Converter Node]
+**** xref:domains/vss-editor/13-layer-data-architecture/DATA-VSS-EDITOR-003-flow-connection.adoc[Flow Connection]
+**** xref:domains/vss-editor/13-layer-data-architecture/DATA-VSS-EDITOR-004-value-element-type.adoc[Value Element Type]
+**** xref:domains/vss-editor/13-layer-data-architecture/DATA-VSS-EDITOR-005-text-annotation.adoc[Text Annotation]
+**** xref:domains/vss-editor/14-layer-code-implementation/CODE-VSS-EDITOR-001-static-browser-editor-bundle.adoc[Static Browser Editor Bundle]
+**** xref:domains/vss-editor/20-layer-quality-testing/TEST-VSS-EDITOR-001-create-new-schema-defaults.adoc[Create New Schema Defaults Test]
+**** xref:domains/vss-editor/20-layer-quality-testing/TEST-VSS-EDITOR-002-open-json-schema.adoc[Open JSON Schema Test]
+**** xref:domains/vss-editor/20-layer-quality-testing/TEST-VSS-EDITOR-003-import-schema-with-prefixing.adoc[Import Schema With Prefixing Test]
+**** xref:domains/vss-editor/20-layer-quality-testing/TEST-VSS-EDITOR-004-edit-schema-objects.adoc[Edit Schema Objects Test]
+**** xref:domains/vss-editor/20-layer-quality-testing/TEST-VSS-EDITOR-005-export-json-and-png.adoc[Export JSON And PNG Test]
+**** xref:domains/vss-editor/20-layer-quality-testing/TEST-VSS-EDITOR-006-reject-invalid-json.adoc[Reject Invalid JSON Test]
+**** xref:domains/vss-editor/24-layer-knowledge-sources/SRC-VSS-EDITOR-001-web-bundle-source-basis.adoc[VSS Editor Web Bundle Source Basis]
+**** xref:domains/vss-editor/25-layer-traceability/TRACE-VSS-EDITOR-001-core-user-journey-trace.adoc[Core User Journey Trace]
+*** Поддомены
+**** canvas-authoring
+***** Summary
+****** xref:domains/vss-editor/domains/canvas-authoring/summary/MAP-CANVAS-AUTHORING-001-canvas-authoring-domain-map.adoc[Canvas Authoring Domain Map]
+***** Поведение продукта
+****** xref:domains/vss-editor/domains/canvas-authoring/07-layer-scenarios-ux/SCN-CANVAS-AUTHORING-001-refine-schema-on-canvas.adoc[Refine Schema On Canvas]
+***** Ограничения и контроль
+****** xref:domains/vss-editor/domains/canvas-authoring/08-layer-requirements/REQ-CANVAS-AUTHORING-001-edit-structure-and-properties-on-canvas.adoc[Edit Structure And Properties On Canvas]
+***** Техническая информация
+****** xref:domains/vss-editor/domains/canvas-authoring/24-layer-knowledge-sources/SRC-CANVAS-AUTHORING-001-canvas-authoring-source-basis.adoc[Canvas Authoring Source Basis]
+****** xref:domains/vss-editor/domains/canvas-authoring/25-layer-traceability/TRACE-CANVAS-AUTHORING-001-canvas-authoring-trace.adoc[Canvas Authoring Trace]
+**** workspace-lifecycle
+***** Summary
+****** xref:domains/vss-editor/domains/workspace-lifecycle/summary/MAP-WORKSPACE-LIFECYCLE-001-workspace-lifecycle-domain-map.adoc[Workspace Lifecycle Domain Map]
+***** Поведение продукта
+****** xref:domains/vss-editor/domains/workspace-lifecycle/07-layer-scenarios-ux/SCN-WORKSPACE-LIFECYCLE-001-manage-schema-workspace-state.adoc[Manage Schema Workspace State]
+***** Ограничения и контроль
+****** xref:domains/vss-editor/domains/workspace-lifecycle/08-layer-requirements/REQ-WORKSPACE-LIFECYCLE-001-manage-workspace-entry-and-file-operations.adoc[Manage Workspace Entry And File Operations]
+***** Техническая информация
+****** xref:domains/vss-editor/domains/workspace-lifecycle/24-layer-knowledge-sources/SRC-WORKSPACE-LIFECYCLE-001-file-workspace-source-basis.adoc[File Workspace Lifecycle Source Basis]
+****** xref:domains/vss-editor/domains/workspace-lifecycle/25-layer-traceability/TRACE-WORKSPACE-LIFECYCLE-001-workspace-lifecycle-trace.adoc[Workspace Lifecycle Trace]

@@ -1,0 +1,56 @@
+= REFERENCE-MODEL-UPSTREAM-WORKFLOW-001
+
+Регламент работы с reference repo и проектами, которые принимают опубликованную версию модели.
+
+== 1. Назначение
+- зафиксировать отдельный upstream для канонической модели
+- развести работу над каноном и работу над конкретным проектом
+- установить порядок: сначала изменение и выпуск эталона, затем project-specific adoption
+
+== 2. Роли репозиториев
+- reference repo содержит root `00-meta/`, static layer-reference, version history эталона и repository-wide governance
+- project repo содержит код проекта, project-local домены, project-local карточки и принятую версию эталона
+- project repo не принимает канонические решения по набору слоев, обязательным полям, базовым structural rules и repository-wide governance
+
+== 3. Что идет в upstream
+- новые требования к самой модели
+- изменение набора слоев или смысла слоев
+- изменение naming, schema, traceability и structural rules эталона
+- решение по новым обязательным полям и canonical examples
+- исправление дефектов эталонной модели
+
+== 4. Что остается в project repo
+- код проекта и UI
+- копия или синхронизированная версия принятого root `00-meta/`, root `AGENTS.md` и связанных governance-файлов эталона
+- project-specific требования, сценарии и технические решения
+- локальная adaptation к новой версии эталона
+- локальные дефекты проекта, найденные при накатке эталона
+- временная compatibility logic, нужная для переходного периода
+
+== 5. Базовый workflow
+1. Сигнал или новое требование фиксируется.
+2. Если сигнал меняет канон, он оформляется в reference repo.
+3. В reference repo выполняется полный цикл `formalize -> approve -> implement -> verify -> trace sync`.
+4. По завершении выпускается новая версия эталона.
+5. После выпуска создается отдельная adoption-wave в project repo.
+6. Adoption-wave в project repo начинается с копирования или sync текущего опубликованного root `00-meta/`, root `AGENTS.md` и связанных governance-файлов эталона без локальной мутации канона.
+7. До начала project-local metamodel work выполняется reconcile унаследованного root-scope: добавить недостающие обязательные элементы, убрать лишний inherited drift и только затем переходить к локальным изменениям.
+8. Если downstream wave затрагивает project-local metamodel, она не начинается без явного approval и без актуального reference-root sync/reconcile.
+9. Product-local wave стартует в домене-источнике и до downstream implementation обязана проверить impact на root, parent и sibling domains.
+10. Если impact подтвержден, adoption-wave каскадируется в затронутые домены отдельными локальными scope, а не размазывается неявно по всей модели.
+11. Для product-local wave, меняющей actor-facing behavior, formalize обязан включать layer `01` с явной фиксацией value delta и anti-value delta; если этого нет во входном signal, агент обязан отдельно запросить недостающие данные.
+12. По итогам adoption каждый найденный gap классифицируется как defect эталона, defect проекта или documentation/contract gap.
+13. Если найден defect эталона или contract gap эталона, он возвращается новой волной в reference repo.
+
+== 6. Версия эталона
+- каждая принятая волна изменения канона должна завершаться явной версией эталона
+- любое принятое изменение в root `00-meta/` считается новым release scope эталонной модели
+- версия должна быть зафиксирована так, чтобы project repo мог однозначно сослаться на принятый эталон
+- release identity должна относиться к результирующему состоянию root `00-meta/` после принятой волны
+- формат версии должен быть стабильным и машиночитаемым
+
+== 7. Принцип работы до adoption
+- сначала команда стабилизирует изменение в reference repo
+- пока новый scope эталона не согласован и не выпущен, детальные project-specific adoption rules не считаются финальными
+- project repo на этом этапе используется как источник сигналов и потребитель эталона, но не как место принятия канона
+- project repo не начинает product metamodel wave с устаревшего root `00-meta/` или без reconcile inherited scope

@@ -1,0 +1,38 @@
+= 04 Strategy Product
+
+== Path
+`domains/<domain>/04-layer-strategy-product/`
+
+== Purpose
+Слой содержит цели, KPI, стратегические инициативы и верхнеуровневые продуктовые решения.
+
+== Activation
+- Этот слой входит в канонический стек `01-33`.
+- Домен может пометить слой как `unused`, если локально не ведет отдельные цели, KPI или стратегические инициативы.
+
+== Typical objects
+- `GOAL-*`
+- `KPI-*`
+
+== Special fields
+- Отдельные layer-specific поля не заданы. Используется `BASE-CARD-SCHEMA-001`.
+
+== Traceability rules
+- Каждый `VALUE-*` должен быть связан минимум с одним `GOAL-*`.
+- Каждая `METRIC-*` должна поддерживать `KPI-*` или `GOAL-*`.
+
+== Key rules
+- Цели и KPI домена живут в этом слое.
+- Локальные KPI дочернего домена также размещаются в его собственном `04-layer-strategy-product/`.
+- Операционные метрики размещаются в `21-layer-observability/`, а не в этом слое.
+
+== Related layers
+- Upstream: `01 Aeilus Value Streams`, `03 Stakeholders Motivation`.
+- Downstream: `21 Observability`, `26 Business Hypotheses`, `22 Changes Roadmap`.
+
+== Authoring notes
+- Смысловая часть subject cards этого слоя пишется на русском аналитическом языке с сохранением source-derived English terms там, где они являются устойчивой частью продукта; карточка должна оставаться human-readable и domain-first, а верхние разделы не должны сваливаться в формалистский prose about coverage or wave mechanics.
+- Разделяй цели и KPI домена и дочернего домена: каждый домен хранит их в своем собственном слое `04`.
+- `GOAL-*` должен формулировать желаемый продуктовый результат в той же domain language, что и связанный `VALUE-*`, а не становиться абстрактной strategy shell.
+- Если `VALUE-*` описывает конкретные сущности, маршруты, пользовательские действия или value movement, `GOAL-*` должен сохранять ту же предметную ось и формулировать desired outcome поверх нее.
+- Нежелательно писать `GOAL-*` в слишком общем виде, если source basis позволяет более точную цель через реальные product semantics.

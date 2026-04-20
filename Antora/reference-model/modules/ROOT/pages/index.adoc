@@ -1,142 +1,63 @@
-= Reference Model
+= VSS Editor Product Model Index
 
-Этот сайт публикует канон reference-model напрямую из репозитория без content conversion.
-`00-meta/`, `common/` и `domains/` остаются на своих канонических путях; Antora использует только service-layer в `Antora/`.
+Главная страница публикации должна быть входным индексом по укрупненным блокам, а не пересказом правил публикации. Ниже собран текущий publication view продукта VSS Editor и его поддоменов.
 
-Публикация предназначена для обзорного reading flow: сначала summary и правила публикации, затем укрупненный взгляд на канонические слои, а потом переход в детальные `.adoc`-страницы.
+== VSS Editor
 
-== Как Antora отражает канон
-
-Актуальный канонический набор слоев определяется root `00-meta/layers/`. Antora не заменяет его новой структурой, а дает publication view поверх канонических путей.
-
-.Каноническое укрупнение слоев
+[%header,cols="1,3"]
 |===
-| Группа | Слои | Назначение
-
-| Meta/context
-| `00`
-| Meta и контекст домена
-
-| Value stream
-| `01`
-| Поток ценности
-
-| Context/strategy
-| `02-04`
-| Контекст, стейкхолдеры и стратегия
-
-| Business behavior/rules
-| `05-09`
-| Бизнес-структура, процессы, сценарии, требования и правила
-
-| Technical structure
-| `10-15`
-| Архитектура, интерфейсы, интеграции, данные, код и технологии
-
-| Operations/control
-| `16-21`
-| Эксплуатация, качество, риски, тесты и наблюдаемость
-
-| Change/knowledge
-| `22-25`
-| Изменения, задачи, знания и traceability
-
-| Validation/continuity
-| `26-33`
-| Гипотезы, валидация и continuity-aware assessment
-|===
-
-== Audience-oriented блоки домена
-
-|===
-| Блок в Antora | Какие слои попадают | Что показываем
+| Блок | Что открывать
 
 | Summary
-| Отдельная summary-страница домена
-| Короткий вход в домен без обхода всего канона
+| xref:domains/vss-editor/summary/MAP-VSS-EDITOR-001-product-domain-map.adoc[VSS Editor Product Domain Map]
 
 | Ценность и контекст
-| `01`, `02`, `03`, `04`, `05`
-| Value, boundaries, stakeholders, goal, business architecture
+| xref:domains/vss-editor/01-layer-aeilus-value-streams/VALUE-VSS-EDITOR-001-edit-value-system-schema.adoc[Value stream],
+  xref:domains/vss-editor/04-layer-strategy-product/GOAL-VSS-EDITOR-001-maintain-editable-schema-authoring.adoc[Goal]
 
 | Поведение продукта
-| `06`, `07`, `09`, `33`
-| Процессы, сценарии, domain rules, critical path
+| xref:domains/vss-editor/06-layer-processes/PROC-VSS-EDITOR-001-author-and-adjust-schema.adoc[Process],
+  xref:domains/vss-editor/07-layer-scenarios-ux/SCN-VSS-EDITOR-004-edit-schema-on-canvas.adoc[Core scenario],
+  xref:domains/vss-editor/33-layer-critical-path/CRIT-VSS-EDITOR-001-authoring-session-continuity.adoc[Critical path]
 
 | Ограничения и контроль
-| `08`, `17`, `18`, `29`, `30`, `31`, `32`
-| Требования, quality/NFR, риски, compliance, security, access, performance
-
-| Change
-| `19`, `22`, `23`, `26`, `27`, `28`
-| Technical debt, roadmap/change, tasks, hypotheses, validation, process capability
+| xref:domains/vss-editor/08-layer-requirements/REQ-VSS-EDITOR-001-create-and-open-schema-state.adoc[Requirements],
+  xref:domains/vss-editor/18-layer-risks/RISK-VSS-EDITOR-001-authoring-continuity-observability-gap.adoc[Risk],
+  xref:domains/vss-editor/31-layer-access-rights/ACCESS-VSS-EDITOR-001-local-single-user-access-baseline.adoc[Access]
 
 | Техническая информация
-| `10`, `11`, `12`, `13`, `14`, `15`, `16`, `20`, `21`, `24`, `25`
-| Архитектура, API, интеграции, данные, код, технологии, operations, tests, metrics, sources, traceability
-
-| Поддомены
-| Отдельные summary и те же укрупненные блоки дочерних доменов
-| Child-domain navigation по той же схеме
+| xref:domains/vss-editor/10-layer-applications-architecture/APP-VSS-EDITOR-001-browser-schema-editor.adoc[Application],
+  xref:domains/vss-editor/13-layer-data-architecture/DATA-VSS-EDITOR-001-schema-document-aggregate.adoc[Data],
+  xref:domains/vss-editor/14-layer-code-implementation/CODE-VSS-EDITOR-001-static-browser-editor-bundle.adoc[Code],
+  xref:domains/vss-editor/20-layer-quality-testing/TEST-VSS-EDITOR-004-edit-schema-objects.adoc[Test evidence],
+  xref:domains/vss-editor/25-layer-traceability/TRACE-VSS-EDITOR-001-core-user-journey-trace.adoc[Traceability]
 |===
 
-Domain summary pages materialize как отдельный блок `Summary`, а change-oriented layers materialize отдельно от baseline-oriented блоков.
-
-== Что доступно в сайте
-
-- `00-meta/` как root canonical governance package.
-- `domains/` и `common/`, когда они появляются в репозитории.
-- Автогенерируемая navigation по реальным `.adoc` файлам model-scope.
-- Публикационный слой Antora, который укрупняет reading flow, но не меняет canonical paths.
-
-== Что Antora показывает и не показывает
+== Поддомены
 
 [%header,cols="1,3"]
 |===
-| Показываем | Комментарий
+| Поддомен | Что открывать
 
-| `00-meta/`, `common/`, `domains/`
-| Канонический контент репозитория, когда он существует в model scope
+| Workspace lifecycle
+| xref:domains/vss-editor/domains/workspace-lifecycle/summary/MAP-WORKSPACE-LIFECYCLE-001-workspace-lifecycle-domain-map.adoc[Summary],
+  xref:domains/vss-editor/domains/workspace-lifecycle/07-layer-scenarios-ux/SCN-WORKSPACE-LIFECYCLE-001-manage-schema-workspace-state.adoc[Поведение],
+  xref:domains/vss-editor/domains/workspace-lifecycle/08-layer-requirements/REQ-WORKSPACE-LIFECYCLE-001-manage-workspace-entry-and-file-operations.adoc[Контроль],
+  xref:domains/vss-editor/domains/workspace-lifecycle/25-layer-traceability/TRACE-WORKSPACE-LIFECYCLE-001-workspace-lifecycle-trace.adoc[Traceability]
 
-| Summary-страницы доменов
-| Domain-local `.summary/` страницы как отдельную entry point-навигацию
-
-| Человекочитаемые разделы карточек
-| Проза карточек и связанные переходы публикуются для чтения в браузере
-
-| Укрупненную publication navigation
-| Summary и audience-oriented группировка используются для навигации, а не вместо канона
-
-| Change overview
-| Change-oriented layers вынесены в отдельный блок `Change`, а не смешаны с baseline-oriented reading flow
+| Canvas authoring
+| xref:domains/vss-editor/domains/canvas-authoring/summary/MAP-CANVAS-AUTHORING-001-canvas-authoring-domain-map.adoc[Summary],
+  xref:domains/vss-editor/domains/canvas-authoring/07-layer-scenarios-ux/SCN-CANVAS-AUTHORING-001-refine-schema-on-canvas.adoc[Поведение],
+  xref:domains/vss-editor/domains/canvas-authoring/08-layer-requirements/REQ-CANVAS-AUTHORING-001-edit-structure-and-properties-on-canvas.adoc[Контроль],
+  xref:domains/vss-editor/domains/canvas-authoring/25-layer-traceability/TRACE-CANVAS-AUTHORING-001-canvas-authoring-trace.adoc[Traceability]
 |===
 
-[%header,cols="1,3"]
-|===
-| Не показываем | Комментарий
+== Governance
 
-| `AGENTS.md`
-| Не является page-source Antora и остается compatibility shim для agent tooling
+Если нужно проверить сам канон публикации и contract карточек, открывай:
 
-| Service/infrastructure файлы из `Antora/`
-| Playbook, build scripts, UI bundle и sync tooling не входят в публикационный контент
-
-| `Технические поля` как user-facing section
-| Секция карточек скрывается в публикации и не участвует в reading flow
-
-| Baseline и change в одном блоке
-| Future-oriented layers не должны смешиваться с baseline-oriented блоками navigation
-|===
-
-== Быстрые переходы
-
-- xref:00-meta/governance/REFERENCE-MODEL-UPSTREAM-WORKFLOW-001.adoc[Upstream Workflow]
 - xref:00-meta/governance/ANTORA-PUBLICATION-VIEW-RULES-001.adoc[Antora Publication View Rules]
 - xref:00-meta/governance/GIT-RELEASE-WORKFLOW-001.adoc[Git Release Workflow]
 - xref:00-meta/layers-summary/LAYER-CANONICAL-TABLES-002.adoc[Canonical Layer Table]
 - xref:00-meta/templates/CARD-CREATION-RULES-001.adoc[Card Creation Rules]
 - xref:00-meta/schemas/BASE-CARD-SCHEMA-001.adoc[Base Card Schema]
-
-== Compatibility note
-
-`AGENTS.md` не является page-source Antora и сохраняется только как compatibility shim для agent tooling.
