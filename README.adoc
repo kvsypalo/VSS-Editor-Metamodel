@@ -1,0 +1,13 @@
+= VSS Editor Product Model
+
+Этот репозиторий содержит продуктовую метамодель VSS Editor, собранную по правилам reference model. Это не upstream reference-model репозиторий, а product-specific model repo с доменом продукта в `domains/vss-editor/`.
+
+Канонический формат документов репозитория: AsciiDoc, совместимый с Antora.
+Единственное root-level исключение: `AGENTS.md`, который сохраняется как compatibility shim для agent/governance discovery.
+
+- agent/governance quick guide находится в `AGENTS.md`
+- reference-model governance и layer-reference находятся в `00-meta/`
+- validator находится в `00-meta/validate_model.py`
+- product-specific предметная модель находится в `domains/vss-editor/`
+- publication-view правила Antora находятся в `00-meta/governance/ANTORA-PUBLICATION-VIEW-RULES-001.adoc`
+- новые product-specific описания должны жить в `domains/<domain>/`

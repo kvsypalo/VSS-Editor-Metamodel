@@ -1,0 +1,142 @@
+= Reference Model
+
+Этот сайт публикует канон reference-model напрямую из репозитория без content conversion.
+`00-meta/`, `common/` и `domains/` остаются на своих канонических путях; Antora использует только service-layer в `Antora/`.
+
+Публикация предназначена для обзорного reading flow: сначала summary и правила публикации, затем укрупненный взгляд на канонические слои, а потом переход в детальные `.adoc`-страницы.
+
+== Как Antora отражает канон
+
+Актуальный канонический набор слоев определяется root `00-meta/layers/`. Antora не заменяет его новой структурой, а дает publication view поверх канонических путей.
+
+.Каноническое укрупнение слоев
+|===
+| Группа | Слои | Назначение
+
+| Meta/context
+| `00`
+| Meta и контекст домена
+
+| Value stream
+| `01`
+| Поток ценности
+
+| Context/strategy
+| `02-04`
+| Контекст, стейкхолдеры и стратегия
+
+| Business behavior/rules
+| `05-09`
+| Бизнес-структура, процессы, сценарии, требования и правила
+
+| Technical structure
+| `10-15`
+| Архитектура, интерфейсы, интеграции, данные, код и технологии
+
+| Operations/control
+| `16-21`
+| Эксплуатация, качество, риски, тесты и наблюдаемость
+
+| Change/knowledge
+| `22-25`
+| Изменения, задачи, знания и traceability
+
+| Validation/continuity
+| `26-33`
+| Гипотезы, валидация и continuity-aware assessment
+|===
+
+== Audience-oriented блоки домена
+
+|===
+| Блок в Antora | Какие слои попадают | Что показываем
+
+| Summary
+| Отдельная summary-страница домена
+| Короткий вход в домен без обхода всего канона
+
+| Ценность и контекст
+| `01`, `02`, `03`, `04`, `05`
+| Value, boundaries, stakeholders, goal, business architecture
+
+| Поведение продукта
+| `06`, `07`, `09`, `33`
+| Процессы, сценарии, domain rules, critical path
+
+| Ограничения и контроль
+| `08`, `17`, `18`, `29`, `30`, `31`, `32`
+| Требования, quality/NFR, риски, compliance, security, access, performance
+
+| Change
+| `19`, `22`, `23`, `26`, `27`, `28`
+| Technical debt, roadmap/change, tasks, hypotheses, validation, process capability
+
+| Техническая информация
+| `10`, `11`, `12`, `13`, `14`, `15`, `16`, `20`, `21`, `24`, `25`
+| Архитектура, API, интеграции, данные, код, технологии, operations, tests, metrics, sources, traceability
+
+| Поддомены
+| Отдельные summary и те же укрупненные блоки дочерних доменов
+| Child-domain navigation по той же схеме
+|===
+
+Domain summary pages materialize как отдельный блок `Summary`, а change-oriented layers materialize отдельно от baseline-oriented блоков.
+
+== Что доступно в сайте
+
+- `00-meta/` как root canonical governance package.
+- `domains/` и `common/`, когда они появляются в репозитории.
+- Автогенерируемая navigation по реальным `.adoc` файлам model-scope.
+- Публикационный слой Antora, который укрупняет reading flow, но не меняет canonical paths.
+
+== Что Antora показывает и не показывает
+
+[%header,cols="1,3"]
+|===
+| Показываем | Комментарий
+
+| `00-meta/`, `common/`, `domains/`
+| Канонический контент репозитория, когда он существует в model scope
+
+| Summary-страницы доменов
+| Domain-local `.summary/` страницы как отдельную entry point-навигацию
+
+| Человекочитаемые разделы карточек
+| Проза карточек и связанные переходы публикуются для чтения в браузере
+
+| Укрупненную publication navigation
+| Summary и audience-oriented группировка используются для навигации, а не вместо канона
+
+| Change overview
+| Change-oriented layers вынесены в отдельный блок `Change`, а не смешаны с baseline-oriented reading flow
+|===
+
+[%header,cols="1,3"]
+|===
+| Не показываем | Комментарий
+
+| `AGENTS.md`
+| Не является page-source Antora и остается compatibility shim для agent tooling
+
+| Service/infrastructure файлы из `Antora/`
+| Playbook, build scripts, UI bundle и sync tooling не входят в публикационный контент
+
+| `Технические поля` как user-facing section
+| Секция карточек скрывается в публикации и не участвует в reading flow
+
+| Baseline и change в одном блоке
+| Future-oriented layers не должны смешиваться с baseline-oriented блоками navigation
+|===
+
+== Быстрые переходы
+
+- xref:00-meta/governance/REFERENCE-MODEL-UPSTREAM-WORKFLOW-001.adoc[Upstream Workflow]
+- xref:00-meta/governance/ANTORA-PUBLICATION-VIEW-RULES-001.adoc[Antora Publication View Rules]
+- xref:00-meta/governance/GIT-RELEASE-WORKFLOW-001.adoc[Git Release Workflow]
+- xref:00-meta/layers-summary/LAYER-CANONICAL-TABLES-002.adoc[Canonical Layer Table]
+- xref:00-meta/templates/CARD-CREATION-RULES-001.adoc[Card Creation Rules]
+- xref:00-meta/schemas/BASE-CARD-SCHEMA-001.adoc[Base Card Schema]
+
+== Compatibility note
+
+`AGENTS.md` не является page-source Antora и сохраняется только как compatibility shim для agent tooling.

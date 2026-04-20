@@ -1,0 +1,404 @@
+= CARD-CREATION-RULES-001
+
+== Базовый принцип
+
+Карточка создается как человекочитаемый AsciiDoc-документ.
+
+Актуальное назначение и роль каждого слоя определяются статическими файлами в `../layers/`.
+
+Агрегированная summary по всему набору слоев хранится в `../layers-summary/`.
+
+- сверху идут смысловые разделы для аналитика и читателя
+- снизу идет единый блок `Технические поля` в формате YAML source block
+- смысловая часть и технические поля должны описывать один и тот же объект без противоречий
+
+== Обязательные разделы карточки
+
+1. `= <title>`
+2. `== Краткое описание`
+3. `== Текущее состояние`
+4. `== Что подтверждено`
+5. `== Замечания аналитика`
+6. `== Требуемые изменения`
+7. `== Решение по карточке`
+8. `== Связанные объекты`
+9. `== Источники`
+10. `== Артефакты`
+11. `== Технические поля`
+
+== Правила заполнения смысловой части
+
+=== `Краткое описание`
+
+Пиши 1-3 коротких абзаца, которые объясняют предмет карточки без чтения технических полей.
+
+=== `Текущее состояние`
+
+Фиксируй текущее состояние объекта на дату анализа: что уже реализовано, что отсутствует, что ограничено.
+
+=== `Что подтверждено`
+
+Записывай только проверенные факты, которые подтверждены кодом, конфигом, документацией, БД, API или интервью.
+
+=== `Замечания аналитика`
+
+Фиксируй неопределенности, ограничения анализа, предположения и зоны, требующие уточнения.
+
+=== `Требуемые изменения`
+
+Опиши, что именно нужно изменить, уточнить, внедрить или проверить. Если изменений не требуется, явно пиши, что новых изменений не запрошено.
+
+=== Обязательные данные и отказ от заполнения
+
+Если карточка участвует в обязательной feasibility-проверке или другом gate, нельзя молча пропускать незаполненные данные.
+Если пользователь или источник отказывается дать обязательные сведения, нужно:
+
+- явно указать `mandatory_input_status`
+- записать причины отказа в `refusal_reasons`
+- завести или привязать минимум один риск в `resulting_risk_refs`
+
+=== Code-driven analysis
+
+Если анализ выполняется по коду, UI-разметке или runtime behavior, карточки не должны ограничиваться только aggregated summary level, если source basis подтверждает более детальный scope.
+
+- подтвержденные user-facing steps, object properties, edit parameters, import/export behavior, validation rules и object lifecycle должны быть разложены по каноническим слоям `07`, `09`, `13` и `14`, а не оставаться только в одной обзорной или `CODE-*` карточке
+- если код подтверждает несколько разных пользовательских маршрутов или outcome, они оформляются как отдельные `SCN-*`, а не сворачиваются в один общий scenario без явной причины
+- если в текущей волне materialize новый user-facing `SCN-*`, в той же волне должен materialize хотя бы один `TEST-*`, который явно проверяет этот сценарий; отсутствие такой пары без явного `RISK-*` считается неполным моделированием
+- если `TEST-*` проверяет user-facing route, failure, degraded или recovery behavior, он явно ссылается на соответствующий `SCN-*`, а не остается только на `REQ-*` или `PROC-*`
+- если код подтверждает устойчивые object fields или semantic rules, они должны быть видимы не только в code description, но и в `DATA-*` и `RULE-*` объектах
+- для code-driven анализа отсутствие materialized `SCN-*`, `RULE-*` или `DATA-*` объектов при подтвержденном scope считается неполным моделированием и должно быть либо закрыто в той же волне, либо явно оформлено как gap с причиной и `RISK-*`
+
+== Правила предметной лаконичности
+
+=== Приоритет предмета карточки
+
+Если карточка не относится к governance или change-management слоям, ее текст должен в первую очередь объяснять сам объект домена, а не факт текущей wave, materialization, structural completeness или cross-layer synchronization.
+
+Для предметных карточек приоритет такой:
+
+1. предмет и semantics объекта
+2. подтвержденные факты из source basis
+3. ограничения и gaps
+4. связи с другими слоями
+
+Контекст wave допустим только как вспомогательная оговорка и не должен становиться основным содержанием `Краткое описание`, `Текущее состояние` или `Что подтверждено`.
+
+=== Предпочтительная плотность текста
+
+`Краткое описание`:
+1-2 коротких абзаца, которые объясняют объект в domain language без governance-лексики.
+
+`Текущее состояние`:
+фиксируй текущее поведение, наличие реализации, gaps и ограничения анализа без пересказа chain-completeness.
+
+`Что подтверждено`:
+обычно 3-5 фактов; каждый факт должен быть предметным и опираться на исходные термины продукта, UI, кода, API, схемы или артефакта.
+
+`Замечания аналитика`:
+фиксируй ограничения анализа и смысловые оговорки, а не повторяй `TRACE-*` или `CHANGE-*`.
+
+`Требуемые изменения`:
+или коротко укажи конкретный change request, или явно зафиксируй, что новых изменений не запрошено. Не превращай этот раздел в пересказ всей wave.
+
+=== Использование domain language
+
+Если source basis содержит устойчивую предметную лексику, карточка должна по возможности использовать именно ее.
+
+Предпочтительно:
+- `value moves through converters and flows`
+- `schema import and export`
+- `properties panel edits node and flow attributes`
+
+Нежелательно без необходимости:
+- `authoring flow`
+- `managed product outcome`
+- `cross-layer completeness`
+
+=== Язык смысловой части карточки
+
+Человекочитаемые разделы `Краткое описание`, `Текущее состояние`, `Что подтверждено`, `Замечания аналитика` и `Требуемые изменения` пишутся на основном рабочем языке репозитория.
+
+Для этого репозитория основным рабочим языком считается русский.
+
+Английские product terms, UI labels, code identifiers и устойчивые domain nouns допускается сохранять в оригинале, если именно так они подтверждены source basis и если перевод делает формулировку менее точной.
+
+Требование использовать язык домена означает сохранение domain terms и domain semantics, а не обязательный переход всей прозы на английский язык.
+
+=== Стиль предметной прозы
+
+Предметная карточка должна читаться как нормальная аналитическая запись.
+
+Верхняя часть карточки должна быть понятна человеку без чтения YAML.
+
+Допускается естественный русский аналитический слог и умеренный предметный сленг, если он помогает точности.
+
+Короткие абзацы предпочтительнее плотной формальной прозы.
+
+Нельзя превращать верхнюю часть карточки в mechanical rewrite технических полей.
+
+Нежелательно перегружать subject cards словами вроде `materialization`, `wave`, `coverage`, `structural completeness`, `cross-layer chain`, если без них можно точнее и проще описать сам предмет карточки.
+
+=== Где допустимо подробно писать про wave
+
+Подробное описание formalization wave, explicit links, release synchronization и model completeness размещается прежде всего в:
+- `CHANGE-*`
+- `TRACE-*`
+- `MAP-*`
+
+В остальных карточках такие формулировки допустимы только как короткая supporting note, если без нее нельзя понять текущее состояние.
+
+=== Layer-specific notes
+
+Layer-specific authoring notes, включая правила для слоев `27-33` и critical-path-aware карточек, теперь являются частью соответствующих файлов в `../layers/`.
+
+=== `Решение по карточке`
+
+Всегда фиксируй четыре статуса:
+
+- `card_status`
+- `validation_status`
+- `change_status`
+- `approval_status`
+
+Также заполняй поля проверки и утверждения:
+
+- `validated_by`
+- `validated_at`
+- `approved_by`
+- `approved_at`
+
+== Правила заполнения таблиц
+
+=== `Связанные объекты`
+
+Таблица нужна для читателя и должна отражать реальные связи объекта.
+
+|===
+| Колонка | Что указывать 
+| `Категория` | тип связанного объекта 
+| `ID` | идентификатор карточки 
+| `Наименование` | краткое читаемое имя объекта 
+| `Ссылка` | относительный путь или `xref:`/`link:` ссылка на карточку 
+| `Комментарий` | пояснение характера связи 
+|===
+
+=== `Источники`
+
+Добавляй только реальные источники анализа.
+
+|===
+| Колонка | Что указывать 
+| `ID` | идентификатор источника 
+| `Источник` | краткое имя источника 
+| `Ссылка` | путь к файлу, URL или указание артефакта 
+| `Уровень доверия` | одно из допустимых значений confidence-scale 
+| `Комментарий` | что именно подтвердил источник 
+|===
+
+=== `Артефакты`
+
+Используй таблицу для файлов, схем, скриншотов, диаграмм и других артефактов.
+Если среди `Артефактов` есть diagram/source-артефакты, в комментарии или в технических полях должна быть явно указана нотация каждого такого артефакта.
+
+== Обязательные технические поля
+
+- `Полное_имя_файла`
+- `type`
+- `layer`
+- `name`
+- `title`
+- `status`
+- `version`
+- `owner`
+- `domain`
+- `tags`
+- `summary`
+- `description`
+- `card_status`
+- `validation_status`
+- `change_status`
+- `approval_status`
+- `current_state_text`
+- `validated_facts_text`
+- `validation_notes_text`
+- `change_request_text`
+- `source_refs`
+- `artifact_refs`
+- `artifact_notations`
+- `artifact_style_reference`
+- `mandatory_input_status`
+- `refusal_reasons`
+- `resulting_risk_refs`
+- `relations`
+- `created_at`
+- `updated_at`
+- `validated_by`
+- `validated_at`
+- `approved_by`
+- `approved_at`
+
+== Допустимые значения статусов
+
+=== `status` и `card_status`
+
+- `draft`
+- `review`
+- `approved`
+- `obsolete`
+- `archived`
+
+=== `validation_status`
+
+- `not_validated`
+- `validated`
+- `partially_validated`
+- `rejected`
+- `needs_clarification`
+
+=== `change_status`
+
+- `no_change`
+- `change_identified`
+- `new_requirement`
+- `approved_for_implementation`
+- `in_implementation`
+- `implemented`
+- `in_testing`
+- `tested_failed`
+- `tested_passed`
+- `accepted`
+- `cancelled`
+
+=== `approval_status`
+
+- `not_submitted`
+- `submitted`
+- `approved`
+- `rejected`
+
+== Канонический шаблон
+
+````md
+= <title>
+
+== Краткое описание
+<summary>
+
+== Текущее состояние
+<current_state_text>
+
+== Что подтверждено
+<validated_facts_text>
+
+== Замечания аналитика
+<validation_notes_text>
+
+== Требуемые изменения
+<change_request_text>
+
+== Решение по карточке
+Статус карточки: <card_status>  
+Статус валидации: <validation_status>  
+Статус изменения: <change_status>  
+Статус апрува: <approval_status>
+
+Проверил аналитик: <validated_by>  
+Дата проверки: <validated_at>
+
+Утвердил: <approved_by>  
+Дата утверждения: <approved_at>
+
+== Связанные объекты
+
+|===
+| Категория | ID | Наименование | Ссылка | Комментарий 
+| Объект | OBJ-... | ... | ... | ... 
+|===
+
+== Источники
+
+|===
+| ID | Источник | Ссылка | Уровень доверия | Комментарий 
+| SRC-ORIGIN-... | ... | ... | high | ... 
+|===
+
+== Артефакты
+
+|===
+| ID | Артефакт | Ссылка | Комментарий 
+| ART-DIAGRAM-... | ... | ... | ... 
+|===
+
+'''
+== Технические поля
+
+[source,yaml]
+----
+Полное_имя_файла: <FILE-NAME.adoc>
+type: <card_type>
+layer: <layer_number_and_name>
+name: <object_name>
+title: <human_readable_title>
+status: <draft|review|approved|obsolete|archived>
+version: <version>
+owner: <owner>
+domain: <domain>
+tags:
+  - <tag1>
+  - <tag2>
+
+summary: <short_summary>
+description: <main_description>
+
+card_status: <draft|review|approved|obsolete|archived>
+validation_status: <not_validated|validated|partially_validated|rejected|needs_clarification>
+change_status: <no_change|change_identified|new_requirement|approved_for_implementation|in_implementation|implemented|in_testing|tested_failed|tested_passed|accepted|cancelled>
+approval_status: <not_submitted|submitted|approved|rejected>
+
+current_state_text: |
+  <text>
+
+validated_facts_text: |
+  <text>
+
+validation_notes_text: |
+  <text>
+
+change_request_text: |
+  <text>
+
+source_refs:
+  - SRC-ORIGIN-...
+artifact_refs:
+  - ART-DIAGRAM-...
+artifact_notations:
+  ART-DIAGRAM-...: BPMN 2.0
+artifact_style_reference: ARTIFACT-NOTATION-GOVERNANCE-001
+
+mandatory_input_status: <complete|partial|refused|not_applicable>
+refusal_reasons:
+  - <reason>
+resulting_risk_refs:
+  - RISK-...
+
+relations:
+  group_a:
+    - OBJ-A-...
+  group_b:
+    - OBJ-B-...
+
+created_at: <date>
+updated_at: <date>
+validated_by: <person_or_role>
+validated_at: <date>
+approved_by: <person_or_role>
+approved_at: <date>
+----
+````
+
+== Правило качества
+
+- не оставляй смысловые блоки пустыми без явной пометки
+- не указывай в `Что подтверждено` неподтвержденные предположения
+- не дублируй связи только в YAML: они должны быть видимы и в таблице `Связанные объекты`
+- при изменении карточки обновляй и текстовую часть, и `Технические поля`

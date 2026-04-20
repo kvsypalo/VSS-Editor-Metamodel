@@ -1,0 +1,171 @@
+= Authoring Session Continuity
+
+== Краткое описание
+У продукта есть один очевидный end-to-end маршрут: актер входит в редактор, получает редактируемую схему, доводит ее до осмысленного состояния и выносит результат наружу через export. Слой `33` фиксирует, что именно считается непрерывным полезным маршрутом и где у него границы.
+
+== Текущее состояние
+Ключевая цепочка в продукте читается как `открыть или создать схему -> править на canvas -> при необходимости импортировать дополнительный фрагмент -> экспортировать результат`. В source basis есть один явно подтвержденный отказной маршрут на невалидный JSON, но нет отдельной runtime observability или формального continuity SLO для всей цепочки.
+
+== Что подтверждено
+- У продукта есть связанная цепочка `PROC -> SCN -> REQ -> TEST`, которая описывает основной маршрут актера.
+- Ошибка невалидного JSON не разрушает уже открытую схему и поэтому выступает явной continuity boundary для одного из failure cases.
+- Формальные метрики непрерывности и observability evidence для маршрута не подтверждены исходниками.
+
+== Замечания аналитика
+Critical path здесь существует как предметный пользовательский маршрут, а его continuity assessment остается частично подтвержденной из-за отсутствия metric-layer evidence. Карточка прямо фиксирует и сам маршрут, и ограничение исходных данных.
+
+== Требуемые изменения
+Новых изменений продукта не запрошено. Нужно явно зафиксировать critical path и ограничения его подтверждения.
+
+== Решение по карточке
+Статус карточки: review
+Статус валидации: validated
+Статус изменения: no_change
+Статус апрува: not_submitted
+
+Проверил аналитик: Konstantin Sypalo
+Дата проверки: 2026-04-20
+
+Утвердил:
+Дата утверждения:
+
+== Связанные объекты
+
+|===
+| Категория | ID | Наименование | Ссылка | Комментарий
+| Process | PROC-VSS-EDITOR-001 | Сборка и корректировка схемы | ../06-layer-processes/PROC-VSS-EDITOR-001-author-and-adjust-schema.adoc | Базовый процесс critical chain
+| Scenario | SCN-VSS-EDITOR-004 | Редактировать схему на canvas | ../07-layer-scenarios-ux/SCN-VSS-EDITOR-004-edit-schema-on-canvas.adoc | Центральный шаг маршрута
+| Scenario | SCN-VSS-EDITOR-006 | Ошибка невалидного JSON | ../07-layer-scenarios-ux/SCN-VSS-EDITOR-006-invalid-json-open-or-import.adoc | Явный failure route continuity boundary
+| Requirement | REQ-VSS-EDITOR-003 | Импорт и экспорт schema assets | ../08-layer-requirements/REQ-VSS-EDITOR-003-import-and-export-schema-assets.adoc | Требование на выход результата из редактора
+| Test | TEST-VSS-EDITOR-004 | Проверка редактирования схемы | ../20-layer-quality-testing/TEST-VSS-EDITOR-004-edit-schema-objects.adoc | Validating test основного маршрута
+| Risk | RISK-VSS-EDITOR-001 | Gap наблюдаемости continuity route | ../18-layer-risks/RISK-VSS-EDITOR-001-authoring-continuity-observability-gap.adoc | Риск неполноты continuity evidence
+|===
+
+== Источники
+
+|===
+| ID | Источник | Ссылка | Уровень доверия | Комментарий
+| SRC-VSS-EDITOR-001 | Исходный web bundle v2.4 | C:/MetaModel/Example code/vss-editor-2.4 | high | Подтверждает primary route, failure route и отсутствие metric evidence
+|===
+
+== Артефакты
+
+|===
+| ID | Артефакт | Ссылка | Комментарий
+|===
+
+'''
+== Технические поля
+
+[source,yaml]
+----
+Полное_имя_файла: CRIT-VSS-EDITOR-001-authoring-session-continuity.adoc
+type: critical-path
+layer: 33 critical-path
+name: Authoring session continuity
+title: Authoring Session Continuity
+status: review
+version: 1.0.0
+owner: analysis
+domain: vss-editor
+tags:
+  - critical-path
+  - continuity
+  - authoring
+
+summary: End-to-end маршрут от появления редактируемой схемы до ее выгрузки как переносимого результата.
+description: End-to-end маршрут от появления редактируемой схемы до ее выгрузки как переносимого результата.
+
+card_status: review
+validation_status: validated
+change_status: no_change
+approval_status: not_submitted
+
+current_state_text: |
+  В продукте читается один основной полезный маршрут: получить редактируемую схему, уточнить ее и вывести результат наружу.
+  Для этого маршрута подтвержден один failure case на невалидный JSON, но не подтверждены формальные telemetry и continuity metrics.
+
+validated_facts_text: |
+  - Основной route связывает create/open, edit, import as needed и export.
+  - Invalid JSON failure route сохраняет текущую схему и не рвет сессию.
+  - Metric-layer evidence для continuity route в source basis нет.
+
+validation_notes_text: |
+  Карточка фиксирует и сам critical path, и ограниченность его подтверждения.
+  Отсутствие metrics и observability не скрывается, а поднимается в связанный риск.
+
+change_request_text: |
+  Нужна явная фиксация critical path и границы его подтверждения в текущей source basis.
+
+source_refs:
+  - SRC-VSS-EDITOR-001
+artifact_refs: []
+artifact_notations: {}
+artifact_style_reference: none
+mandatory_input_status: partial
+refusal_reasons:
+  - Source basis does not provide runtime telemetry, metrics or formal continuity SLO for the end-to-end authoring route.
+resulting_risk_refs:
+  - RISK-VSS-EDITOR-001
+relations:
+  process_refs:
+    - PROC-VSS-EDITOR-001
+  scenario_refs:
+    - SCN-VSS-EDITOR-001
+    - SCN-VSS-EDITOR-002
+    - SCN-VSS-EDITOR-003
+    - SCN-VSS-EDITOR-004
+    - SCN-VSS-EDITOR-005
+    - SCN-VSS-EDITOR-006
+  requirement_refs:
+    - REQ-VSS-EDITOR-001
+    - REQ-VSS-EDITOR-002
+    - REQ-VSS-EDITOR-003
+    - REQ-VSS-EDITOR-004
+  test_refs:
+    - TEST-VSS-EDITOR-001
+    - TEST-VSS-EDITOR-002
+    - TEST-VSS-EDITOR-003
+    - TEST-VSS-EDITOR-004
+    - TEST-VSS-EDITOR-005
+    - TEST-VSS-EDITOR-006
+  risk_refs:
+    - RISK-VSS-EDITOR-001
+created_at: 2026-04-20
+updated_at: 2026-04-20
+validated_by: Konstantin Sypalo
+validated_at: 2026-04-20
+approved_by: ""
+approved_at: ""
+record_mode: baseline_constraint
+hard_constraints_text: |
+  В пределах одной рабочей сессии актер должен иметь возможность получить редактируемую схему, довести ее до осмысленного состояния и вывести результат в JSON или PNG.
+  Ошибка чтения файла не должна разрушать уже открытую схему.
+context_text: |
+  Assessment относится к browser-only редактору без backend, autosave и runtime observability layer.
+  Critical path оценивается по подтвержденным пользовательским маршрутам и тестам первой wave.
+assessment_subject_refs:
+  - PROC-VSS-EDITOR-001
+  - APP-VSS-EDITOR-001
+affected_requirement_refs:
+  - REQ-VSS-EDITOR-001
+  - REQ-VSS-EDITOR-002
+  - REQ-VSS-EDITOR-003
+  - REQ-VSS-EDITOR-004
+critical_path_scope: Авторская сессия внутри браузерного редактора от получения схемы к переносу результата наружу.
+critical_steps: |
+  1. Актер получает редактируемую схему через `New` или `Open`.
+  2. Актер уточняет схему на canvas и в панели свойств.
+  3. При необходимости актер добавляет дополнительный фрагмент через `Add Schema`.
+  4. Актер завершает маршрут export-командой в JSON или PNG.
+dependency_chain: |
+  Browser application -> schema state in memory -> canvas editing route -> export route.
+failure_modes: |
+  Подтвержденный failure mode: невалидный JSON при `Open` или `Add Schema`.
+  Неподтвержденные, но не исключенные source basis: потеря вкладки, закрытие окна, сбой браузера.
+recovery_expectations: |
+  При невалидном JSON текущая схема остается доступной и актер может продолжить сессию или выбрать другой файл.
+  Для остальных failure cases formal recovery evidence в source basis нет.
+continuity_slo: No formal SLO is confirmed; the current baseline expectation is session continuity during normal editing and safe refusal on invalid JSON input.
+critical_path_decision: unknown
+----

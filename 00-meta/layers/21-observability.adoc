@@ -1,0 +1,41 @@
+= 21 Observability
+
+== Path
+`domains/<domain>/21-layer-observability/`
+
+== Purpose
+Слой хранит метрики, логирование, мониторинг, SLI/SLO и сигналы наблюдаемости поведения системы.
+
+== Activation
+- Этот слой входит в канонический стек `01-33`.
+- Домен может пометить слой как `unused`, если локально не ведет отдельные observability cards.
+
+== Typical objects
+- `METRIC-*`
+- `ALERT-*`
+- `DASH-*`
+
+== Special fields
+- `measurement_type`
+- `formula`
+- `thresholds`
+- `supports_kpi`
+- `critical_path_metric`: `true`, `false`
+- `failure_signal`
+
+== Traceability rules
+- Каждая `METRIC-*` должна поддерживать `KPI-*` или `GOAL-*`.
+- Каждая `METRIC-*` с `critical_path_metric = true` должна быть связана хотя бы с одним `PROC-*`, `SCN-*` или `PERF-*`.
+- Каждый `PROC-*` с `critical_path = true` должен иметь хотя бы один `TEST-*`, `METRIC-*` или `PERF-*`.
+- Каждый `CRIT-*`, который задает continuity contract, должен быть связан хотя бы с одним `METRIC-*`, либо явно фиксировать отсутствие как gap/risk.
+
+== Key rules
+- Операционные метрики размещаются именно здесь.
+- `METRIC-*` должна поддерживать `KPI-*` или `GOAL-*`, а critical-path metric должна быть связана с `PROC-*`, `SCN-*` или `PERF-*`.
+
+== Related layers
+- Upstream: `04 Strategy Product`, `06 Processes`, `07 Scenarios UX`, `32 Performance`, `33 Critical Path`.
+- Downstream: `25 Traceability`, `18 Risks`.
+
+== Authoring notes
+- Если карточка слоя 21 фиксирует critical path или failure signal, она не должна оставаться изолированной: нужны явные связи с `PROC-*`, `SCN-*`, `REQ-*`, `TEST-*`, `METRIC-*`, `PERF-*` и при необходимости `RISK-*`.

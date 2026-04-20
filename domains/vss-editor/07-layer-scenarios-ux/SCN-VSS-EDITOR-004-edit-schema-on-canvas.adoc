@@ -1,0 +1,131 @@
+= Edit Schema On Canvas
+
+== Краткое описание
+Это центральный пользовательский маршрут редактора. Актер смотрит на схему как на рабочую поверхность, двигает блоки, переименовывает их, меняет связи и параметры потоков, добавляет пояснения и постепенно доводит схему до нужного состояния, не покидая canvas.
+
+== Текущее состояние
+Сценарий уже реализован как непрерывная работа на canvas и в правой панели свойств. Актер может править схему короткими шагами: выделить объект, изменить параметры, подвигать блоки, проверить композицию целиком, добавить новый элемент и сразу увидеть результат на рабочей поверхности.
+
+== Что подтверждено
+- Редактор поддерживает отдельные формы для schema, node, flow и text.
+- Актер может менять имена, описания, связи, числовые параметры, цвета и другие свойства объектов.
+- Canvas поддерживает drag, выделение рамкой, панорамирование и масштабирование, поэтому схема редактируется как единое рабочее поле.
+
+== Замечания аналитика
+Внутри маршрута есть несколько близких микродействий, но они образуют один человекочитаемый сценарий: актер уточняет текущую схему до нужного состояния и сразу видит итог каждого изменения.
+
+== Требуемые изменения
+Новых изменений не требуется.
+
+== Решение по карточке
+Статус карточки: review
+Статус валидации: validated
+Статус изменения: no_change
+Статус апрува: not_submitted
+
+Проверил аналитик: Konstantin Sypalo
+Дата проверки: 2026-04-20
+
+Утвердил:
+Дата утверждения:
+
+== Связанные объекты
+
+|===
+| Категория | ID | Наименование | Ссылка | Комментарий
+| Requirement | REQ-VSS-EDITOR-002 | Интерактивное редактирование объектов | ../08-layer-requirements/REQ-VSS-EDITOR-002-edit-diagram-objects-and-properties.adoc | Requirement основного editing route
+| Test | TEST-VSS-EDITOR-004 | Проверка редактирования схемы | ../20-layer-quality-testing/TEST-VSS-EDITOR-004-edit-schema-objects.adoc | Validating test
+| Data | DATA-VSS-EDITOR-002 | Converter | ../13-layer-data-architecture/DATA-VSS-EDITOR-002-converter-node.adoc | Основной редактируемый object type
+| Data | DATA-VSS-EDITOR-003 | Flow | ../13-layer-data-architecture/DATA-VSS-EDITOR-003-flow-connection.adoc | Связанный редактируемый object type
+| Data | DATA-VSS-EDITOR-005 | Text annotation | ../13-layer-data-architecture/DATA-VSS-EDITOR-005-text-annotation.adoc | Свободные заметки на canvas
+|===
+
+== Источники
+
+|===
+| ID | Источник | Ссылка | Уровень доверия | Комментарий
+| SRC-VSS-EDITOR-001 | app.js | C:/MetaModel/Example code/vss-editor-2.4/app.js | high | Подтверждает properties panel, canvas handlers, zoom, pan, selection и drag
+|===
+
+== Артефакты
+
+|===
+| ID | Артефакт | Ссылка | Комментарий
+|===
+
+'''
+== Технические поля
+
+[source,yaml]
+----
+Полное_имя_файла: SCN-VSS-EDITOR-004-edit-schema-on-canvas.adoc
+type: scenario
+layer: 07 scenarios-ux
+name: Edit schema on canvas
+title: Edit Schema On Canvas
+status: review
+version: 1.0.0
+owner: analysis
+domain: vss-editor
+tags:
+  - scenario
+  - edit
+  - canvas
+
+summary: Актер шаг за шагом уточняет текущую схему на canvas и в панели свойств, пока она не начнет отражать нужную картину системы.
+description: Актер шаг за шагом уточняет текущую схему на canvas и в панели свойств, пока она не начнет отражать нужную картину системы.
+
+card_status: review
+validation_status: validated
+change_status: no_change
+approval_status: not_submitted
+
+current_state_text: |
+  Основной маршрут работы уже проходит через canvas и панель свойств без перехода в отдельные экраны.
+
+validated_facts_text: |
+  - Подтверждены формы редактирования schema, node, flow и text.
+  - Подтверждены drag, pan, zoom, selection и rectangle selection.
+  - Подтверждены команды добавления converters, external flows и text objects.
+
+validation_notes_text: |
+  Сценарий намеренно собирает близкие действия в один маршрут, потому что для пользователя это один непрерывный цикл уточнения схемы.
+
+change_request_text: |
+  Новых изменений не требуется.
+
+source_refs:
+  - SRC-VSS-EDITOR-001
+artifact_refs: []
+artifact_notations: {}
+artifact_style_reference: none
+mandatory_input_status: complete
+refusal_reasons: []
+resulting_risk_refs: []
+relations:
+  requirement_refs:
+    - REQ-VSS-EDITOR-002
+  test_refs:
+    - TEST-VSS-EDITOR-004
+  data_refs:
+    - DATA-VSS-EDITOR-002
+    - DATA-VSS-EDITOR-003
+    - DATA-VSS-EDITOR-004
+    - DATA-VSS-EDITOR-005
+created_at: 2026-04-20
+updated_at: 2026-04-20
+validated_by: Konstantin Sypalo
+validated_at: 2026-04-20
+approved_by: ""
+approved_at: ""
+scenario_type: primary
+primary_actor: schema author
+entry_point: Existing editable schema on the canvas
+expected_outcome: Actor updates the schema structure and properties in place and stays in an editable session.
+expected_outcome: Актер получает обновленную схему прямо на рабочем холсте и может либо продолжить правки, либо перейти к экспорту результата.
+is_failure_scenario: false
+critical_path_step_refs: []
+fallback_outcome: Если отдельное действие не завершено или отменено, текущая схема остается открытой и пригодной для следующего шага.
+test_refs:
+  - TEST-VSS-EDITOR-004
+----

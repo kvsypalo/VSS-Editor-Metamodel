@@ -1,0 +1,124 @@
+= Reject Invalid JSON Without State Loss
+
+== Краткое описание
+Если actor пытается открыть или импортировать невалидный JSON, редактор завершает операцию явным сигналом ошибки и сохраняет текущую схему доступной для продолжения работы.
+
+== Текущее состояние
+`fileInput.onchange` оборачивает `JSON.parse` в `try/catch`. При ошибке парсинга редактор показывает `alert("Invalid JSON")`, сохраняет текущий state и завершает операцию без загрузки файла.
+
+== Что подтверждено
+- Открытие и import используют общий обработчик `fileInput.onchange`.
+- При exception вызывается только `alert("Invalid JSON")`.
+- Мутация `state.schema` выполняется только в ветках успешного parse.
+
+== Замечания аналитика
+Source basis подтверждает защиту от parse error и сохранение текущей сессии. Дополнительная recovery UX и field-level validation схемы в текущем scope не материализованы.
+
+== Требуемые изменения
+Новых изменений не требуется.
+
+== Решение по карточке
+Статус карточки: review
+Статус валидации: validated
+Статус изменения: no_change
+Статус апрува: not_submitted
+
+Проверил аналитик: Konstantin Sypalo
+Дата проверки: 2026-04-20
+
+Утвердил:
+Дата утверждения:
+
+== Связанные объекты
+
+|===
+| Категория | ID | Наименование | Ссылка | Комментарий
+| Scenario | SCN-VSS-EDITOR-006 | Ошибка невалидного JSON | ../07-layer-scenarios-ux/SCN-VSS-EDITOR-006-invalid-json-open-or-import.adoc | Failure route
+| Test | TEST-VSS-EDITOR-006 | Проверка отказа на невалидный JSON | ../20-layer-quality-testing/TEST-VSS-EDITOR-006-reject-invalid-json.adoc | Validating failure test
+|===
+
+== Источники
+
+|===
+| ID | Источник | Ссылка | Уровень доверия | Комментарий
+| SRC-VSS-EDITOR-001 | Исходный web bundle v2.4 | C:/MetaModel/Example code/vss-editor-2.4/app.js | high | Подтверждает обработку parse error через alert и отсутствие state mutation
+|===
+
+== Артефакты
+
+|===
+| ID | Артефакт | Ссылка | Комментарий
+|===
+
+'''
+== Технические поля
+
+[source,yaml]
+----
+Полное_имя_файла: REQ-VSS-EDITOR-004-reject-invalid-json-without-state-loss.adoc
+type: requirement
+layer: 08 requirements
+name: Reject invalid JSON without state loss
+title: Reject Invalid JSON Without State Loss
+status: review
+version: 1.0.0
+owner: analysis
+domain: vss-editor
+tags:
+  - requirement
+  - failure-handling
+  - json
+
+summary: Requirement на отказ от open/import невалидного JSON без потери текущего состояния.
+description: Requirement на отказ от open/import невалидного JSON без потери текущего состояния.
+
+card_status: review
+validation_status: validated
+change_status: no_change
+approval_status: not_submitted
+
+current_state_text: |
+  Parse errors обрабатываются через `try/catch` и `alert("Invalid JSON")`.
+  Текущая схема меняется только при успешном parse.
+
+validated_facts_text: |
+  - Open и import используют общий обработчик file input.
+  - Ошибка JSON приводит к alert.
+  - Без успешного parse текущая схема остается доступной для дальнейшей работы.
+
+validation_notes_text: |
+  Source basis подтверждает базовый безопасный отказ по невалидному JSON.
+
+change_request_text: |
+  Новых изменений не требуется.
+
+source_refs:
+  - SRC-VSS-EDITOR-001
+artifact_refs: []
+artifact_notations: {}
+artifact_style_reference: none
+mandatory_input_status: complete
+refusal_reasons: []
+resulting_risk_refs: []
+relations:
+  scenario_refs:
+    - SCN-VSS-EDITOR-006
+  test_refs:
+    - TEST-VSS-EDITOR-006
+created_at: 2026-04-20
+updated_at: 2026-04-20
+validated_by: Konstantin Sypalo
+validated_at: 2026-04-20
+approved_by: ""
+approved_at: ""
+requirement_type: baseline
+priority: medium
+acceptance_criteria: |
+  - Невалидный JSON вызывает явный сигнал ошибки.
+  - При ошибке текущая схема остается доступной для дальнейшей работы.
+criticality: medium
+critical_path_refs: []
+failure_scenario_refs:
+  - SCN-VSS-EDITOR-006
+recovery_expectation: После ошибки actor может повторить open/import с корректным файлом или продолжить текущую сессию.
+----

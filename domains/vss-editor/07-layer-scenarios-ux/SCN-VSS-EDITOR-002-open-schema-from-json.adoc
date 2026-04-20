@@ -1,0 +1,126 @@
+= Open Schema From JSON
+
+== Краткое описание
+Актер возвращается к уже подготовленной схеме: выбирает `Open`, подает JSON-файл и получает знакомую рабочую картину обратно на canvas. Сценарий нужен для продолжения работы без пересборки схемы с нуля.
+
+== Текущее состояние
+Сценарий уже реализован и заменяет текущую рабочую схему содержимым выбранного файла. После загрузки редактор показывает открытую схему как новую основу для дальнейшего редактирования.
+
+== Что подтверждено
+- `btnOpen` переводит file input в режим `open`.
+- При успешном чтении JSON редактор полностью заменяет текущую схему содержимым файла.
+- После загрузки схема заново показывается в центре рабочей области.
+
+== Замечания аналитика
+Отдельная предметная валидация структуры схемы beyond JSON parse и normalization в source basis не подтверждена.
+
+== Требуемые изменения
+Новых изменений не требуется.
+
+== Решение по карточке
+Статус карточки: review
+Статус валидации: validated
+Статус изменения: no_change
+Статус апрува: not_submitted
+
+Проверил аналитик: Konstantin Sypalo
+Дата проверки: 2026-04-20
+
+Утвердил:
+Дата утверждения:
+
+== Связанные объекты
+
+|===
+| Категория | ID | Наименование | Ссылка | Комментарий
+| Requirement | REQ-VSS-EDITOR-001 | Создание и открытие схемы | ../08-layer-requirements/REQ-VSS-EDITOR-001-create-and-open-schema-state.adoc | Requirement сценария `Open`
+| Test | TEST-VSS-EDITOR-002 | Проверка открытия JSON-схемы | ../20-layer-quality-testing/TEST-VSS-EDITOR-002-open-json-schema.adoc | Validating test
+| Failure scenario | SCN-VSS-EDITOR-006 | Ошибка невалидного JSON | SCN-VSS-EDITOR-006-invalid-json-open-or-import.adoc | Отказная ветка этого user route
+|===
+
+== Источники
+
+|===
+| ID | Источник | Ссылка | Уровень доверия | Комментарий
+| SRC-VSS-EDITOR-001 | app.js | C:/MetaModel/Example code/vss-editor-2.4/app.js | high | Подтверждает `btnOpen`, `fileMode = "open"` и ветку успешного parse
+|===
+
+== Артефакты
+
+|===
+| ID | Артефакт | Ссылка | Комментарий
+|===
+
+'''
+== Технические поля
+
+[source,yaml]
+----
+Полное_имя_файла: SCN-VSS-EDITOR-002-open-schema-from-json.adoc
+type: scenario
+layer: 07 scenarios-ux
+name: Open schema from JSON
+title: Open Schema From JSON
+status: review
+version: 1.0.0
+owner: analysis
+domain: vss-editor
+tags:
+  - scenario
+  - open
+  - json
+
+summary: Актер открывает ранее сохраненную схему и продолжает работу с ней вместо ручного восстановления с нуля.
+description: Актер открывает ранее сохраненную схему и продолжает работу с ней вместо ручного восстановления с нуля.
+
+card_status: review
+validation_status: validated
+change_status: no_change
+approval_status: not_submitted
+
+current_state_text: |
+  Сценарий `Open` уже реализован и возвращает актера к ранее сохраненной схеме.
+
+validated_facts_text: |
+  - `Open` включает режим `fileMode = "open"`.
+  - Успешный parse заменяет весь `state.schema`.
+  - Canvas и properties panel перерисовываются после загрузки.
+
+validation_notes_text: |
+  Semantic validation загруженной схемы beyond normalization не подтверждена.
+
+change_request_text: |
+  Новых изменений не требуется.
+
+source_refs:
+  - SRC-VSS-EDITOR-001
+artifact_refs: []
+artifact_notations: {}
+artifact_style_reference: none
+mandatory_input_status: complete
+refusal_reasons: []
+resulting_risk_refs: []
+relations:
+  requirement_refs:
+    - REQ-VSS-EDITOR-001
+  test_refs:
+    - TEST-VSS-EDITOR-002
+  failure_refs:
+    - SCN-VSS-EDITOR-006
+created_at: 2026-04-20
+updated_at: 2026-04-20
+validated_by: Konstantin Sypalo
+validated_at: 2026-04-20
+approved_by: ""
+approved_at: ""
+scenario_type: primary
+primary_actor: schema author
+entry_point: Schema menu -> Open -> choose JSON file
+expected_outcome: Actor receives the opened schema as the new editable editor state.
+expected_outcome: Актер видит выбранную схему на canvas и может продолжить работу с того места, где она была сохранена.
+is_failure_scenario: false
+critical_path_step_refs: []
+fallback_outcome: Если файл не читается как JSON, редактор показывает отказной маршрут и сохраняет текущую открытую схему без изменений.
+test_refs:
+  - TEST-VSS-EDITOR-002
+----

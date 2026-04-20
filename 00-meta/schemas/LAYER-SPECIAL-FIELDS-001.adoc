@@ -1,0 +1,13 @@
+= LAYER-SPECIAL-FIELDS-001
+
+У всех слоев есть единый базовый паспорт карточки.
+Поверх него добавляются спецполя слоя.
+
+Полные наборы полей, layer-specific допустимые значения и authoring notes нужно читать из `../layers/NN-*.adoc`.
+
+Агрегированный свод layer-specific fields по всему стеку хранится в `../layers-summary/LAYER-SPECIAL-FIELDS-001.adoc`.
+
+== Правило использования
+- базовая форма карточки задается `BASE-CARD-SCHEMA-001`
+- слой может добавлять собственные поля поверх базовой схемы
+- per-layer fields не описываются в schemas-документах вне `../layers/` и `../layers-summary/`

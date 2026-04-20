@@ -1,0 +1,44 @@
+= 25 Traceability
+
+== Path
+`domains/<domain>/25-layer-traceability/`
+
+== Purpose
+Слой фиксирует обязательные cross-layer chain, правила связности и проверку полноты traceable model.
+
+== Activation
+- Этот слой входит в канонический стек `01-33`.
+- Каждый дочерний домен должен иметь собственные объекты в этом слое.
+
+== Typical objects
+- `TRACE-*`
+
+== Special fields
+- `rule_type`
+- `source_layer`
+- `target_layer`
+- `required_link_type`
+
+== Traceability rules
+- Этот слой агрегирует и фиксирует cross-layer chain для всего канона слоев.
+- Для scenario verification действует обязательная парная связка `SCN-* <-> TEST-*`: у сценария есть validating test, а у scenario-oriented test есть явная ссылка назад на проверяемый сценарий.
+- Для critical path используется дополнительная цепочка `CRIT -> PROC/SCN -> REQ -> TEST/METRIC/PERF -> RISK/CHANGE`.
+- Для гипотезы, дошедшей до requirement stage или change decision, должен существовать минимум один chain `HYP -> impacted ECON/ENGCAP/COMP/SEC/ACCESS/PERF/CRIT -> REQ/CHANGE/RISK`.
+- Каждый дочерний домен должен иметь собственные traceability objects.
+- Cross-domain cascade wave должна иметь явные traceability-связи между исходным domain scope и каскадными domain scopes.
+
+== Key rules
+- Traceability связывает требования, изменения, тесты, риски, источники и другие слои в проверяемую цепочку.
+- Связка `SCN-* <-> TEST-*` фиксируется явно и не должна оставаться только подразумеваемой через `REQ-*`, `PROC-*` или prose в соседних карточках.
+- Для critical path используется дополнительная цепочка `CRIT -> PROC/SCN -> REQ -> TEST/METRIC/PERF -> RISK/CHANGE`.
+
+== Related layers
+- Upstream: все канонические слои `00-33`.
+- Terminal control layer: используется для проверки полноты cross-layer model.
+
+== Authoring notes
+- Root-правила не задают отдельного layer-specific шаблона карточки для `TRACE-*`; используется `BASE-CARD-SCHEMA-001`.
+- В этом слое фиксируются именно правила и цепочки, а не дублируются полные semantics других слоев.
+- Если сценарий и validating test materialize в одной волне, `TRACE-*` должен делать эту pair-связку читаемой и явно показывать gaps, если одно из звеньев отсутствует.
+- Если необходимо подробно зафиксировать formalization wave, explicit chain completeness или обязательные link segments, этот текст должен концентрироваться в `TRACE-*`, а не разливаться по предметным карточкам других слоев.
+- `TRACE-*` берет на себя объяснение structural completeness, чтобы `VALUE-*`, `GOAL-*`, `PROC-*`, `REQ-*` и другие предметные cards могли оставаться короткими и domain-first.

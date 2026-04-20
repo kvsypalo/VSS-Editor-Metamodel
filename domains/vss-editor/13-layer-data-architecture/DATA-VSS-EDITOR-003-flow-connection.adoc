@@ -1,0 +1,120 @@
+= Flow Connection
+
+== Краткое описание
+Flow connection описывает направленную связь между двумя converters или между converter и внешним миром. Объект хранит endpoints, количественную value-оценку, unit, цвет, label visibility и список routed element types.
+
+== Текущее состояние
+Flow хранится в массиве `flows`, редактируется через flow properties panel и визуализируется как curve или polyline с arrowhead. Тип flow пересчитывается автоматически по наличию source/target node IDs.
+
+== Что подтверждено
+- Flow содержит `id`, `name`, `type`, `source_node_id`, `target_node_id`, `value`, `unit`, `color`, `show_label`, `element_type_ids`, `attributes`.
+- Flow может быть `external_in`, `external_out` или `internal`.
+- Flow routing и visual geometry зависят от endpoint configuration и относительного положения nodes.
+
+== Замечания аналитика
+Source basis не показывает отдельную persistence-валидацию flow constraints вне runtime logic редактора.
+
+== Требуемые изменения
+Новых изменений не требуется.
+
+== Решение по карточке
+Статус карточки: review
+Статус валидации: validated
+Статус изменения: no_change
+Статус апрува: not_submitted
+
+Проверил аналитик: Konstantin Sypalo
+Дата проверки: 2026-04-20
+
+Утвердил:
+Дата утверждения:
+
+== Связанные объекты
+
+|===
+| Категория | ID | Наименование | Ссылка | Комментарий
+| Rule | RULE-VSS-EDITOR-001 | Тип и маршрут flow по endpoints | ../09-layer-domain-rules/RULE-VSS-EDITOR-001-derive-flow-type-and-routing-from-endpoints.adoc | Основное rule layer для flow
+| Rule | RULE-VSS-EDITOR-004 | Пустой routing = все elements | ../09-layer-domain-rules/RULE-VSS-EDITOR-004-empty-flow-routing-means-all-converter-elements.adoc | Rule layer для routing selection
+| Scenario | SCN-VSS-EDITOR-004 | Редактировать схему на canvas | ../07-layer-scenarios-ux/SCN-VSS-EDITOR-004-edit-schema-on-canvas.adoc | Flow edit route
+|===
+
+== Источники
+
+|===
+| ID | Источник | Ссылка | Уровень доверия | Комментарий
+| SRC-VSS-EDITOR-001 | app.js | C:/MetaModel/Example code/vss-editor-2.4/app.js | high | Подтверждает flow structure, drawFlow и flow properties
+|===
+
+== Артефакты
+
+|===
+| ID | Артефакт | Ссылка | Комментарий
+|===
+
+'''
+== Технические поля
+
+[source,yaml]
+----
+Полное_имя_файла: DATA-VSS-EDITOR-003-flow-connection.adoc
+type: data-structure
+layer: 13 data-architecture
+name: Flow connection
+title: Flow Connection
+status: review
+version: 1.0.0
+owner: analysis
+domain: vss-editor
+tags:
+  - data
+  - flow
+  - connection
+
+summary: Направленная value connection с endpoints, quantity, color и routed element types.
+description: Направленная value connection с endpoints, quantity, color и routed element types.
+
+card_status: review
+validation_status: validated
+change_status: no_change
+approval_status: not_submitted
+
+current_state_text: |
+  Flow is a first-class editable object and visual connection in the current editor model.
+
+validated_facts_text: |
+  - Flow stores endpoints, amount, unit, color and routed element IDs.
+  - Flow can be internal or external.
+  - Visual geometry depends on endpoints and node positions.
+
+validation_notes_text: |
+  Constraint validation is embodied in runtime logic rather than separate schema docs.
+
+change_request_text: |
+  Новых изменений не требуется.
+
+source_refs:
+  - SRC-VSS-EDITOR-001
+artifact_refs: []
+artifact_notations: {}
+artifact_style_reference: none
+mandatory_input_status: complete
+refusal_reasons: []
+resulting_risk_refs: []
+relations:
+  rule_refs:
+    - RULE-VSS-EDITOR-001
+    - RULE-VSS-EDITOR-004
+  data_refs:
+    - DATA-VSS-EDITOR-002
+    - DATA-VSS-EDITOR-004
+  scenario_refs:
+    - SCN-VSS-EDITOR-004
+  code_refs:
+    - CODE-VSS-EDITOR-001
+created_at: 2026-04-20
+updated_at: 2026-04-20
+validated_by: Konstantin Sypalo
+validated_at: 2026-04-20
+approved_by: ""
+approved_at: ""
+----

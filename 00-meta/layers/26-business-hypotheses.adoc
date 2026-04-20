@@ -1,0 +1,44 @@
+= 26 Business Hypotheses
+
+== Path
+`domains/<domain>/26-layer-business-hypotheses/`
+
+== Purpose
+Слой фиксирует business signal, ожидаемую ценность, ключевую гипотезу, owner и decision horizon до появления или изменения требований.
+
+== Activation
+- Этот слой входит в канонический стек `01-33`.
+- Домен может пометить слой как `unused`, если локально не формулирует отдельные business hypotheses.
+
+== Typical objects
+- `HYP-*`
+
+== Special fields
+- `hypothesis_type`
+- `origin_signal`
+- `expected_value`
+- `decision_deadline`
+- `hypothesis_status`: `proposed`, `under_evaluation`, `promoted_to_requirement`, `rejected`, `parked`
+- `affected_requirement_refs`
+- `impacted_constraint_refs`
+
+== Traceability rules
+- Каждая `HYP-*` должна иметь явную impact assessment связь с `ECON-*`, `ENGCAP-*`, `COMP-*`, `SEC-*`, `ACCESS-*`, `PERF-*` и `CRIT-*` либо явную фиксацию отсутствия влияния.
+- Каждая `HYP-*`, переходящая в реализацию, должна иметь хотя бы один `REQ-*`, `CHANGE-*` или `RISK-*` как результат assessment.
+- Для гипотезы, дошедшей до requirement stage или change decision, должен существовать минимум один chain `HYP-* -> impacted ECON/ENGCAP/COMP/SEC/ACCESS/PERF/CRIT -> REQ-*/CHANGE-*/RISK-*`.
+- Если инициатива влияет на critical path, дополнительно должен существовать chain `HYP-*/CHANGE-* -> CRIT-* -> PROC-*/SCN-* -> REQ-* -> TEST-*/METRIC-*/PERF-* -> RISK-*/CHANGE-*`.
+
+== Key rules
+- `HYP-*` не заменяет `REQ-*` и не отменяет существование baseline requirements.
+- Каждая значимая гипотеза проходит явный impact assessment against `ECON-*`, `ENGCAP-*`, `COMP-*`, `SEC-*`, `ACCESS-*`, `PERF-*` и `CRIT-*`.
+- `HYP-*` может инициировать новые требования, ужесточать существующие, ослаблять их или выводить их за действующие ограничения.
+- Запрещено создавать `REQ-*` новой инициативы без `HYP-*`.
+- Запрещено молчаливо пропускать impact assessment по одному из обязательных слоев `27-33`.
+
+== Related layers
+- Downstream mandatory assessment: `27 Economics Validation`, `28 Engineering Process Capability`, `29 Compliance`, `30 Security`, `31 Access Rights`, `32 Performance`, `33 Critical Path`.
+- Resulting downstream layers: `08 Requirements`, `18 Risks`, `22 Changes Roadmap`, `23 Development Tasks`.
+
+== Authoring notes
+- Слой 26 не использует двухчастную модель `record_mode / hard_constraints_text / context_text`; она применяется только к слоям `27-33`.
+- Карточка `HYP-*` строится по `BASE-CARD-SCHEMA-001` с полями гипотезы и явными ссылками на затронутые ограничения.

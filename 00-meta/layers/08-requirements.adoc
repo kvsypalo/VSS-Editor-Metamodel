@@ -1,0 +1,45 @@
+= 08 Requirements
+
+== Path
+`domains/<domain>/08-layer-requirements/`
+
+== Purpose
+Слой фиксирует функциональные и нефункциональные требования, продуктовые контракты, continuity expectations, fallback и recovery expectations.
+
+== Activation
+- Этот слой входит в канонический стек `01-33` и является baseline layer для любого домена.
+- Каждый дочерний домен должен иметь собственные объекты в этом слое.
+
+== Typical objects
+- `REQ-*`
+
+== Special fields
+- `requirement_type`
+- `priority`
+- `acceptance_criteria`
+- `criticality`: `critical-path`, `high`, `medium`, `low`
+- `critical_path_refs`
+- `failure_scenario_refs`
+- `recovery_expectation`
+
+== Traceability rules
+- Baseline `REQ-*` может существовать без `HYP-*`.
+- `REQ-*`, рожденное из новой инициативы, должно иметь хотя бы один `HYP-*`, но baseline `REQ-*` может существовать и без гипотезы.
+- `REQ-*`, рожденное из новой гипотезы или change wave, должно ссылаться назад на `HYP-*` и на затронутые объекты слоев `27-33`.
+- Если `REQ-*` затрагивает critical path, оно должно ссылаться на `CRIT-*`, `PROC-*` или `SCN-*`, а также на подтверждающие `TEST-*`, `METRIC-*`, `PERF-*` или `RISK-*`.
+
+== Key rules
+- Baseline `REQ-*` может существовать без `HYP-*`.
+- Если требование затрагивает critical path, оно должно ссылаться на `CRIT-*`, `PROC-*` или `SCN-*` и на подтверждающие `TEST-*`, `METRIC-*`, `PERF-*` или `RISK-*`.
+- Слой `08-layer-requirements/` существует всегда и не зависит от наличия новых гипотез.
+- `08-layer-requirements/` хранит обязательные continuity, recovery и fallback requirements, которые должны ссылаться на `CRIT-*`, если затрагивают критический путь.
+
+== Related layers
+- Upstream: `04 Strategy Product`, `06 Processes`, `07 Scenarios UX`, `26 Business Hypotheses`, `27-33 Validation Layers`.
+- Downstream: `10 Applications Architecture`, `11 API Interfaces`, `20 Quality Testing`, `25 Traceability`.
+- Cross-layer links: `18 Risks`, `21 Observability`, `32 Performance`, `33 Critical Path`.
+
+== Authoring notes
+- Смысловая часть subject cards этого слоя пишется на русском аналитическом языке с сохранением source-derived English terms там, где они являются устойчивой частью продукта; карточка должна оставаться human-readable и domain-first, а верхние разделы не должны сваливаться в формалистский prose about coverage or wave mechanics.
+- Если карточка `REQ-*` фиксирует critical path или failure scenario, обязательны явные связи с `PROC-*` или `SCN-*`, а также с `TEST-*`, `METRIC-*` или `PERF-*`.
+- Если одно из обязательных звеньев еще не оформлено, карточка должна явно фиксировать gap и связанный `RISK-*`.

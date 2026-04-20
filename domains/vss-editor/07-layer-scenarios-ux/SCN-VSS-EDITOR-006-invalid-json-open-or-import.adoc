@@ -1,0 +1,127 @@
+= Invalid JSON Open Or Import
+
+== Краткое описание
+Актер пытается открыть или добавить файл, который оказался невалидным JSON. В этом случае редактор завершает действие явным отказом, сообщает об ошибке и сохраняет уже открытую схему в рабочем состоянии.
+
+== Текущее состояние
+Отказной маршрут уже реализован и одинаково работает для `Open` и `Add Schema`. Если файл не читается как JSON, редактор сохраняет текущую схему как основное рабочее состояние и завершает операцию сообщением об ошибке.
+
+== Что подтверждено
+- Отказной маршрут одинаково доступен из `Open` и `Add Schema`.
+- При parse error редактор показывает явный сигнал `Invalid JSON`.
+- Текущая рабочая схема остается на месте, потому что изменение state выполняется только после успешного чтения файла.
+
+== Замечания аналитика
+Source basis подтверждает базовый отказной маршрут через alert-сообщение и сохранение текущей сессии.
+
+== Требуемые изменения
+Новых изменений не требуется.
+
+== Решение по карточке
+Статус карточки: review
+Статус валидации: validated
+Статус изменения: no_change
+Статус апрува: not_submitted
+
+Проверил аналитик: Konstantin Sypalo
+Дата проверки: 2026-04-20
+
+Утвердил:
+Дата утверждения:
+
+== Связанные объекты
+
+|===
+| Категория | ID | Наименование | Ссылка | Комментарий
+| Requirement | REQ-VSS-EDITOR-004 | Отказ от невалидного JSON без потери state | ../08-layer-requirements/REQ-VSS-EDITOR-004-reject-invalid-json-without-state-loss.adoc | Requirement failure route
+| Test | TEST-VSS-EDITOR-006 | Проверка отказа на невалидный JSON | ../20-layer-quality-testing/TEST-VSS-EDITOR-006-reject-invalid-json.adoc | Validating failure test
+| Upstream scenario | SCN-VSS-EDITOR-002 | Открыть JSON-схему | SCN-VSS-EDITOR-002-open-schema-from-json.adoc | Источник одного из failure entry points
+| Upstream scenario | SCN-VSS-EDITOR-003 | Импортировать дополнительную схему | SCN-VSS-EDITOR-003-import-additional-schema.adoc | Источник второго failure entry point
+|===
+
+== Источники
+
+|===
+| ID | Источник | Ссылка | Уровень доверия | Комментарий
+| SRC-VSS-EDITOR-001 | app.js | C:/MetaModel/Example code/vss-editor-2.4/app.js | high | Подтверждает `try/catch`, `JSON.parse` и `alert("Invalid JSON")`
+|===
+
+== Артефакты
+
+|===
+| ID | Артефакт | Ссылка | Комментарий
+|===
+
+'''
+== Технические поля
+
+[source,yaml]
+----
+Полное_имя_файла: SCN-VSS-EDITOR-006-invalid-json-open-or-import.adoc
+type: scenario
+layer: 07 scenarios-ux
+name: Invalid JSON open or import
+title: Invalid JSON Open Or Import
+status: review
+version: 1.0.0
+owner: analysis
+domain: vss-editor
+tags:
+  - scenario
+  - failure
+  - json
+
+summary: При невалидном JSON редактор отказывает в открытии или импорте, но сохраняет текущую рабочую схему.
+description: При невалидном JSON редактор отказывает в открытии или импорте, но сохраняет текущую рабочую схему.
+
+card_status: review
+validation_status: validated
+change_status: no_change
+approval_status: not_submitted
+
+current_state_text: |
+  Parse error на open/import уже обрабатывается без разрушения текущей рабочей схемы.
+
+validated_facts_text: |
+  - Один обработчик file input используется для `open` и `import`.
+  - Parse error приводит к `alert("Invalid JSON")`.
+  - Успешные state mutation branches не выполняются при ошибке.
+
+validation_notes_text: |
+  Source basis подтверждает базовый отказной маршрут через alert-сообщение и сохранение текущей сессии.
+
+change_request_text: |
+  Новых изменений не требуется.
+
+source_refs:
+  - SRC-VSS-EDITOR-001
+artifact_refs: []
+artifact_notations: {}
+artifact_style_reference: none
+mandatory_input_status: complete
+refusal_reasons: []
+resulting_risk_refs: []
+relations:
+  requirement_refs:
+    - REQ-VSS-EDITOR-004
+  test_refs:
+    - TEST-VSS-EDITOR-006
+  upstream_scenarios:
+    - SCN-VSS-EDITOR-002
+    - SCN-VSS-EDITOR-003
+created_at: 2026-04-20
+updated_at: 2026-04-20
+validated_by: Konstantin Sypalo
+validated_at: 2026-04-20
+approved_by: ""
+approved_at: ""
+scenario_type: failure
+primary_actor: schema author
+entry_point: Open or Add Schema with an invalid JSON file
+expected_outcome: Актер получает явный отказ по файлу и сохраняет возможность продолжить работу с уже открытой схемой.
+is_failure_scenario: true
+critical_path_step_refs: []
+fallback_outcome: Актер может выбрать другой файл или просто продолжить текущую сессию без потери уже сделанной работы.
+test_refs:
+  - TEST-VSS-EDITOR-006
+----

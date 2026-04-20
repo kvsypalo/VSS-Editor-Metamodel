@@ -1,0 +1,115 @@
+= Text Annotation
+
+== Краткое описание
+Text annotation - свободный текстовый объект на canvas, который не меняет graph semantics flows и converters, но позволяет actor добавлять комментарии и контекст к схеме. Он имеет собственные координаты и редактируемое текстовое содержимое.
+
+== Текущее состояние
+Text object создается через кнопку `Add Text`, хранится в массиве `texts`, рендерится как SVG text element и может перемещаться drag-and-drop независимо от converters.
+
+== Что подтверждено
+- Text object хранит `id`, `x`, `y`, `text`.
+- Add Text создает новый объект в центре текущего canvas view.
+- Text object имеет собственную properties panel с редактированием текста и удалением.
+
+== Замечания аналитика
+Объект намеренно отделен от schema metadata и node descriptions, потому что исходный продукт дает ему отдельный lifecycle и отдельное взаимодействие на canvas.
+
+== Требуемые изменения
+Новых изменений не требуется.
+
+== Решение по карточке
+Статус карточки: review
+Статус валидации: validated
+Статус изменения: no_change
+Статус апрува: not_submitted
+
+Проверил аналитик: Konstantin Sypalo
+Дата проверки: 2026-04-20
+
+Утвердил:
+Дата утверждения:
+
+== Связанные объекты
+
+|===
+| Категория | ID | Наименование | Ссылка | Комментарий
+| Scenario | SCN-VSS-EDITOR-004 | Редактировать схему на canvas | ../07-layer-scenarios-ux/SCN-VSS-EDITOR-004-edit-schema-on-canvas.adoc | Text object edit route
+| Requirement | REQ-VSS-EDITOR-002 | Интерактивное редактирование объектов | ../08-layer-requirements/REQ-VSS-EDITOR-002-edit-diagram-objects-and-properties.adoc | Requirement для add/edit/delete text
+|===
+
+== Источники
+
+|===
+| ID | Источник | Ссылка | Уровень доверия | Комментарий
+| SRC-VSS-EDITOR-001 | app.js и index.html | C:/MetaModel/Example code/vss-editor-2.4 | high | Подтверждает кнопку Add Text, структуру text object и help modal text objects description
+|===
+
+== Артефакты
+
+|===
+| ID | Артефакт | Ссылка | Комментарий
+|===
+
+'''
+== Технические поля
+
+[source,yaml]
+----
+Полное_имя_файла: DATA-VSS-EDITOR-005-text-annotation.adoc
+type: data-structure
+layer: 13 data-architecture
+name: Text annotation
+title: Text Annotation
+status: review
+version: 1.0.0
+owner: analysis
+domain: vss-editor
+tags:
+  - data
+  - text
+  - annotation
+
+summary: Свободный текстовый объект для комментариев на canvas.
+description: Свободный текстовый объект для комментариев на canvas.
+
+card_status: review
+validation_status: validated
+change_status: no_change
+approval_status: not_submitted
+
+current_state_text: |
+  Text annotations are already supported as standalone canvas objects.
+
+validated_facts_text: |
+  - Object stores id, position and text.
+  - New text is created near the current canvas center.
+  - Text can be edited and deleted through its own panel.
+
+validation_notes_text: |
+  Text annotations are explicitly separate from converter descriptions in the source basis.
+
+change_request_text: |
+  Новых изменений не требуется.
+
+source_refs:
+  - SRC-VSS-EDITOR-001
+artifact_refs: []
+artifact_notations: {}
+artifact_style_reference: none
+mandatory_input_status: complete
+refusal_reasons: []
+resulting_risk_refs: []
+relations:
+  scenario_refs:
+    - SCN-VSS-EDITOR-004
+  requirement_refs:
+    - REQ-VSS-EDITOR-002
+  code_refs:
+    - CODE-VSS-EDITOR-001
+created_at: 2026-04-20
+updated_at: 2026-04-20
+validated_by: Konstantin Sypalo
+validated_at: 2026-04-20
+approved_by: ""
+approved_at: ""
+----

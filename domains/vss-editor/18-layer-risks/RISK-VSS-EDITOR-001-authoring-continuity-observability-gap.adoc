@@ -1,0 +1,123 @@
+= Authoring Continuity Observability Gap
+
+== Краткое описание
+Для ключевого маршрута редактора видно, как актер проходит путь от открытия схемы до экспорта результата, но source basis почти ничего не говорит о наблюдаемости этого маршрута и о формальных continuity guarantees. Из-за этого продукт можно описать как полезный и рабочий, но нельзя уверенно подтвердить, насколько устойчиво он защищает сессию от потери прогресса за пределами уже видимой обработки невалидного JSON.
+
+== Текущее состояние
+В коде есть явная защита от одной отказной ситуации - невалидного JSON при `Open` и `Add Schema`. При этом исходники не подтверждают telemetry, autosave, восстановление после закрытия вкладки, формальный recovery budget или другие средства наблюдения за непрерывностью основной сессии.
+
+== Что подтверждено
+- Failure route на невалидный JSON существует и не разрушает текущую схему.
+- Отдельных metric cards, runtime alerts или continuity telemetry в source basis нет.
+- Ключевой пользовательский маршрут зависит от одной локальной браузерной сессии и явного export шага.
+
+== Замечания аналитика
+Риск фиксирует ограниченность подтвержденной source basis для оценки end-to-end устойчивости маршрута работы со схемой.
+
+== Требуемые изменения
+Новых изменений продукта не запрошено. Требуется явно зафиксировать этот gap как риск для critical-path assessment.
+
+== Решение по карточке
+Статус карточки: review
+Статус валидации: validated
+Статус изменения: no_change
+Статус апрува: not_submitted
+
+Проверил аналитик: Konstantin Sypalo
+Дата проверки: 2026-04-20
+
+Утвердил:
+Дата утверждения:
+
+== Связанные объекты
+
+|===
+| Категория | ID | Наименование | Ссылка | Комментарий
+| Critical path | CRIT-VSS-EDITOR-001 | Authoring session continuity | ../33-layer-critical-path/CRIT-VSS-EDITOR-001-authoring-session-continuity.adoc | Риск возник из частично подтвержденной continuity assessment
+| Process | PROC-VSS-EDITOR-001 | Сборка и корректировка схемы | ../06-layer-processes/PROC-VSS-EDITOR-001-author-and-adjust-schema.adoc | Риск относится к ключевому процессу
+| Scenario | SCN-VSS-EDITOR-006 | Ошибка невалидного JSON | ../07-layer-scenarios-ux/SCN-VSS-EDITOR-006-invalid-json-open-or-import.adoc | Единственный явно подтвержденный failure route
+| Test | TEST-VSS-EDITOR-006 | Проверка отказа на невалидный JSON | ../20-layer-quality-testing/TEST-VSS-EDITOR-006-reject-invalid-json.adoc | Один из текущих control points риска
+|===
+
+== Источники
+
+|===
+| ID | Источник | Ссылка | Уровень доверия | Комментарий
+| SRC-VSS-EDITOR-001 | Исходный web bundle v2.4 | C:/MetaModel/Example code/vss-editor-2.4 | high | Подтверждает key route и ограничения source basis по continuity evidence
+|===
+
+== Артефакты
+
+|===
+| ID | Артефакт | Ссылка | Комментарий
+|===
+
+'''
+== Технические поля
+
+[source,yaml]
+----
+Полное_имя_файла: RISK-VSS-EDITOR-001-authoring-continuity-observability-gap.adoc
+type: risk
+layer: 18 risks
+name: Authoring continuity observability gap
+title: Authoring Continuity Observability Gap
+status: review
+version: 1.0.0
+owner: analysis
+domain: vss-editor
+tags:
+  - risk
+  - continuity
+  - observability-gap
+
+summary: Для ключевого маршрута нет достаточных evidence по continuity guarantees beyond visible UI behavior and tests.
+description: Для ключевого маршрута нет достаточных evidence по continuity guarantees beyond visible UI behavior and tests.
+
+card_status: review
+validation_status: validated
+change_status: no_change
+approval_status: not_submitted
+
+current_state_text: |
+  В source basis подтвержден только один явный failure route и нет отдельной observability или recovery telemetry.
+
+validated_facts_text: |
+  - Invalid JSON failure route обрабатывается без потери текущей схемы.
+  - Метрики, alerts и telemetry для continuity route в source basis не обнаружены.
+  - Ключевой маршрут зависит от одной локальной сессии и явного export шага.
+
+validation_notes_text: |
+  Риск фиксирует ограниченность evidence по continuity текущего маршрута.
+
+change_request_text: |
+  Нужен явный риск на gap critical-path assessment при отсутствии наблюдаемости и формального recovery evidence.
+
+source_refs:
+  - SRC-VSS-EDITOR-001
+artifact_refs: []
+artifact_notations: {}
+artifact_style_reference: none
+mandatory_input_status: complete
+refusal_reasons: []
+resulting_risk_refs: []
+relations:
+  critical_path_refs:
+    - CRIT-VSS-EDITOR-001
+  process_refs:
+    - PROC-VSS-EDITOR-001
+  scenario_refs:
+    - SCN-VSS-EDITOR-006
+  test_refs:
+    - TEST-VSS-EDITOR-006
+created_at: 2026-04-20
+updated_at: 2026-04-20
+validated_by: Konstantin Sypalo
+validated_at: 2026-04-20
+approved_by: ""
+approved_at: ""
+risk_type: evidence-gap
+cause: Source basis does not provide telemetry, autosave or formal continuity evidence for the end-to-end authoring route.
+impact: It is hard to prove how robustly the product preserves user progress beyond the explicitly visible invalid-JSON failure case.
+probability: medium
+----

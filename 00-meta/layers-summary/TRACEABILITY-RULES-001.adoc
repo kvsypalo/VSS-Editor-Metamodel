@@ -1,0 +1,82 @@
+= TRACEABILITY-RULES-001
+
+Агрегированная summary layer-specific traceability rules по всему каноническому стеку.
+
+Этот файл собирает обязательные link contracts из `../layers/` в одном месте. При изменении traceability rules в любом слое этот summary должен обновляться вместе с `../layers/`.
+
+== Минимальные обязательные связи
+- каждый `VALUE-*` связан с `GOAL-*` и `PROC-*`
+- каждая `HYP-*` имеет явную impact assessment связь с `ECON-*`, `ENGCAP-*`, `COMP-*`, `SEC-*`, `ACCESS-*`, `PERF-*` и `CRIT-*` либо явную фиксацию отсутствия влияния
+- каждая `HYP-*`, переходящая в реализацию, имеет хотя бы один `REQ-*`, `CHANGE-*` или `RISK-*` как результат assessment
+- `REQ-*`, рожденное из новой бизнес-инициативы, должно иметь хотя бы один `HYP-*`, но baseline `REQ-*` может существовать и без гипотезы
+- baseline `ECON-*`, `ENGCAP-*`, `COMP-*`, `SEC-*`, `ACCESS-*`, `PERF-*`, `CRIT-*` может существовать без `HYP-*`, если фиксирует постоянный product constraint
+- initiative-specific `ECON-*`, `ENGCAP-*`, `COMP-*`, `SEC-*`, `ACCESS-*`, `PERF-*`, `CRIT-*` связывается хотя бы с одной `HYP-*`, `CHANGE-*` или другим assessment subject
+- каждый `ECON-*`, `ENGCAP-*`, `COMP-*`, `SEC-*`, `ACCESS-*`, `PERF-*`, `CRIT-*` с решением `unknown`, `changes_required`, `constraint_violation` или с неполным mandatory input имеет хотя бы один `RISK-*`, `REQ-*` или `CHANGE-*`
+- каждый `PROC-*` имеет хотя бы один `SCN-*`
+- каждый `PROC-*` имеет хотя бы одно `REQ-*`
+- каждый `PROC-*` связан с `APP-*` или `API-*`
+- каждый `PROC-*` имеет хотя бы один `SRC-*`
+- каждый `CRIT-*` связан хотя бы с одним `PROC-*`, `SCN-*` и `REQ-*`
+- каждый `CRIT-*`, который задает continuity contract, связан хотя бы с одним `TEST-*` и `METRIC-*` или явно фиксирует их отсутствие как gap/risk
+- каждый `PROC-*` с `critical_path = true` имеет хотя бы один `SCN-*` типа `primary` или `failure`, хотя бы один `REQ-*` и хотя бы один `TEST-*`, `METRIC-*` или `PERF-*`
+- каждый `SCN-*` имеет хотя бы один linked `TEST-*`, который явно проверяет этот сценарий; отсутствие такого теста до review-ready stage оформляется как gap и `RISK-*`
+- каждый `TEST-*`, который проверяет user-facing route, expected outcome, failure, degraded или recovery behavior, связан хотя бы с одним `SCN-*`
+- каждый `SCN-*` типа `failure` или `degraded`, связанный с critical path, имеет хотя бы один `RISK-*`, `REQ-*` или `CHANGE-*`
+- каждая `METRIC-*` поддерживает `KPI-*` или `GOAL-*`
+- каждая `METRIC-*` с `critical_path_metric = true` связана хотя бы с одним `PROC-*`, `SCN-*` или `PERF-*`
+- каждый `RISK-*` имеет контроль, `NFR-*` или изменение
+- каждый отказ от обязательного заполнения feasibility-данных имеет явную причину в карточке-источнике и хотя бы один связанный `RISK-*`
+- каждый `TEST-*` проверяет процесс, требование, API или правило
+- каждый `CODE-*`, подтверждающий user-facing flow, domain rule или data semantics, связан хотя бы с одним `SCN-*`, `RULE-*` или `DATA-*`, либо с `RISK-*` на явно зафиксированное omission
+- каждая product wave, меняющая actor-facing behavior, связана хотя бы с одним `VALUE-*`, где явно зафиксированы `value_outcome` и `anti_value`
+- каждый дочерний домен имеет явную связь на родительский домен и собственные объекты минимум в `.summary`, `08`, `24`, `25`
+
+== Cross-layer chains
+
+=== Value-to-process chain
+`VALUE-* -> GOAL-* -> PROC-*`
+
+=== Critical-process chain
+`PROC-* -> SCN-* -> REQ-* -> TEST-*/METRIC-*/PERF-*`
+
+=== Scenario-test pair chain
+`SCN-* <-> TEST-*`
+
+=== Hypothesis assessment chain
+`HYP-* -> impacted ECON/ENGCAP/COMP/SEC/ACCESS/PERF/CRIT -> REQ-*/CHANGE-*/RISK-*`
+
+=== Critical-path continuity chain
+`CRIT-* -> PROC-*/SCN-* -> REQ-* -> TEST-*/METRIC-*/PERF-* -> RISK-*/CHANGE-*`
+
+=== Initiative touching critical path
+`HYP-*/CHANGE-* -> CRIT-* -> PROC-*/SCN-* -> REQ-* -> TEST-*/METRIC-*/PERF-* -> RISK-*/CHANGE-*`
+
+== Validation reminders
+- нет дублирования общих объектов в дочерних пакетах
+- есть ссылки из дочернего домена на требования и правила родительского уровня
+- локальный домен не меняет канонический набор слоев и обязательные root-правила
+- верхнеуровневый product domain не молчаливо пропускает слой `01`; omission требует явной source basis и связанного `RISK-*`
+- child domain не опускает локальный слой `01` без явной фиксации inheritance или отсутствия independent value stream
+- product wave не считается review-ready, если value delta и anti-value delta не зафиксированы явно
+- у каждой `HYP-*` не пропущена обязательная impact assessment against `ECON`, `ENGCAP`, `COMP`, `SEC`, `ACCESS`, `PERF`, `CRIT` без явного результата
+- если обязательные данные не предоставлены, есть и причина отказа, и связанный риск
+- `REQ-*` новой инициативы не появляется без обратной ссылки на `HYP-*`, но baseline `REQ-*` не считается нарушением без такой ссылки
+- в слое `01` используется `actor`
+- у каждого `PROC-*` с `critical_path = true` есть явная cross-layer цепочка `SCN -> REQ -> TEST/METRIC/PERF`, либо зафиксированный `RISK-*` на отсутствующее звено
+- новый `SCN-*` не считается review-ready без validating `TEST-*`, а scenario-oriented `TEST-*` не считается review-ready без обратной ссылки на `SCN-*`
+- code-driven analysis не останавливается на summary или `CODE-*`-only coverage, если source basis уже подтверждает отдельные scenarios, rules или data semantics
+- omission подтвержденного code-derived `SCN-*`, `RULE-*` или `DATA-*` имеет явную причину и связанный `RISK-*`
+- cross-domain impact проверен для root, parent и sibling domains; подтвержденные impacts оформлены как cascade wave, а не оставлены неявными
+
+== Common relation buckets
+- `goals`
+- `processes`
+- `scenarios`
+- `requirements`
+- `tests`
+- `metrics`
+- `performance`
+- `critical_paths`
+- `risks`
+- `applications`
+- `apis`

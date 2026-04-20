@@ -1,0 +1,128 @@
+= Edit Diagram Objects And Properties
+
+== Краткое описание
+Редактор должен поддерживать прямое изменение структуры схемы и свойств выбранных объектов. Actor должен иметь возможность добавлять converters, внешние потоки, text annotations, менять свойства schema, node, flow и text, а также управлять выбором и перемещением объектов на canvas.
+
+== Текущее состояние
+Canvas и properties panel покрывают редактирование schema metadata, node properties, flow routing и text objects. Режимы `Hand` и `Arrow`, drag, rectangle selection, zoom и pan обеспечивают работу с диаграммой как с интерактивной поверхностью.
+
+== Что подтверждено
+- Node card позволяет менять имя, описание, BPMN link, external schema link и добавлять следующие или внешние flows.
+- Flow card позволяет менять тип, value, unit, color, source/target nodes и routing element types.
+- Add Text создает свободный text object, который можно перемещать и редактировать.
+
+== Замечания аналитика
+Requirement описывает текущую behavior surface одной страницы и не делит редактор на отдельные feature modules.
+
+== Требуемые изменения
+Новых изменений не требуется.
+
+== Решение по карточке
+Статус карточки: review
+Статус валидации: validated
+Статус изменения: no_change
+Статус апрува: not_submitted
+
+Проверил аналитик: Konstantin Sypalo
+Дата проверки: 2026-04-20
+
+Утвердил:
+Дата утверждения:
+
+== Связанные объекты
+
+|===
+| Категория | ID | Наименование | Ссылка | Комментарий
+| Scenario | SCN-VSS-EDITOR-004 | Редактировать схему на canvas | ../07-layer-scenarios-ux/SCN-VSS-EDITOR-004-edit-schema-on-canvas.adoc | Основной editing route
+| Test | TEST-VSS-EDITOR-004 | Проверка редактирования схемы | ../20-layer-quality-testing/TEST-VSS-EDITOR-004-edit-schema-objects.adoc | Validating test editing поведения
+| Rule | RULE-VSS-EDITOR-002 | Каскадное удаление node | ../09-layer-domain-rules/RULE-VSS-EDITOR-002-delete-node-cascades-dependent-objects.adoc | Правило lifecycle удаления
+|===
+
+== Источники
+
+|===
+| ID | Источник | Ссылка | Уровень доверия | Комментарий
+| SRC-VSS-EDITOR-001 | Исходный web bundle v2.4 | C:/MetaModel/Example code/vss-editor-2.4/app.js | high | Подтверждает editing controls и canvas interaction
+|===
+
+== Артефакты
+
+|===
+| ID | Артефакт | Ссылка | Комментарий
+|===
+
+'''
+== Технические поля
+
+[source,yaml]
+----
+Полное_имя_файла: REQ-VSS-EDITOR-002-edit-diagram-objects-and-properties.adoc
+type: requirement
+layer: 08 requirements
+name: Edit diagram objects and properties
+title: Edit Diagram Objects And Properties
+status: review
+version: 1.0.0
+owner: analysis
+domain: vss-editor
+tags:
+  - requirement
+  - editing
+  - canvas
+
+summary: Requirement на интерактивное редактирование schema, node, flow и text objects.
+description: Requirement на интерактивное редактирование schema, node, flow и text objects.
+
+card_status: review
+validation_status: validated
+change_status: no_change
+approval_status: not_submitted
+
+current_state_text: |
+  Редактор уже поддерживает editing controls в properties panel и прямое взаимодействие с canvas.
+
+validated_facts_text: |
+  - Подтверждены editing forms для schema, node, flow и text.
+  - Подтверждены drag, pan, zoom и rectangle selection.
+  - Подтверждены команды добавления node, external flow и text object.
+
+validation_notes_text: |
+  Requirement не выделяет отдельные UX microflows, а фиксирует общий editing contract.
+
+change_request_text: |
+  Новых изменений не требуется.
+
+source_refs:
+  - SRC-VSS-EDITOR-001
+artifact_refs: []
+artifact_notations: {}
+artifact_style_reference: none
+mandatory_input_status: complete
+refusal_reasons: []
+resulting_risk_refs: []
+relations:
+  scenario_refs:
+    - SCN-VSS-EDITOR-004
+  test_refs:
+    - TEST-VSS-EDITOR-004
+  rule_refs:
+    - RULE-VSS-EDITOR-001
+    - RULE-VSS-EDITOR-002
+    - RULE-VSS-EDITOR-004
+created_at: 2026-04-20
+updated_at: 2026-04-20
+validated_by: Konstantin Sypalo
+validated_at: 2026-04-20
+approved_by: ""
+approved_at: ""
+requirement_type: baseline
+priority: high
+acceptance_criteria: |
+  - Actor может редактировать свойства schema, node, flow и text через properties panel.
+  - Actor может перемещать node и text objects на canvas.
+  - Actor может добавлять новые converters, external flows и text annotations.
+criticality: high
+critical_path_refs: []
+failure_scenario_refs: []
+recovery_expectation: После любой штатной правки схема остается доступной для дальнейшего редактирования и экспорта.
+----

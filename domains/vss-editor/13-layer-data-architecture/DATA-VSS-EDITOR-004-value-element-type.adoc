@@ -1,0 +1,119 @@
+= Value Element Type
+
+== Краткое описание
+Value element type описывает, что именно движется через converters и flows в схеме. Объект хранит имя элемента, признак value или anti-value, знак, quantity, unit, location и привязку либо к node, либо к flow.
+
+== Текущее состояние
+Element types живут в массиве `elements`, редактируются внутри node properties panel и участвуют в flow routing selection. В default schema уже присутствует `Customer Value` как базовый пример такого объекта.
+
+== Что подтверждено
+- Element содержит `id`, `name`, `kind`, `sign`, `quantity`, `unit`, `location`, `node_id`, `flow_id`, `attributes`.
+- UI различает `Value` и `Anti-value` и пересчитывает `sign` в зависимости от выбора.
+- Flow routing selection оперирует именно IDs element types связанного converter.
+
+== Замечания аналитика
+Source basis использует термин `element types`, хотя фактически объект хранит не только тип, но и quantity instance parameters текущей схемы.
+
+== Требуемые изменения
+Новых изменений не требуется.
+
+== Решение по карточке
+Статус карточки: review
+Статус валидации: validated
+Статус изменения: no_change
+Статус апрува: not_submitted
+
+Проверил аналитик: Konstantin Sypalo
+Дата проверки: 2026-04-20
+
+Утвердил:
+Дата утверждения:
+
+== Связанные объекты
+
+|===
+| Категория | ID | Наименование | Ссылка | Комментарий
+| Data | DATA-VSS-EDITOR-002 | Converter node | DATA-VSS-EDITOR-002-converter-node.adoc | Element обычно хранится внутри node
+| Data | DATA-VSS-EDITOR-003 | Flow connection | DATA-VSS-EDITOR-003-flow-connection.adoc | Flow routing выбирает element IDs
+| Rule | RULE-VSS-EDITOR-004 | Пустой routing = все elements | ../09-layer-domain-rules/RULE-VSS-EDITOR-004-empty-flow-routing-means-all-converter-elements.adoc | Routing default semantics
+|===
+
+== Источники
+
+|===
+| ID | Источник | Ссылка | Уровень доверия | Комментарий
+| SRC-VSS-EDITOR-001 | index.html и app.js | C:/MetaModel/Example code/vss-editor-2.4 | high | Help modal и JS подтверждают semantics value / anti-value и структуру element object
+|===
+
+== Артефакты
+
+|===
+| ID | Артефакт | Ссылка | Комментарий
+|===
+
+'''
+== Технические поля
+
+[source,yaml]
+----
+Полное_имя_файла: DATA-VSS-EDITOR-004-value-element-type.adoc
+type: data-structure
+layer: 13 data-architecture
+name: Value element type
+title: Value Element Type
+status: review
+version: 1.0.0
+owner: analysis
+domain: vss-editor
+tags:
+  - data
+  - element
+  - value
+
+summary: Объект, который описывает value или anti-value element внутри схемы.
+description: Объект, который описывает value или anti-value element внутри схемы.
+
+card_status: review
+validation_status: validated
+change_status: no_change
+approval_status: not_submitted
+
+current_state_text: |
+  Element types already act as editable data objects and flow-routing operands in the editor.
+
+validated_facts_text: |
+  - Object stores kind, sign, quantity and placement.
+  - UI distinguishes value and anti-value.
+  - Flow routing references element IDs.
+
+validation_notes_text: |
+  Название `element type` slightly broader than actual object payload, but retained from source basis.
+
+change_request_text: |
+  Новых изменений не требуется.
+
+source_refs:
+  - SRC-VSS-EDITOR-001
+artifact_refs: []
+artifact_notations: {}
+artifact_style_reference: none
+mandatory_input_status: complete
+refusal_reasons: []
+resulting_risk_refs: []
+relations:
+  data_refs:
+    - DATA-VSS-EDITOR-002
+    - DATA-VSS-EDITOR-003
+  rule_refs:
+    - RULE-VSS-EDITOR-004
+  scenario_refs:
+    - SCN-VSS-EDITOR-004
+  code_refs:
+    - CODE-VSS-EDITOR-001
+created_at: 2026-04-20
+updated_at: 2026-04-20
+validated_by: Konstantin Sypalo
+validated_at: 2026-04-20
+approved_by: ""
+approved_at: ""
+----

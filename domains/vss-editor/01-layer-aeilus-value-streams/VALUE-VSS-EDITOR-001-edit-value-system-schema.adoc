@@ -1,0 +1,135 @@
+= Edit Value System Schema
+
+== Краткое описание
+Ценность этого продукта в том, что актер может быстро собрать понятную рабочую картину системы: где создается ценность, где возникают потери, как связаны converters и какие элементы реально проходят по flows. В результате у команды появляется единая схема, через которую удобно обсуждать устройство системы и уточнять ее без повторного ручного восстановления.
+
+Для актора редактор ценен тем, что позволяет в одной сессии собрать схему, уточнить ее вместе с коллегами, вернуться к уже сделанной работе через JSON и выпустить результат в виде переносимого артефакта. Продукт дает редактируемую и воспроизводимую схему value system, с которой можно продолжать работу и обсуждение.
+
+== Текущее состояние
+В v2.4 поток ценности реализован как локальная работа в одном браузерном окне без серверной части. Актер может начать новую схему, продолжить уже подготовленную, объединить несколько фрагментов в одном canvas и довести результат до состояния, пригодного для повторного открытия или обсуждения вне редактора.
+
+== Что подтверждено
+- Help modal прямо описывает schema как модель движения value через converters и flows.
+- Toolbar и properties panel позволяют без выхода из редактора уточнять состав схемы, связи и параметры объектов.
+- Export JSON и Export PNG превращают текущую схему в переносимый рабочий результат, который можно открыть снова или показать другим участникам обсуждения.
+
+== Замечания аналитика
+Source basis не формализует роль актора, но по предмету продукта actor читается как аналитик, архитектор или другой участник, который описывает систему через схему движения ценности.
+
+== Требуемые изменения
+Новых product changes не запрошено. Требуется зафиксировать value movement текущего продукта.
+
+== Решение по карточке
+Статус карточки: review
+Статус валидации: validated
+Статус изменения: no_change
+Статус апрува: not_submitted
+
+Проверил аналитик: Konstantin Sypalo
+Дата проверки: 2026-04-20
+
+Утвердил:
+Дата утверждения:
+
+== Связанные объекты
+
+|===
+| Категория | ID | Наименование | Ссылка | Комментарий
+| Goal | GOAL-VSS-EDITOR-001 | Поддерживать редактируемую схему | ../04-layer-strategy-product/GOAL-VSS-EDITOR-001-maintain-editable-schema-authoring.adoc | Продуктовая цель value stream
+| Process | PROC-VSS-EDITOR-001 | Сборка и корректировка схемы | ../06-layer-processes/PROC-VSS-EDITOR-001-author-and-adjust-schema.adoc | Процесс, через который движется ценность
+| Scenario | SCN-VSS-EDITOR-004 | Редактировать схему на canvas | ../07-layer-scenarios-ux/SCN-VSS-EDITOR-004-edit-schema-on-canvas.adoc | Центральный пользовательский маршрут
+|===
+
+== Источники
+
+|===
+| ID | Источник | Ссылка | Уровень доверия | Комментарий
+| SRC-VSS-EDITOR-001 | Исходный web bundle v2.4 | C:/MetaModel/Example code/vss-editor-2.4 | high | Подтверждает предметную лексику schema, converter, flow и экспортируемый результат
+|===
+
+== Артефакты
+
+|===
+| ID | Артефакт | Ссылка | Комментарий
+|===
+
+'''
+== Технические поля
+
+[source,yaml]
+----
+Полное_имя_файла: VALUE-VSS-EDITOR-001-edit-value-system-schema.adoc
+type: value-stream
+layer: 01 aeilus-value-streams
+name: Edit value system schema
+title: Edit Value System Schema
+status: review
+version: 1.0.0
+owner: analysis
+domain: vss-editor
+tags:
+  - value
+  - schema
+  - editor
+
+summary: Поток ценности, в котором актер превращает разрозненное понимание системы в редактируемую и переносимую схему.
+description: Поток ценности, в котором актер превращает разрозненное понимание системы в редактируемую и переносимую схему.
+
+card_status: review
+validation_status: validated
+change_status: no_change
+approval_status: not_submitted
+
+current_state_text: |
+  Поток ценности реализован в browser-only редакторе.
+  Актер может собрать схему с нуля, продолжить уже начатую работу, уточнить ее и вывести результат в переносимый артефакт.
+
+validated_facts_text: |
+  - Help modal объясняет схему через движение value и anti-value.
+  - UI подтверждает работу с converters, flows, element types и text objects.
+  - Результат можно сохранить как JSON для дальнейшей работы и как PNG для обсуждения и показа.
+
+validation_notes_text: |
+  Формальная роль актора и внешний бизнесовый контекст в source basis не раскрыты.
+  Ценность выводится из поддерживаемого пользовательского маршрута и предметной help-модали.
+
+change_request_text: |
+  Новых изменений не требуется.
+  Карточка фиксирует текущий actor-facing value contract продукта.
+
+source_refs:
+  - SRC-VSS-EDITOR-001
+artifact_refs: []
+artifact_notations: {}
+artifact_style_reference: none
+mandatory_input_status: complete
+refusal_reasons: []
+resulting_risk_refs: []
+relations:
+  goal_refs:
+    - GOAL-VSS-EDITOR-001
+  process_refs:
+    - PROC-VSS-EDITOR-001
+  scenario_refs:
+    - SCN-VSS-EDITOR-001
+    - SCN-VSS-EDITOR-002
+    - SCN-VSS-EDITOR-003
+    - SCN-VSS-EDITOR-004
+    - SCN-VSS-EDITOR-005
+  requirement_refs:
+    - REQ-VSS-EDITOR-001
+    - REQ-VSS-EDITOR-002
+    - REQ-VSS-EDITOR-003
+created_at: 2026-04-20
+updated_at: 2026-04-20
+validated_by: Konstantin Sypalo
+validated_at: 2026-04-20
+approved_by: ""
+approved_at: ""
+value_stream_type: interactive-editor
+actor: analyst or architect describing the system through a value-system schema
+entry_point: Browser editor with toolbar, canvas and properties panel
+exit_point: Portable JSON or PNG schema artifact ready for further work or discussion
+value_outcome: Actor получает понятную, редактируемую и переносимую схему, через которую можно обсуждать устройство системы и движение value.
+anti_value: Редактор уменьшает потерю контекста, повторное ручное рисование и расхождение между обсуждаемой схемой и тем, что можно реально открыть и продолжить редактировать.
+----

@@ -1,0 +1,121 @@
+= Export JSON And PNG Test
+
+== Краткое описание
+Тест проверяет, что editor умеет выгружать текущую схему как JSON и как PNG-изображение диаграммы. Проверка закрывает export scenario с двумя portable output variants.
+
+== Текущее состояние
+Тест materialized как validating specification по `btnSaveFile` и `exportPng()`.
+
+== Что подтверждено
+- JSON export сериализует весь `state.schema`.
+- PNG export формирует SVG из `contentGroup`, рендерит его в canvas и скачивает результат как PNG.
+- При отсутствии diagram content PNG export отказывается с сообщением `Nothing to export`.
+
+== Замечания аналитика
+Тест охватывает обе export-команды в одной проверке, потому что они разделяют один user route и один набор acceptance criteria на переносимость результата.
+
+== Требуемые изменения
+Новых изменений не требуется.
+
+== Решение по карточке
+Статус карточки: review
+Статус валидации: validated
+Статус изменения: no_change
+Статус апрува: not_submitted
+
+Проверил аналитик: Konstantin Sypalo
+Дата проверки: 2026-04-20
+
+Утвердил:
+Дата утверждения:
+
+== Связанные объекты
+
+|===
+| Категория | ID | Наименование | Ссылка | Комментарий
+| Scenario | SCN-VSS-EDITOR-005 | Экспортировать схему в JSON или PNG | ../07-layer-scenarios-ux/SCN-VSS-EDITOR-005-export-schema-artifacts.adoc | Scenario under validation
+| Requirement | REQ-VSS-EDITOR-003 | Импорт и экспорт schema assets | ../08-layer-requirements/REQ-VSS-EDITOR-003-import-and-export-schema-assets.adoc | Acceptance criteria source
+|===
+
+== Источники
+
+|===
+| ID | Источник | Ссылка | Уровень доверия | Комментарий
+| SRC-VSS-EDITOR-001 | app.js | C:/MetaModel/Example code/vss-editor-2.4/app.js | high | Подтверждает JSON export и `exportPng()`
+|===
+
+== Артефакты
+
+|===
+| ID | Артефакт | Ссылка | Комментарий
+|===
+
+'''
+== Технические поля
+
+[source,yaml]
+----
+Полное_имя_файла: TEST-VSS-EDITOR-005-export-json-and-png.adoc
+type: test
+layer: 20 quality-testing
+name: Export JSON and PNG test
+title: Export JSON And PNG Test
+status: review
+version: 1.0.0
+owner: analysis
+domain: vss-editor
+tags:
+  - test
+  - scenario
+  - export
+
+summary: Тест на выгрузку текущей схемы в JSON и PNG.
+description: Тест на выгрузку текущей схемы в JSON и PNG.
+
+card_status: review
+validation_status: validated
+change_status: no_change
+approval_status: not_submitted
+
+current_state_text: |
+  Тест покрывает обе export-команды редактора как единый validating route.
+
+validated_facts_text: |
+  - JSON export сериализует `state.schema`.
+  - PNG export рендерит diagram content в raster output.
+  - Empty export path дает явный отказ `Nothing to export`.
+
+validation_notes_text: |
+  Проверка объединяет JSON и PNG export из-за единого entry point и общего outcome класса.
+
+change_request_text: |
+  Новых изменений не требуется.
+
+source_refs:
+  - SRC-VSS-EDITOR-001
+artifact_refs: []
+artifact_notations: {}
+artifact_style_reference: none
+mandatory_input_status: complete
+refusal_reasons: []
+resulting_risk_refs: []
+relations:
+  scenario_refs:
+    - SCN-VSS-EDITOR-005
+  requirement_refs:
+    - REQ-VSS-EDITOR-003
+created_at: 2026-04-20
+updated_at: 2026-04-20
+validated_by: Konstantin Sypalo
+validated_at: 2026-04-20
+approved_by: ""
+approved_at: ""
+test_type: scenario-validation
+test_scope: export-schema-artifacts
+acceptance_criteria_refs:
+  - REQ-VSS-EDITOR-003
+scenario_refs:
+  - SCN-VSS-EDITOR-005
+critical_path_coverage: false
+failure_scenario_refs: []
+----

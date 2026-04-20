@@ -1,0 +1,122 @@
+= Schema Document Aggregate
+
+== Краткое описание
+Schema document - корневой переносимый объект редактора. Он объединяет metadata схемы и коллекции `nodes`, `flows`, `elements` и `texts`, которые вместе описывают полную diagram state текущей value-system schema.
+
+== Текущее состояние
+В текущей реализации schema aggregate живет в `state.schema`, сериализуется целиком в JSON и заменяется при `Open`. Default aggregate создается функцией `createEmptySchema()`.
+
+== Что подтверждено
+- Корневой объект содержит раздел `schema` с `id`, `title`, `description`, `version`, `author`, `created_at`, `updated_at`.
+- Aggregate содержит массивы `nodes`, `flows`, `elements` и `texts`.
+- Export JSON сохраняет именно этот aggregate целиком.
+
+== Замечания аналитика
+Source basis подтверждает JSON structure и lifecycle aggregate, но не показывает отдельную версионируемую schema contract documentation вне кода.
+
+== Требуемые изменения
+Новых изменений не требуется.
+
+== Решение по карточке
+Статус карточки: review
+Статус валидации: validated
+Статус изменения: no_change
+Статус апрува: not_submitted
+
+Проверил аналитик: Konstantin Sypalo
+Дата проверки: 2026-04-20
+
+Утвердил:
+Дата утверждения:
+
+== Связанные объекты
+
+|===
+| Категория | ID | Наименование | Ссылка | Комментарий
+| Scenario | SCN-VSS-EDITOR-001 | Создать новую схему | ../07-layer-scenarios-ux/SCN-VSS-EDITOR-001-create-new-schema.adoc | Сценарий создает aggregate
+| Scenario | SCN-VSS-EDITOR-002 | Открыть JSON-схему | ../07-layer-scenarios-ux/SCN-VSS-EDITOR-002-open-schema-from-json.adoc | Сценарий заменяет aggregate
+| Code | CODE-VSS-EDITOR-001 | Browser editor implementation | ../14-layer-code-implementation/CODE-VSS-EDITOR-001-static-browser-editor-bundle.adoc | Реализация aggregate state
+|===
+
+== Источники
+
+|===
+| ID | Источник | Ссылка | Уровень доверия | Комментарий
+| SRC-VSS-EDITOR-001 | app.js | C:/MetaModel/Example code/vss-editor-2.4/app.js | high | Подтверждает `state.schema`, `createEmptySchema()` и JSON export
+|===
+
+== Артефакты
+
+|===
+| ID | Артефакт | Ссылка | Комментарий
+|===
+
+'''
+== Технические поля
+
+[source,yaml]
+----
+Полное_имя_файла: DATA-VSS-EDITOR-001-schema-document-aggregate.adoc
+type: data-structure
+layer: 13 data-architecture
+name: Schema document aggregate
+title: Schema Document Aggregate
+status: review
+version: 1.0.0
+owner: analysis
+domain: vss-editor
+tags:
+  - data
+  - schema
+  - aggregate
+
+summary: Корневой schema aggregate с metadata и всеми diagram object collections.
+description: Корневой schema aggregate с metadata и всеми diagram object collections.
+
+card_status: review
+validation_status: validated
+change_status: no_change
+approval_status: not_submitted
+
+current_state_text: |
+  Aggregate already serves as the single in-memory and exportable representation of the editor state.
+
+validated_facts_text: |
+  - Корневой объект содержит metadata схемы.
+  - Aggregate включает `nodes`, `flows`, `elements` и `texts`.
+  - JSON export сериализует aggregate целиком.
+
+validation_notes_text: |
+  Отдельный external schema contract file в source basis не найден.
+
+change_request_text: |
+  Новых изменений не требуется.
+
+source_refs:
+  - SRC-VSS-EDITOR-001
+artifact_refs: []
+artifact_notations: {}
+artifact_style_reference: none
+mandatory_input_status: complete
+refusal_reasons: []
+resulting_risk_refs: []
+relations:
+  scenario_refs:
+    - SCN-VSS-EDITOR-001
+    - SCN-VSS-EDITOR-002
+    - SCN-VSS-EDITOR-003
+    - SCN-VSS-EDITOR-005
+  data_refs:
+    - DATA-VSS-EDITOR-002
+    - DATA-VSS-EDITOR-003
+    - DATA-VSS-EDITOR-004
+    - DATA-VSS-EDITOR-005
+  code_refs:
+    - CODE-VSS-EDITOR-001
+created_at: 2026-04-20
+updated_at: 2026-04-20
+validated_by: Konstantin Sypalo
+validated_at: 2026-04-20
+approved_by: ""
+approved_at: ""
+----

@@ -1,0 +1,118 @@
+= Converter Node
+
+== Краткое описание
+Converter node представляет функциональный блок схемы value system. Он имеет идентификатор, имя, позицию и размер на canvas, описание и дополнительные ссылки, а также выступает контейнером для in-node element types.
+
+== Текущее состояние
+Node присутствует как отдельный объект в массиве `nodes` и редактируется через node properties panel. Новый node может быть создан как следующий converter относительно выбранного узла.
+
+== Что подтверждено
+- Node содержит `id`, `name`, `position`, `size`, `description`, `bpmn_link`, `link`, `attributes`.
+- Node визуально рендерится как прямоугольник с wrapped text label.
+- Node может быть источником и приемником flows и контейнером in-node elements.
+
+== Замечания аналитика
+Help modal описывает converter как functional block, но не выделяет более глубокую типизацию converter roles.
+
+== Требуемые изменения
+Новых изменений не требуется.
+
+== Решение по карточке
+Статус карточки: review
+Статус валидации: validated
+Статус изменения: no_change
+Статус апрува: not_submitted
+
+Проверил аналитик: Konstantin Sypalo
+Дата проверки: 2026-04-20
+
+Утвердил:
+Дата утверждения:
+
+== Связанные объекты
+
+|===
+| Категория | ID | Наименование | Ссылка | Комментарий
+| Data | DATA-VSS-EDITOR-004 | Value element type | DATA-VSS-EDITOR-004-value-element-type.adoc | Elements хранятся внутри node
+| Rule | RULE-VSS-EDITOR-002 | Каскадное удаление node | ../09-layer-domain-rules/RULE-VSS-EDITOR-002-delete-node-cascades-dependent-objects.adoc | Lifecycle rule node deletion
+| Scenario | SCN-VSS-EDITOR-004 | Редактировать схему на canvas | ../07-layer-scenarios-ux/SCN-VSS-EDITOR-004-edit-schema-on-canvas.adoc | Основной editing route node
+|===
+
+== Источники
+
+|===
+| ID | Источник | Ссылка | Уровень доверия | Комментарий
+| SRC-VSS-EDITOR-001 | app.js | C:/MetaModel/Example code/vss-editor-2.4/app.js | high | Подтверждает node structure, drawing и node properties
+|===
+
+== Артефакты
+
+|===
+| ID | Артефакт | Ссылка | Комментарий
+|===
+
+'''
+== Технические поля
+
+[source,yaml]
+----
+Полное_имя_файла: DATA-VSS-EDITOR-002-converter-node.adoc
+type: data-structure
+layer: 13 data-architecture
+name: Converter node
+title: Converter Node
+status: review
+version: 1.0.0
+owner: analysis
+domain: vss-editor
+tags:
+  - data
+  - converter
+  - node
+
+summary: Functional block схемы, который хранит position, size, links и in-node elements.
+description: Functional block схемы, который хранит position, size, links и in-node elements.
+
+card_status: review
+validation_status: validated
+change_status: no_change
+approval_status: not_submitted
+
+current_state_text: |
+  Node object already exists as an editable object type in the editor.
+
+validated_facts_text: |
+  - Node stores geometry, naming and link metadata.
+  - Node is drawn as a labeled rectangle.
+  - Node participates in flows and contains in-node elements.
+
+validation_notes_text: |
+  Более глубокая классификация converter domains в source basis отсутствует.
+
+change_request_text: |
+  Новых изменений не требуется.
+
+source_refs:
+  - SRC-VSS-EDITOR-001
+artifact_refs: []
+artifact_notations: {}
+artifact_style_reference: none
+mandatory_input_status: complete
+refusal_reasons: []
+resulting_risk_refs: []
+relations:
+  data_refs:
+    - DATA-VSS-EDITOR-004
+  rule_refs:
+    - RULE-VSS-EDITOR-002
+  scenario_refs:
+    - SCN-VSS-EDITOR-004
+  code_refs:
+    - CODE-VSS-EDITOR-001
+created_at: 2026-04-20
+updated_at: 2026-04-20
+validated_by: Konstantin Sypalo
+validated_at: 2026-04-20
+approved_by: ""
+approved_at: ""
+----
